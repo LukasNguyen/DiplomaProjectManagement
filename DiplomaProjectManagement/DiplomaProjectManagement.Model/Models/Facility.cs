@@ -9,8 +9,8 @@ using DiplomaProjectManagement.Model.Abstracts;
 
 namespace DiplomaProjectManagement.Model.Models
 {
-    [Table("Lecturers")]
-    public class Lecturer : Auditable
+    [Table("Facilities")]
+    public class Facility : Auditable
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -20,19 +20,13 @@ namespace DiplomaProjectManagement.Model.Models
         [Required]
         public string Name { get; set; }
 
-        [MaxLength(50)]
-        public string Phone { get; set; }
+        public string LocationBuilding { get; set; }
 
-        [MaxLength(250)]
         public string Email { get; set; }
 
-        [MaxLength(250)]
-        public string Address { get; set; }
-        public virtual ICollection<DiplomaProject> DiplomaProjects { get; set; }
+        public string UrlWebsite { get; set; }
 
-        public int FacilityId { get; set; }
+        public virtual ICollection<Lecturer> Lecturers { get; set; }
 
-        [ForeignKey("FacilityId")]
-        public virtual Facility Facility { get; set; }
     }
 }

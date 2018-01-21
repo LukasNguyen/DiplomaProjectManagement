@@ -27,6 +27,7 @@ namespace DiplomaProjectManagement.Data
         public DbSet<Student> Students { get; set; }
 
         public DbSet<DiplomaProjectRegistration> DiplomaProjectRegistrations { get; set; }
+        public DbSet<Facility> Facilities { get; set; }
 
         public static DiplomaProjectDbContext Create()
         {

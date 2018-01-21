@@ -59,6 +59,7 @@
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\DiplomaProject.cs" />
     <Compile Include="Models\DiplomaProjectRegistration.cs" />
+    <Compile Include="Models\Facility.cs" />
     <Compile Include="Models\Lecturer.cs" />
     <Compile Include="Models\RegistrationTime.cs" />
     <Compile Include="Models\Student.cs" />

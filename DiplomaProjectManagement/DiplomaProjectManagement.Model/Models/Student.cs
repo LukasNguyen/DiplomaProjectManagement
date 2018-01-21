@@ -32,5 +32,6 @@ namespace DiplomaProjectManagement.Model.Models
         public float? Scores { get; set; }
 
         public virtual ICollection<DiplomaProjectRegistration> DiplomaProjectRegistration { get; set; }
+
     }
 }

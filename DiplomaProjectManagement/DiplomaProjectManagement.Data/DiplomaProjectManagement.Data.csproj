@@ -59,6 +59,11 @@
     <Compile Include="Infrastructures\IDbFactory.cs" />
     <Compile Include="Infrastructures\IRepository.cs" />
     <Compile Include="Infrastructures\RepositoryBase.cs" />
+    <Compile Include="Migrations\201801211616152_InitializeDB.cs" />
+    <Compile Include="Migrations\201801211616152_InitializeDB.Designer.cs">
+      <DependentUpon>201801211616152_InitializeDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -73,6 +78,11 @@
       <Project>{1C77E370-7B87-4E4A-945D-9AEE0163A767}</Project>
       <Name>DiplomaProjectManagement.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201801211616152_InitializeDB.resx">
+      <DependentUpon>201801211616152_InitializeDB.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
