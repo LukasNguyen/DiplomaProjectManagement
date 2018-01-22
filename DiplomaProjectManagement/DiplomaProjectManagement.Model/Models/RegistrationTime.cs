@@ -18,5 +18,6 @@ namespace DiplomaProjectManagement.Model.Models
 
         public DateTime FinishedDate { get; set; }
         public virtual ICollection<DiplomaProjectRegistration> DiplomaProjectRegistration { get; set; }
+        public bool Status { get; set; }
     }
 }

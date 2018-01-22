@@ -45,6 +45,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -65,14 +66,18 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\DiplomaProjectRegistrationRepository.cs" />
+    <Compile Include="Repositories\DiplomaProjectRepository.cs" />
+    <Compile Include="Repositories\FacilityRepository.cs" />
+    <Compile Include="Repositories\LecturerRepository.cs" />
+    <Compile Include="Repositories\RegistrationTimeRepository.cs" />
+    <Compile Include="Repositories\StudentRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\DiplomaProjectManagement.Model\DiplomaProjectManagement.Model.csproj">
       <Project>{1C77E370-7B87-4E4A-945D-9AEE0163A767}</Project>
