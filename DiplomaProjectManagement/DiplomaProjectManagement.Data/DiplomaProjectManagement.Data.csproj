@@ -59,7 +59,9 @@
     <Compile Include="Infrastructures\Disposable.cs" />
     <Compile Include="Infrastructures\IDbFactory.cs" />
     <Compile Include="Infrastructures\IRepository.cs" />
+    <Compile Include="Infrastructures\IUnitOfWork.cs" />
     <Compile Include="Infrastructures\RepositoryBase.cs" />
+    <Compile Include="Infrastructures\UnitOfWork.cs" />
     <Compile Include="Migrations\201801211616152_InitializeDB.cs" />
     <Compile Include="Migrations\201801211616152_InitializeDB.Designer.cs">
       <DependentUpon>201801211616152_InitializeDB.cs</DependentUpon>

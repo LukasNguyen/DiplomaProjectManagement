@@ -1,11 +1,6 @@
 ﻿using DiplomaProjectManagement.Model.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DiplomaProjectManagement.Data
 {
@@ -17,13 +12,13 @@ namespace DiplomaProjectManagement.Data
         }
 
         public DbSet<ApplicationRole> ApplicationRoles { get; set; }
-        
+
         public DbSet<DiplomaProject> DiplomaProjects { get; set; }
-        
+
         public DbSet<RegistrationTime> RegistrationTimes { get; set; }
 
         public DbSet<Lecturer> Lecturers { get; set; }
-        
+
         public DbSet<Student> Students { get; set; }
 
         public DbSet<DiplomaProjectRegistration> DiplomaProjectRegistrations { get; set; }

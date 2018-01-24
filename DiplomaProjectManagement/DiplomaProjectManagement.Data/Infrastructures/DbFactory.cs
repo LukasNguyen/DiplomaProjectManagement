@@ -1,24 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DiplomaProjectManagement.Data.Infrastructures
+﻿namespace DiplomaProjectManagement.Data.Infrastructures
 {
-    public class DbFactory : Disposable,IDbFactory
+    public class DbFactory : Disposable, IDbFactory
     {
-        private DiplomaProjectDbContext dbContext;
+        private DiplomaProjectDbContext _dbContext;
 
-        public DiplomaProjectDbContext Init()
-        {
-            return dbContext ?? (dbContext = new DiplomaProjectDbContext());
-        }
+        public DiplomaProjectDbContext Init() => _dbContext ?? (_dbContext = new DiplomaProjectDbContext());
 
         protected override void DisposeCore()
         {
-            if (dbContext != null)
-                dbContext.Dispose(); ;
+            _dbContext?.Dispose();
         }
     }
 }

@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DiplomaProjectManagement.Data.Infrastructures
 {
     //Cơ chế : tự tắt được đối tượng khi không dùng đến
     public class Disposable : IDisposable
     {
-        private bool isDisposed;
+        private bool _isDisposed;
 
         ~Disposable()
         {
@@ -24,11 +20,11 @@ namespace DiplomaProjectManagement.Data.Infrastructures
 
         private void Dispose(bool disposing)
         {
-            if (!isDisposed && disposing)
+            if (!_isDisposed && disposing)
             {
                 DisposeCore();
             }
-            isDisposed = true;
+            _isDisposed = true;
         }
 
         protected virtual void DisposeCore()
