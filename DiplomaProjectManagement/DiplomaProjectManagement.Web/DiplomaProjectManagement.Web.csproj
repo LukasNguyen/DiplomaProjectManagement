@@ -199,6 +199,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -260,6 +261,16 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DiplomaProjectManagement.Data\DiplomaProjectManagement.Data.csproj">
+      <Project>{067A857B-B80F-4250-8172-A9AABAB53FCF}</Project>
+      <Name>DiplomaProjectManagement.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DiplomaProjectManagement.Model\DiplomaProjectManagement.Model.csproj">
+      <Project>{1C77E370-7B87-4E4A-945D-9AEE0163A767}</Project>
+      <Name>DiplomaProjectManagement.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
