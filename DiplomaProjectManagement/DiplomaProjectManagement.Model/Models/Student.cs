@@ -23,7 +23,8 @@ namespace DiplomaProjectManagement.Model.Models
         [MaxLength(50)]
         public string Phone { get; set; }
 
-        [MaxLength(250)]
+        [MaxLength(50)]
+        [Required]
         public string Email { get; set; }
 
         [MaxLength(250)]
