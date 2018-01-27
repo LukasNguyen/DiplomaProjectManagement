@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DiplomaProjectManagement.Model.Enums;
 
 namespace DiplomaProjectManagement.Model.Models
 {
@@ -33,9 +28,11 @@ namespace DiplomaProjectManagement.Model.Models
         [ForeignKey("RegistrationTimeId")]
         public virtual RegistrationTime RegistrationTime { get; set; }
 
-        [DefaultValue(0)]
-        public int limitedStudentRegister { get; set; }
+        public float? IntroducedGrades { get; set; }
 
-        public bool isOpened { get; set; }
+        public float? ReviewedGrades { get; set; }
+
+        [Required]
+        public RegistrationStatus RegistrationStatus { get; set; }
     }
 }

@@ -13,6 +13,7 @@ namespace DiplomaProjectManagement.Model.Models
         public int ID { get; set; }
 
         [MaxLength(50)]
+        [Required]
         public string Name { get; set; }
         public DateTime RegisteredDate { get; set; }
 

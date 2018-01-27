@@ -30,8 +30,6 @@ namespace DiplomaProjectManagement.Model.Models
         [MaxLength(250)]
         public string Address { get; set; }
 
-        public float? Scores { get; set; }
-
         public virtual ICollection<DiplomaProjectRegistration> DiplomaProjectRegistration { get; set; }
 
     }

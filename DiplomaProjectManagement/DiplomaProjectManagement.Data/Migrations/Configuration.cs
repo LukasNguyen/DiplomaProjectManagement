@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
+using DiplomaProjectManagement.Model.Enums;
 
 namespace DiplomaProjectManagement.Data.Migrations
 {
@@ -86,7 +87,7 @@ namespace DiplomaProjectManagement.Data.Migrations
 
             context.DiplomaProjects.AddRange(new List<DiplomaProject>()
             {
-                new DiplomaProject { Name = "Xây dựng website quản lý đồ án", Description = "Nghiên cứu xây dựng website quản lý đồ án bằng ASP.NET", LecturerId = 1, Status = true },
+                new DiplomaProject { Name = "Xây dựng website quản lý đồ án", Description = "Nghiên cứu xây dựng website quản lý đồ án bằng ASP.NET", LecturerId = 1, Status = true},
                 new DiplomaProject { Name = "Xây dựng website quản lý học phần", Description = "Nghiên cứu xây dựng website quản lý học phần bằng NodeJS", LecturerId = 2, Status = true },
                 new DiplomaProject { Name = "Xây dựng phần mềm quản lý nhà hàng", Description = "Nghiên cứu xây dựng phần mềm quản lý nhà hàng bằng Windows Form Application", LecturerId = 1, Status = true }
             });
@@ -100,7 +101,7 @@ namespace DiplomaProjectManagement.Data.Migrations
 
             context.DiplomaProjectRegistrations.AddRange(new List<DiplomaProjectRegistration>()
             {
-                new DiplomaProjectRegistration { DiplomaProjectId = 1, RegistrationTimeId = 1, StudentId = 1, isOpened = true, limitedStudentRegister = 2},
+                new DiplomaProjectRegistration { DiplomaProjectId = 1, RegistrationTimeId = 1, StudentId = 1, RegistrationStatus = RegistrationStatus.Opening},
             });
             context.SaveChanges();
         }

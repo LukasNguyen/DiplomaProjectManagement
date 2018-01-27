@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using DiplomaProjectManagement.Model.Abstracts;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -19,6 +20,9 @@ namespace DiplomaProjectManagement.Model.Models
         [MaxLength(250)]
         [Required]
         public string Description { get; set; }
+
+        [DefaultValue(0)]
+        public int numberOfStudentsRegistered { get; set; }
 
         public int LecturerId { get; set; }
 
