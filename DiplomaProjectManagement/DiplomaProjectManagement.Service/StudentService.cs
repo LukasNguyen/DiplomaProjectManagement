@@ -12,16 +12,20 @@ namespace DiplomaProjectManagement.Service
 
         void UpdateStudent(Student student);
 
-        Student DeleteStudent(int id);
+        Student DeleteStudentByModifyStatus(int id);
 
         IEnumerable<Student> GetAllStudents();
 
-        float? GetStudentScores(int studentId, int diplomaProjectId);
 
         IEnumerable<Student> GetIntroducedStudentsByRegisterTimeId(int registerTimeId, int lecturerId);
 
-        void UpdateScoresStudent(int lecturerId, int studentId, float score);
+        float? GetStudentReviewedGrades(int studentId, int diplomaProjectId);
 
+        float? GetStudentIntroducedGrades(int studentId, int diplomaProjectId);
+
+        void UpdateReviewedGradesStudent(int studentId, int diplomaProjectId, float score);
+
+        void UpdateIntroducedGradesStudent(int studentId, int diplomaProjectId, float score);
         void Save();
     }
 
@@ -46,9 +50,13 @@ namespace DiplomaProjectManagement.Service
             _studentRepository.Update(student);
         }
 
-        public Student DeleteStudent(int id)
+        public Student DeleteStudentByModifyStatus(int id)
         {
-            return _studentRepository.Delete(id);
+            var student =  _studentRepository.GetSingleById(id);
+
+            student.Status = false;
+
+            return student;
         }
 
         public IEnumerable<Student> GetAllStudents()
@@ -56,19 +64,29 @@ namespace DiplomaProjectManagement.Service
             return _studentRepository.GetAll().ToList();
         }
 
-        public float? GetStudentScores(int studentId, int diplomaProjectId)
-        {
-            return _studentRepository.GetStudentScores(studentId, diplomaProjectId);
-        }
-
         public IEnumerable<Student> GetIntroducedStudentsByRegisterTimeId(int registerTimeId, int lecturerId)
         {
             return _studentRepository.GetIntroducedStudentsByRegisterTimeId(registerTimeId, lecturerId);
         }
 
-        public void UpdateScoresStudent(int lecturerId, int studentId, float score)
+        public float? GetStudentReviewedGrades(int studentId, int diplomaProjectId)
         {
-            _studentRepository.UpdateScoresStudent(lecturerId, studentId, score);
+            return _studentRepository.GetStudentReviewedGrades(studentId, diplomaProjectId);
+        }
+
+        public float? GetStudentIntroducedGrades(int studentId, int diplomaProjectId)
+        {
+            return _studentRepository.GetStudentIntroducedGrades(studentId, diplomaProjectId);
+        }
+
+        public void UpdateReviewedGradesStudent(int studentId, int diplomaProjectId, float score)
+        {
+            _studentRepository.UpdateReviewedGradesStudent(studentId, diplomaProjectId, score);
+        }
+
+        public void UpdateIntroducedGradesStudent(int studentId, int diplomaProjectId, float score)
+        {
+            _studentRepository.UpdateIntroducedGradesStudent(studentId, diplomaProjectId, score);
         }
 
         public void Save()

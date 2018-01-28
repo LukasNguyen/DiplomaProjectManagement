@@ -12,9 +12,9 @@ namespace DiplomaProjectManagement.Service
 
         void UpdateLecturer(Lecturer lecturer);
 
-        Lecturer DeleteLecturer(int id);
-
         IEnumerable<Lecturer> GetAlLecturers();
+
+        Lecturer DeleteLecturerByModifyStatus(int id);
 
         void Save();
     }
@@ -40,14 +40,18 @@ namespace DiplomaProjectManagement.Service
             _lecturerRepository.Update(lecturer);
         }
 
-        public Lecturer DeleteLecturer(int id)
-        {
-            return _lecturerRepository.Delete(id);
-        }
-
         public IEnumerable<Lecturer> GetAlLecturers()
         {
-            return _lecturerRepository.GetAll().ToList();
+            return _lecturerRepository.GetAll().Where(n => n.Status).ToList();
+        }
+
+        public Lecturer DeleteLecturerByModifyStatus(int id)
+        {
+            var lecturer = _lecturerRepository.GetSingleById(id);
+
+            lecturer.Status = false;
+
+            return lecturer;
         }
 
         public void Save()
