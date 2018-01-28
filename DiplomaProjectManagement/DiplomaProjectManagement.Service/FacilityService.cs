@@ -12,7 +12,7 @@ namespace DiplomaProjectManagement.Service
 
         void UpdateFacility(Facility facility);
 
-        Facility DeleteFacility(int id);
+        Facility DeleteFacilityByModifyStatus(int id);
 
         IEnumerable<Facility> GetAllFacilities();
 
@@ -40,19 +40,24 @@ namespace DiplomaProjectManagement.Service
             _facilityRepository.Update(facility);
         }
 
-        public Facility DeleteFacility(int id)
+        public Facility DeleteFacilityByModifyStatus(int id)
         {
-            return _facilityRepository.Delete(id);
+            var facility = _facilityRepository.GetSingleById(id);
+
+            facility.Status = false;
+
+            return facility;
         }
 
         public IEnumerable<Facility> GetAllFacilities()
         {
-            return _facilityRepository.GetAll().ToList();
+            return _facilityRepository.GetAll().Where(n => n.Status).ToList();
         }
 
         public void Save()
         {
             _unitOfWork.Commit();
         }
+
     }
 }

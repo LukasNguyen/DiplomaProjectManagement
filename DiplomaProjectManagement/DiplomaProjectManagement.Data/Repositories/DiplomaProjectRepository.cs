@@ -7,9 +7,9 @@ namespace DiplomaProjectManagement.Data.Repositories
 {
     public interface IDiplomaProjectRepository : IRepository<DiplomaProject>
     {
-        IEnumerable<DiplomaProject> GetDiplomaProjectsActive();
+        IEnumerable<DiplomaProject> GetDiplomaProjectsActiveInRegisterTime();
 
-        DiplomaProject GetDiplomaProjectByStudentId(int id);
+        DiplomaProject GetDiplomaProjectByStudentId(int studentId);
     }
 
     public class DiplomaProjectRepository : RepositoryBase<DiplomaProject>, IDiplomaProjectRepository
@@ -18,7 +18,7 @@ namespace DiplomaProjectManagement.Data.Repositories
         {
         }
 
-        public IEnumerable<DiplomaProject> GetDiplomaProjectsActive()
+        public IEnumerable<DiplomaProject> GetDiplomaProjectsActiveInRegisterTime()
         {
             return (from dp in DbContext.DiplomaProjects
                     join dpr in DbContext.DiplomaProjectRegistrations
@@ -29,14 +29,16 @@ namespace DiplomaProjectManagement.Data.Repositories
                     select dp).ToList();
         }
 
-        public DiplomaProject GetDiplomaProjectByStudentId(int id)
+        public DiplomaProject GetDiplomaProjectByStudentId(int studentId)
         {
             return (from dp in DbContext.DiplomaProjects
                     join dpr in DbContext.DiplomaProjectRegistrations
                     on dp.ID equals dpr.DiplomaProjectId
                     join s in DbContext.Students
                     on dpr.StudentId equals s.ID
-                    where s.ID == id
+                    join rt in DbContext.RegistrationTimes
+                    on dpr.RegistrationTimeId equals rt.ID
+                    where s.ID == studentId && rt.Status
                     select dp).FirstOrDefault();
         }
     }

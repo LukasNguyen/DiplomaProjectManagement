@@ -12,7 +12,7 @@ namespace DiplomaProjectManagement.Service
 
         void UpdateRegistrationTime(RegistrationTime registrationTime);
 
-        RegistrationTime DeleteRegistrationTime(int id);
+        RegistrationTime DeleteRegistrationTimeByModifyStatus(int id);
 
         IEnumerable<RegistrationTime> GetAllRegistrationTimes();
 
@@ -40,9 +40,13 @@ namespace DiplomaProjectManagement.Service
             _registrationTimeRepository.Update(registrationTime);
         }
 
-        public RegistrationTime DeleteRegistrationTime(int id)
+        public RegistrationTime DeleteRegistrationTimeByModifyStatus(int id)
         {
-            return _registrationTimeRepository.Delete(id);
+            var registrationTime = _registrationTimeRepository.GetSingleById(id);
+
+            registrationTime.Status = false;
+
+            return registrationTime;
         }
 
         public IEnumerable<RegistrationTime> GetAllRegistrationTimes()

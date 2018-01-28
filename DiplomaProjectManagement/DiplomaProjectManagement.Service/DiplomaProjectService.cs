@@ -12,11 +12,11 @@ namespace DiplomaProjectManagement.Service
 
         void UpdateDiplomaProject(DiplomaProject diplomaProject);
 
-        DiplomaProject DeleteDiplomaProject(int id);
+        DiplomaProject DeleteDiplomaProjectByModifyStatus(int id);
 
-        IEnumerable<DiplomaProject> GetAllDiplomaProjects();
+        IEnumerable<DiplomaProject> GetAllDiplomaProjectsActive();
 
-        IEnumerable<DiplomaProject> GetDiplomaProjectsActive();
+        IEnumerable<DiplomaProject> GetDiplomaProjectsActiveInRegisterTime();
 
         DiplomaProject GetDiplomaProjectByStudentId(int id);
 
@@ -44,19 +44,14 @@ namespace DiplomaProjectManagement.Service
             _diplomaProjectRepository.Update(diplomaProject);
         }
 
-        public DiplomaProject DeleteDiplomaProject(int id)
+        public IEnumerable<DiplomaProject> GetAllDiplomaProjectsActive()
         {
-            return _diplomaProjectRepository.Delete(id);
+            return _diplomaProjectRepository.GetAll().Where(n=>n.Status).ToList();
         }
 
-        public IEnumerable<DiplomaProject> GetAllDiplomaProjects()
+        public IEnumerable<DiplomaProject> GetDiplomaProjectsActiveInRegisterTime()
         {
-            return _diplomaProjectRepository.GetAll().ToList();
-        }
-
-        public IEnumerable<DiplomaProject> GetDiplomaProjectsActive()
-        {
-            return _diplomaProjectRepository.GetDiplomaProjectsActive();
+            return _diplomaProjectRepository.GetDiplomaProjectsActiveInRegisterTime();
         }
 
         public DiplomaProject GetDiplomaProjectByStudentId(int id)
@@ -67,6 +62,14 @@ namespace DiplomaProjectManagement.Service
         public void Save()
         {
             _unitOfWork.Commit();
+        }
+
+        public DiplomaProject DeleteDiplomaProjectByModifyStatus(int id)
+        {
+            var diplomaProject = _diplomaProjectRepository.GetSingleById(id);
+            diplomaProject.Status = false;
+
+            return diplomaProject;
         }
     }
 }

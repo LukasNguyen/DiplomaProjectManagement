@@ -8,6 +8,8 @@ namespace DiplomaProjectManagement.Service
     {
         DiplomaProjectRegistration RegisterDiplomaProject(DiplomaProjectRegistration diplomaProjectRegistration);
 
+        bool IsExistsStudentRegistered(int studentId, int diplomaProjectId);
+
         void Save();
     }
 
@@ -20,6 +22,11 @@ namespace DiplomaProjectManagement.Service
         {
             _diplomaProjectRegistrationRepository = diplomaProjectRegistrationRepository;
             _unitOfWork = unitOfWork;
+        }
+
+        public bool IsExistsStudentRegistered(int studentId, int diplomaProjectId)
+        {
+            return _diplomaProjectRegistrationRepository.IsExistsStudentRegistered(studentId, diplomaProjectId);
         }
 
         public DiplomaProjectRegistration RegisterDiplomaProject(DiplomaProjectRegistration diplomaProjectRegistration)
