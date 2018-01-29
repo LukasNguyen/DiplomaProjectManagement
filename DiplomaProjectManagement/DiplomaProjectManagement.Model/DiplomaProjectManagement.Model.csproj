@@ -59,6 +59,7 @@
     <Compile Include="Entities\ApplicationUser.cs" />
     <Compile Include="Entities\DiplomaProject.cs" />
     <Compile Include="Entities\DiplomaProjectRegistration.cs" />
+    <Compile Include="Entities\Error.cs" />
     <Compile Include="Entities\Facility.cs" />
     <Compile Include="Entities\Lecturer.cs" />
     <Compile Include="Entities\RegistrationTime.cs" />

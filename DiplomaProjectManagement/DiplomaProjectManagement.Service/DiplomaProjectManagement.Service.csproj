@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="DiplomaProjectRegistrationService.cs" />
     <Compile Include="DiplomaProjectService.cs" />
+    <Compile Include="ErrorService.cs" />
     <Compile Include="FacilityService.cs" />
     <Compile Include="LecturerService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
