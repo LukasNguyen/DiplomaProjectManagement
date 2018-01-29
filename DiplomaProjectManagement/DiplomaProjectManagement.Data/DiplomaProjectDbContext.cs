@@ -1,6 +1,7 @@
 ﻿using DiplomaProjectManagement.Model.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
+using DiplomaProjectManagement.Model.Entities;
 
 namespace DiplomaProjectManagement.Data
 {
@@ -23,6 +24,8 @@ namespace DiplomaProjectManagement.Data
 
         public DbSet<DiplomaProjectRegistration> DiplomaProjectRegistrations { get; set; }
         public DbSet<Facility> Facilities { get; set; }
+
+        public DbSet<Error> Errors { get; set; }
 
         public static DiplomaProjectDbContext Create()
         {
