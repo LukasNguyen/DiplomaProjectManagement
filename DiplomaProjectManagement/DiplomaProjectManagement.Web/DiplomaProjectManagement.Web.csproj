@@ -205,6 +205,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\ApiControllerBase.cs" />
     <Compile Include="Infrastructure\ServiceFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -271,6 +272,10 @@
     <ProjectReference Include="..\DiplomaProjectManagement.Model\DiplomaProjectManagement.Model.csproj">
       <Project>{1C77E370-7B87-4E4A-945D-9AEE0163A767}</Project>
       <Name>DiplomaProjectManagement.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DiplomaProjectManagement.Service\DiplomaProjectManagement.Service.csproj">
+      <Project>{8EB44383-2E46-4B18-B69C-12D1F86D0A21}</Project>
+      <Name>DiplomaProjectManagement.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

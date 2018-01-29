@@ -11,6 +11,7 @@ using System;
 using System.Reflection;
 using System.Web.Http;
 using System.Web.Mvc;
+using DiplomaProjectManagement.Service;
 
 [assembly: OwinStartup(typeof(DiplomaProjectManagement.Web.App_Start.Startup))]
 
@@ -45,9 +46,9 @@ namespace DiplomaProjectManagement.Web.App_Start
             RegisterForAspNetIdentity(app, builder);
 
             //Repositories
-            RegisterPerRequestFor(Repository, builder);
+            RegisterPerRequestForRepository(builder);
             //Services
-            RegisterPerRequestFor(Service, builder);
+            RegisterPerRequestForService(builder);
 
             IContainer container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
@@ -69,30 +70,65 @@ namespace DiplomaProjectManagement.Web.App_Start
             throw new NotImplementedException();
         }
 
-        private static void RegisterPerRequestFor(string type, ContainerBuilder builder)
+        private static void RegisterPerRequestForRepository(ContainerBuilder builder)
         {
-            builder.RegisterAssemblyTypes(typeof(Student).Assembly)
-                .Where(n => n.Name.EndsWith(type))
+            builder.RegisterAssemblyTypes(typeof(StudentRepository).Assembly)
+                .Where(n => n.Name.EndsWith(Repository))
                 .AsImplementedInterfaces().InstancePerRequest();
 
-            builder.RegisterAssemblyTypes(typeof(Facility).Assembly)
-                .Where(n => n.Name.EndsWith(type))
+            builder.RegisterAssemblyTypes(typeof(FacilityRepository).Assembly)
+                .Where(n => n.Name.EndsWith(Repository))
                 .AsImplementedInterfaces().InstancePerRequest();
 
-            builder.RegisterAssemblyTypes(typeof(Lecturer).Assembly)
-                .Where(n => n.Name.EndsWith(type))
+            builder.RegisterAssemblyTypes(typeof(LecturerRepository).Assembly)
+                .Where(n => n.Name.EndsWith(Repository))
                 .AsImplementedInterfaces().InstancePerRequest();
 
-            builder.RegisterAssemblyTypes(typeof(RegistrationTime).Assembly)
-                .Where(n => n.Name.EndsWith(type))
+            builder.RegisterAssemblyTypes(typeof(RegistrationTimeRepository).Assembly)
+                .Where(n => n.Name.EndsWith(Repository))
                 .AsImplementedInterfaces().InstancePerRequest();
 
             builder.RegisterAssemblyTypes(typeof(DiplomaProjectRepository).Assembly)
-                .Where(n => n.Name.EndsWith(type))
+                .Where(n => n.Name.EndsWith(Repository))
                 .AsImplementedInterfaces().InstancePerRequest();
 
             builder.RegisterAssemblyTypes(typeof(DiplomaProjectRegistrationRepository).Assembly)
-                .Where(n => n.Name.EndsWith(type))
+                .Where(n => n.Name.EndsWith(Repository))
+                .AsImplementedInterfaces().InstancePerRequest();
+
+            builder.RegisterAssemblyTypes(typeof(ErrorRepository).Assembly)
+                .Where(n => n.Name.EndsWith(Repository))
+                .AsImplementedInterfaces().InstancePerRequest();
+        }
+
+        private static void RegisterPerRequestForService(ContainerBuilder builder)
+        {
+            builder.RegisterAssemblyTypes(typeof(StudentService).Assembly)
+                .Where(n => n.Name.EndsWith(Service))
+                .AsImplementedInterfaces().InstancePerRequest();
+
+            builder.RegisterAssemblyTypes(typeof(FacilityService).Assembly)
+                .Where(n => n.Name.EndsWith(Service))
+                .AsImplementedInterfaces().InstancePerRequest();
+
+            builder.RegisterAssemblyTypes(typeof(LecturerService).Assembly)
+                .Where(n => n.Name.EndsWith(Service))
+                .AsImplementedInterfaces().InstancePerRequest();
+
+            builder.RegisterAssemblyTypes(typeof(RegistrationTimeService).Assembly)
+                .Where(n => n.Name.EndsWith(Service))
+                .AsImplementedInterfaces().InstancePerRequest();
+
+            builder.RegisterAssemblyTypes(typeof(DiplomaProjectService).Assembly)
+                .Where(n => n.Name.EndsWith(Service))
+                .AsImplementedInterfaces().InstancePerRequest();
+
+            builder.RegisterAssemblyTypes(typeof(DiplomaProjectRegistrationService).Assembly)
+                .Where(n => n.Name.EndsWith(Service))
+                .AsImplementedInterfaces().InstancePerRequest();
+
+            builder.RegisterAssemblyTypes(typeof(ErrorService).Assembly)
+                .Where(n => n.Name.EndsWith(Service))
                 .AsImplementedInterfaces().InstancePerRequest();
         }
 
