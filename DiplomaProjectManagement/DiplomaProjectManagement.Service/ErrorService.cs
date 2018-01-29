@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DiplomaProjectManagement.Data.Infrastructures;
+﻿using DiplomaProjectManagement.Data.Infrastructures;
 using DiplomaProjectManagement.Data.Repositories;
 using DiplomaProjectManagement.Model.Entities;
 
@@ -12,9 +7,10 @@ namespace DiplomaProjectManagement.Service
     public interface IErrorService
     {
         Error CreateError(Error error);
-        void Save();
 
+        void Save();
     }
+
     public class ErrorService : IErrorService
     {
         private readonly IErrorRepository _errorRepository;
