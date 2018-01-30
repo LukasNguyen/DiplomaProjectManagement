@@ -2,6 +2,7 @@
 using DiplomaProjectManagement.Model.Models;
 using System.Collections.Generic;
 using System.Linq;
+using DiplomaProjectManagement.Model.Enums;
 
 namespace DiplomaProjectManagement.Data.Repositories
 {
@@ -25,7 +26,7 @@ namespace DiplomaProjectManagement.Data.Repositories
                     on dp.ID equals dpr.DiplomaProjectId
                     join rt in DbContext.RegistrationTimes
                     on dpr.RegistrationTimeId equals rt.ID
-                    where rt.Status && dp.Status
+                    where rt.RegistrationStatus == RegistrationStatus.Opening && dp.Status
                     select dp).ToList();
         }
 
@@ -38,7 +39,7 @@ namespace DiplomaProjectManagement.Data.Repositories
                     on dpr.StudentId equals s.ID
                     join rt in DbContext.RegistrationTimes
                     on dpr.RegistrationTimeId equals rt.ID
-                    where s.ID == studentId && rt.Status
+                    where s.ID == studentId
                     select dp).FirstOrDefault();
         }
     }

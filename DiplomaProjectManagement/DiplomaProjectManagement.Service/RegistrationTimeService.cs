@@ -2,6 +2,7 @@
 using System.Linq;
 using DiplomaProjectManagement.Data.Infrastructures;
 using DiplomaProjectManagement.Data.Repositories;
+using DiplomaProjectManagement.Model.Enums;
 using DiplomaProjectManagement.Model.Models;
 
 namespace DiplomaProjectManagement.Service
@@ -44,14 +45,14 @@ namespace DiplomaProjectManagement.Service
         {
             var registrationTime = _registrationTimeRepository.GetSingleById(id);
 
-            registrationTime.Status = false;
+            registrationTime.RegistrationStatus = RegistrationStatus.ClosedAssignGradesTime;
 
             return registrationTime;
         }
 
         public IEnumerable<RegistrationTime> GetAllRegistrationTimes()
         {
-            return _registrationTimeRepository.GetAll().Where(rt => rt.Status).ToList();
+            return _registrationTimeRepository.GetAll().ToList();
         }
 
         public void Save()
