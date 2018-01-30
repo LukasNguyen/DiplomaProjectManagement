@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using DiplomaProjectManagement.Model.Enums;
 
 namespace DiplomaProjectManagement.Model.Models
 {
@@ -31,8 +30,5 @@ namespace DiplomaProjectManagement.Model.Models
         public float? IntroducedGrades { get; set; }
 
         public float? ReviewedGrades { get; set; }
-
-        [Required]
-        public RegistrationStatus RegistrationStatus { get; set; }
     }
 }

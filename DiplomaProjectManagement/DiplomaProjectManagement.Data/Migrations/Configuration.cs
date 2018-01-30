@@ -74,8 +74,8 @@ namespace DiplomaProjectManagement.Data.Migrations
 
             context.RegistrationTimes.AddRange(new List<RegistrationTime>()
             {
-                new RegistrationTime { Name = "Đợt đăng ký kì 1 2017-2018", RegisteredDate = new DateTime(2017,1,1), FinishedDate = new DateTime(2017,4,1), Status = true},
-                new RegistrationTime { Name = "Đợt đăng ký kì 2 2017-2018", RegisteredDate = new DateTime(2017,6,1), FinishedDate = new DateTime(2017,12,1), Status = true},
+                new RegistrationTime { Name = "Đợt đăng ký kì 1 2017-2018", RegisteredDate = new DateTime(2017,1,1), ClosedRegisteredDate = new DateTime(2017,2,1), ClosedDate = new DateTime(2017,4,1) },
+                new RegistrationTime { Name = "Đợt đăng ký kì 2 2017-2018", RegisteredDate = new DateTime(2017,6,1), ClosedRegisteredDate = new DateTime(2017,7,1), ClosedDate = new DateTime(2017,12,1) }
             });
             context.SaveChanges();
         }
@@ -101,7 +101,7 @@ namespace DiplomaProjectManagement.Data.Migrations
 
             context.DiplomaProjectRegistrations.AddRange(new List<DiplomaProjectRegistration>()
             {
-                new DiplomaProjectRegistration { DiplomaProjectId = 1, RegistrationTimeId = 1, StudentId = 1, RegistrationStatus = RegistrationStatus.Opening},
+                new DiplomaProjectRegistration { DiplomaProjectId = 1, RegistrationTimeId = 1, StudentId = 1 },
             });
             context.SaveChanges();
         }
