@@ -4,14 +4,13 @@ using Autofac.Integration.WebApi;
 using DiplomaProjectManagement.Data;
 using DiplomaProjectManagement.Data.Infrastructures;
 using DiplomaProjectManagement.Data.Repositories;
-using DiplomaProjectManagement.Model.Models;
+using DiplomaProjectManagement.Service;
 using Microsoft.Owin;
 using Owin;
 using System;
 using System.Reflection;
 using System.Web.Http;
 using System.Web.Mvc;
-using DiplomaProjectManagement.Service;
 
 [assembly: OwinStartup(typeof(DiplomaProjectManagement.Web.App_Start.Startup))]
 
