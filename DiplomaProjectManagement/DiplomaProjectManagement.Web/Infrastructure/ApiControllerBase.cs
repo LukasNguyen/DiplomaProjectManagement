@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DiplomaProjectManagement.Model.Entities;
+using DiplomaProjectManagement.Service;
+using System;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web;
 using System.Web.Http;
-using DiplomaProjectManagement.Model.Entities;
-using DiplomaProjectManagement.Service;
 
 namespace DiplomaProjectManagement.Web.Infrastructure
 {
     public class ApiControllerBase : ApiController
     {
         private readonly IErrorService _errorService;
+
         public ApiControllerBase(IErrorService errorService)
         {
             _errorService = errorService;
@@ -52,6 +50,7 @@ namespace DiplomaProjectManagement.Web.Infrastructure
             }
             return response;
         }
+
         private void LogError(Exception ex)
         {
             try
