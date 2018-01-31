@@ -9,14 +9,18 @@ using Microsoft.Owin;
 using Owin;
 using System;
 using System.Reflection;
+using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
+using DiplomaProjectManagement.Model.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security.DataProtection;
 
 [assembly: OwinStartup(typeof(DiplomaProjectManagement.Web.App_Start.Startup))]
 
 namespace DiplomaProjectManagement.Web.App_Start
 {
-    public class Startup
+    public partial class Startup
     {
         private const string Repository = "Repository";
         private const string Service = "Service";
@@ -24,8 +28,6 @@ namespace DiplomaProjectManagement.Web.App_Start
         public void Configuration(IAppBuilder app)
         {
             ConfigAutofac(app);
-
-            // TODO: Should implement when deploy Asp.Net Identity
             ConfigureAuth(app);
         }
 
@@ -65,8 +67,12 @@ namespace DiplomaProjectManagement.Web.App_Start
 
         private static void RegisterForAspNetIdentity(IAppBuilder app, ContainerBuilder builder)
         {
-            // TODO: Should implement when deploy Asp.Net Identity
-            throw new NotImplementedException();
+            builder.RegisterType<ApplicationUserStore>().As<IUserStore<ApplicationUser>>().InstancePerRequest();
+            builder.RegisterType<ApplicationUserManager>().AsSelf().InstancePerRequest();
+            builder.RegisterType<ApplicationSignInManager>().AsSelf().InstancePerRequest();
+            builder.Register(n => HttpContext.Current.GetOwinContext().Authentication)
+                .InstancePerRequest();
+            builder.Register(n => app.GetDataProtectionProvider()).InstancePerRequest();
         }
 
         private static void RegisterPerRequestForRepository(ContainerBuilder builder)
@@ -129,11 +135,6 @@ namespace DiplomaProjectManagement.Web.App_Start
             builder.RegisterAssemblyTypes(typeof(ErrorService).Assembly)
                 .Where(n => n.Name.EndsWith(Service))
                 .AsImplementedInterfaces().InstancePerRequest();
-        }
-
-        private void ConfigureAuth(IAppBuilder app)
-        {
-            throw new NotImplementedException();
         }
     }
 }
