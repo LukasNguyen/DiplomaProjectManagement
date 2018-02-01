@@ -80,7 +80,7 @@ namespace DiplomaProjectManagement.Web.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Username or password isn't correctly. Please try again.");
+                    ModelState.AddModelError("", "Username or password isn't correctly.");
                 }
             }
             return View(model);

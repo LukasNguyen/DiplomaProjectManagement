@@ -9,6 +9,7 @@
 <link href="~/Assets/admin/libs/gentelella/vendors/font-awesome/css/font-awesome.css" rel="stylesheet" />
 <link href="~/Assets/admin/libs/gentelella/vendors/nprogress/nprogress.css" rel="stylesheet" />
 <link href="~/Assets/admin/libs/gentelella/vendors/animate.css/animate.css" rel="stylesheet" />
+<link href="~/Assets/admin/libs/notifyjs/dist/styles/metro/notify-metro.css" rel="stylesheet" />
 <link href="~/Assets/admin/libs/gentelella/build/css/custom.css" rel="stylesheet" />
 
 <body class="login">
@@ -18,8 +19,8 @@
                 <section class="login_content">
                     @using (Html.BeginForm("Login", "Account", new { returnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
                     {
-                        @Html.ValidationSummary()
                         <h1>Login</h1>
+                        @Html.ValidationSummary()
                         <div>
                             @Html.TextBoxFor(n => n.UserName, new { @class = "form-control", placeholder = "Username" })
                         </div>
