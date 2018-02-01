@@ -1,0 +1,52 @@
+﻿@model DiplomaProjectManagement.Web.Models.LoginViewModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = null;
+}
+
+<link href="~/Assets/admin/libs/gentelella/vendors/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+<link href="~/Assets/admin/libs/gentelella/vendors/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link href="~/Assets/admin/libs/gentelella/vendors/nprogress/nprogress.css" rel="stylesheet" />
+<link href="~/Assets/admin/libs/gentelella/vendors/animate.css/animate.css" rel="stylesheet" />
+<link href="~/Assets/admin/libs/gentelella/build/css/custom.css" rel="stylesheet" />
+
+<body class="login">
+    <div>
+        <div class="login_wrapper">
+            <div class="animate form login_form">
+                <section class="login_content">
+                    @using (Html.BeginForm("Login", "Account", new { returnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+                    {
+                        @Html.ValidationSummary()
+                        <h1>Login</h1>
+                        <div>
+                            @Html.TextBoxFor(n => n.UserName, new { @class = "form-control", placeholder = "Username" })
+                        </div>
+                        <div>
+                            @Html.PasswordFor(n => n.Password, new { @class = "form-control", placeholder = "Password" })
+                        </div>
+                        <div>
+                            <p class="pull-right">@Html.CheckBoxFor(n => n.RememberMe) Remember me ?</p>
+                        </div>
+                        <br/><br />
+                        <div class="col-md-offset-2 col-md-4">
+                            <input style="width: 120px" type="submit" value="Login">
+                        </div>
+                        <br />
+                        <div class="clearfix"></div>
+                        <div class="separator">
+                            <div class="clearfix"></div>
+                            <br />
+                            <div>
+                                <h1>
+                                    <i class="fa fa-paw"></i> Diploma Project Managment
+                                </h1>
+                            </div>
+                        </div>
+                    }
+                </section>
+            </div>
+        </div>
+    </div>
+</body>

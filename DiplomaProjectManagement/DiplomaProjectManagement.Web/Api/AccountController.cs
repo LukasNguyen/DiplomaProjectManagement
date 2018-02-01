@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using DiplomaProjectManagement.Web.App_Start;
+using Microsoft.AspNet.Identity.Owin;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using DiplomaProjectManagement.Web.App_Start;
-using Microsoft.AspNet.Identity.Owin;
 
 namespace DiplomaProjectManagement.Web.Api
 {
