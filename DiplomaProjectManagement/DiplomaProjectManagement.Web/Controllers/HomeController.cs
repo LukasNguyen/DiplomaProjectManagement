@@ -12,6 +12,10 @@ namespace DiplomaProjectManagement.Web.Controllers
         {
             return View();
         }
+        public ActionResult Dashboard()
+        {
+            return View();
+        }
 
         public ActionResult About()
         {

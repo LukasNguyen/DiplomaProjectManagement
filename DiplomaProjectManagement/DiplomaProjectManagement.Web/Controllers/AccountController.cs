@@ -75,12 +75,12 @@ namespace DiplomaProjectManagement.Web.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Dashboard", "Home");
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Username or password isn't correctly. Please try again.");
+                    ModelState.AddModelError("", "Username or password isn't correctly.");
                 }
             }
             return View(model);
@@ -94,7 +94,7 @@ namespace DiplomaProjectManagement.Web.Controllers
         {
             IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;
             authenticationManager.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Dashboard", "Home");
         }
     }
 }

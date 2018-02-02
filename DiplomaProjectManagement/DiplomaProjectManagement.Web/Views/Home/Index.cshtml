@@ -1,31 +1,53 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model DiplomaProjectManagement.Web.Models.LoginViewModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = null;
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<link href="~/Assets/admin/libs/gentelella/vendors/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+<link href="~/Assets/admin/libs/gentelella/vendors/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link href="~/Assets/admin/libs/gentelella/vendors/nprogress/nprogress.css" rel="stylesheet" />
+<link href="~/Assets/admin/libs/gentelella/vendors/animate.css/animate.css" rel="stylesheet" />
+<link href="~/Assets/admin/libs/notifyjs/dist/styles/metro/notify-metro.css" rel="stylesheet" />
+<link href="~/Assets/admin/libs/gentelella/build/css/custom.css" rel="stylesheet" />
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+<body class="login">
+    <div>
+        <div class="login_wrapper">
+            <div class="animate form login_form">
+                <section class="login_content">
+                    @using (Html.BeginForm("Login", "Account", new { returnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+                    {
+                        <h1>Login</h1>
+                        @Html.ValidationSummary()
+                        <div>
+                            @Html.TextBoxFor(n => n.UserName, new { @class = "form-control", placeholder = "Username" })
+                        </div>
+                        <div>
+                            @Html.PasswordFor(n => n.Password, new { @class = "form-control", placeholder = "Password" })
+                        </div>
+                        <div>
+                            <p class="pull-right">@Html.CheckBoxFor(n => n.RememberMe) Remember me ?</p>
+                        </div>
+                        <br /><br />
+                        <div class="col-md-offset-2 col-md-4">
+                            <input style="width: 120px" type="submit" value="Login">
+                        </div>
+                        <br />
+                        <div class="clearfix"></div>
+                        <div class="separator">
+                            <div class="clearfix"></div>
+                            <br />
+                            <div>
+                                <h1>
+                                    <i class="fa fa-paw"></i> Diploma Project Managment
+                                </h1>
+                            </div>
+                        </div>
+                    }
+                </section>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+</body>

@@ -16,6 +16,8 @@
     "numeral": "~1.5.6",
     "jquery-validation": "~1.15.0",
     "angular-ui-select": "~0.19.6",
-    "gentelella": "~1.4.0"
+    "gentelella": "~1.4.0",
+    "notifyjs": "v0.4.2",
+    "mustache.js": "mustache#v2.3.0"
   }
 }
