@@ -66,7 +66,7 @@ namespace DiplomaProjectManagement.Service
             if (!String.IsNullOrWhiteSpace(keyword))
                 return _studentRepository.GetMulti(
                     n => n.Name.Contains(keyword)
-                    || n.ID.ToString() == keyword)
+                    || n.ID.ToString().Contains(keyword))
                     .Where(n => n.Status)
                     .ToList();
 
