@@ -1,4 +1,5 @@
-﻿using DiplomaProjectManagement.Data;
+﻿using DiplomaProjectManagement.Common;
+using DiplomaProjectManagement.Data;
 using DiplomaProjectManagement.Model.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -15,8 +16,6 @@ namespace DiplomaProjectManagement.Web.App_Start
 {
     public partial class Startup
     {
-        private const string Admin = "Admin";
-
         // For more information on configuring authentication, please visit https://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
@@ -85,7 +84,7 @@ namespace DiplomaProjectManagement.Web.App_Start
                 }
                 if (user != null)
                 {
-                    var isAdminRole = await userManager.IsInRoleAsync(user.Id, Admin);
+                    var isAdminRole = await userManager.IsInRoleAsync(user.Id, RoleConstants.Admin);
                     if (isAdminRole)
                     {
                         ClaimsIdentity identity = await userManager.CreateIdentityAsync(

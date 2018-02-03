@@ -1,4 +1,5 @@
-﻿using DiplomaProjectManagement.Data.Infrastructures;
+﻿using System;
+using DiplomaProjectManagement.Data.Infrastructures;
 using DiplomaProjectManagement.Data.Repositories;
 using DiplomaProjectManagement.Model.Models;
 using System.Collections.Generic;
@@ -14,8 +15,9 @@ namespace DiplomaProjectManagement.Service
 
         Student DeleteStudentByModifyStatus(int id);
 
-        IEnumerable<Student> GetAllStudents();
+        IEnumerable<Student> GetAllStudents(string keyword = null);
 
+        Student GetStudentById(int id);
 
         IEnumerable<Student> GetIntroducedStudentsByRegisterTimeId(int registerTimeId, int lecturerId);
 
@@ -59,9 +61,21 @@ namespace DiplomaProjectManagement.Service
             return student;
         }
 
-        public IEnumerable<Student> GetAllStudents()
+        public IEnumerable<Student> GetAllStudents(string keyword = null)
         {
-            return _studentRepository.GetAll().ToList();
+            if (!String.IsNullOrWhiteSpace(keyword))
+                return _studentRepository.GetMulti(
+                    n => n.Name.Contains(keyword)
+                    || n.ID.ToString() == keyword)
+                    .Where(n => n.Status)
+                    .ToList();
+
+            return _studentRepository.GetAll().Where(n=>n.Status).ToList();
+        }
+
+        public Student GetStudentById(int id)
+        {
+            return _studentRepository.GetSingleById(id);
         }
 
         public IEnumerable<Student> GetIntroducedStudentsByRegisterTimeId(int registerTimeId, int lecturerId)
