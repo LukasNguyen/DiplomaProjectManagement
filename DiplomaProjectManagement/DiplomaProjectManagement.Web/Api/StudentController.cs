@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Script.Serialization;
@@ -142,7 +143,8 @@ namespace DiplomaProjectManagement.Web.Api
                 {
                     // Add new student
                     var student = new Student();
-                    student.Update(studentLoginViewModel,User.Identity.Name);
+                    student.Update(studentLoginViewModel);
+                    student.CreatedBy(User.Identity.Name);
                     var newStudent = _studentService.AddStudent(student);
 
                     // Add new student's account
@@ -161,6 +163,40 @@ namespace DiplomaProjectManagement.Web.Api
 
                 return response;
             });
+        }
+
+        [Route("update")]
+        [HttpPut]
+        public async Task<HttpResponseMessage> UpdateAsync(HttpRequestMessage request, StudentLoginViewModel studentLoginViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var dbStudent = _studentService.GetStudentById(studentLoginViewModel.ID);
+
+                var user = await UserManager.FindByEmailAsync(dbStudent.Email);
+                if (!string.IsNullOrWhiteSpace(studentLoginViewModel.Password))
+                {
+                    user.Email = studentLoginViewModel.Email;
+                    user.UserName = studentLoginViewModel.Email;
+
+                    await UserManager.UpdateAsync(user);
+                    await UserManager.RemovePasswordAsync(user.Id);
+                    await UserManager.AddPasswordAsync(user.Id, studentLoginViewModel.Password);
+                }
+
+                dbStudent.Update(studentLoginViewModel);
+
+
+                dbStudent.UpdatedBy(User.Identity.Name);
+
+                _studentService.Save();
+
+                return request.CreateResponse(HttpStatusCode.Created, studentLoginViewModel);
+            }
+            else
+            {
+                return request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+            }
         }
 
         public ApplicationUserManager UserManager

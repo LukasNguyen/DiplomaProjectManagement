@@ -4,9 +4,7 @@
 
     function studentAddController($scope, apiService, notificationService, $state) {
 
-
         $scope.student = {
-            CreatedDate: new Date(),
             Status: true
         };
         $scope.AddStudent = AddStudent;

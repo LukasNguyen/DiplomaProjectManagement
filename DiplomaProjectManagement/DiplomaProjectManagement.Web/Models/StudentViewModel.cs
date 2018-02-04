@@ -42,7 +42,6 @@ namespace DiplomaProjectManagement.Web.Models
     {
         public string ApplicationUserId { get; set; }
 
-        [Required]
         public string Password { get; set; }
     }
 }
