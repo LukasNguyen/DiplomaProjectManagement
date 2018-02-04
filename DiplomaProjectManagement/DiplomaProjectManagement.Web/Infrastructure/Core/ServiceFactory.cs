@@ -1,9 +1,9 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace DiplomaProjectManagement.Web.Infrastructure
+namespace DiplomaProjectManagement.Web.Infrastructure.Core
 {
-    public class ServiceFactory
+    public static class ServiceFactory
     {
         public static THelper Get<THelper>()
         {

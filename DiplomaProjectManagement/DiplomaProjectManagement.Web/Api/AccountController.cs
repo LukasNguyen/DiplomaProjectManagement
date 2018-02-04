@@ -21,6 +21,16 @@ namespace DiplomaProjectManagement.Web.Api
             _signInManager = signInManager;
         }
 
+        [Route("logout")]
+        [Authorize]
+        [HttpPost]
+        public HttpResponseMessage Logout(HttpRequestMessage request)
+        {
+            var authenticationManager = HttpContext.Current.GetOwinContext().Authentication;
+            authenticationManager.SignOut();
+            return request.CreateResponse(HttpStatusCode.OK, new { success = true });
+        }
+
         public ApplicationSignInManager SignInManager
         {
             get
@@ -43,16 +53,6 @@ namespace DiplomaProjectManagement.Web.Api
             {
                 _userManager = value;
             }
-        }
-
-        [Route("logout")]
-        [Authorize]
-        [HttpPost]
-        public HttpResponseMessage Logout(HttpRequestMessage request)
-        {
-            var authenticationManager = HttpContext.Current.GetOwinContext().Authentication;
-            authenticationManager.SignOut();
-            return request.CreateResponse(HttpStatusCode.OK, new { success = true });
         }
     }
 }

@@ -1,9 +1,72 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <title>studentAddView</title>
-</head>
-<body>
-    
-</body>
-</html>
+﻿    <!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Add new student
+        <!--<small>This is homepage of SPA</small>-->
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+        <li><a href="#">Student</a></li>
+        <li><a ui-sref="products">List Students</a></li>
+        <li class="active">Add new student</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <!-- Horizontal Form -->
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">
+                Student Login Information
+            </h3>
+        </div><!-- /.box-header -->
+        <!-- form start -->
+        <br />
+        <form class="form-horizontal" novalidate name="frmAddStudent" role="form" ng-submit="AddStudent()">
+            <div class="form-group">
+                <label for="email" class="col-sm-2 control-label">Email</label>
+                <div class="col-sm-8">
+                    <input type="email" required id="email" name="email" class="form-control" ng-model="student.Email">
+                    <span ng-show="frmAddStudent.email.$error.required" class="has-error">Email is required.</span>
+                    <span ng-show="frmAddStudent.email.$error.email" class="has-error">Email is not in valid format.</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password" class="col-sm-2 control-label">Password</label>
+                <div class="col-sm-8">
+                    <input type="password" required id="password" name="password" class="form-control" ng-model="student.Password">
+                    <span ng-show="frmAddStudent.password.$error.required" class="has-error">Password is required.</span>
+                </div>
+            </div>
+            <div class="box box-info"></div>
+            <div class="form-group">
+                <label for="studentName" class="col-sm-2 control-label">Student Name</label>
+                <div class="col-sm-8">
+                    <input type="text" required id="studentName" name="studentName" class="form-control" ng-model="student.Name">
+                    <span ng-show="frmAddStudent.studentName.$error.required" class="has-error">Student Name is required.</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber" class="col-sm-2 control-label">Phone Number</label>
+                <div class="col-sm-8">
+                    <input type="text" required id="phoneNumber" name="phoneNumber" ng-minlength="10" ng-maxlength="11" class="form-control" ng-model="student.Phone">
+                    <span ng-show="frmAddStudent.phoneNumber.$error.required" class="has-error">Phone number is required.</span>
+                    <span ng-show="frmAddStudent.phoneNumber.$error.minlength || frmAddStudent.phoneNumber.$error.maxlength" class="has-error">Phone Number lengths are between 10 and 11 characters</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="address" class="col-sm-2 control-label">Address</label>
+                <div class="col-sm-8">
+                    <input type="text" required id="address" name="address" class="form-control" ng-model="student.Address">
+                    <span ng-show="frmAddStudent.address.$error.required" class="has-error">Password is required.</span>
+                </div>
+            </div>
+            <div class="box-footer">
+                <div class="col-sm-offset-1 col-sm-9">
+                    <button ui-sref="students" class="btn btn-default">Cancel</button>
+                    <button type="submit" ng-disabled="frmAddStudent.$invalid" class="btn btn-success pull-right">Save</button>
+                </div><!-- /.box-footer -->
+            </div>
+        </form>
+    </div><!-- /.box -->
+</section><!-- /.content -->

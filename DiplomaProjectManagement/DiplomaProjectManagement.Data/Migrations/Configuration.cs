@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
+using DiplomaProjectManagement.Common;
 using DiplomaProjectManagement.Model.Enums;
 
 namespace DiplomaProjectManagement.Data.Migrations
@@ -113,27 +114,52 @@ namespace DiplomaProjectManagement.Data.Migrations
 
             var user = new ApplicationUser()
             {
-                UserName = "Administrator",
-                Email = "dat.nguyenthaithanh@hotmail.com"
+                UserName = "admin@iuh.edu.vn",
+                Email = "admin@iuh.edu.vn"
             };
 
-            if (manager.Users.Count(n => n.UserName == "Administrator") == 0)
+            if (manager.Users.Count(n => n.UserName == user.UserName) == 0)
             {
                 manager.Create(user, "123456789");
 
                 if (!roleManager.Roles.Any())
                 {
-                    roleManager.Create(new IdentityRole() { Name = "Admin" });
-                    roleManager.Create(new IdentityRole() { Name = "Lecturer" });
-                    roleManager.Create(new IdentityRole() { Name = "Student" });
+                    roleManager.Create(new IdentityRole() { Name = RoleConstants.Admin });
+                    roleManager.Create(new IdentityRole() { Name = RoleConstants.Lecturer });
+                    roleManager.Create(new IdentityRole() { Name = RoleConstants.Student });
 
-                    var adminUser = manager.FindByEmail("dat.nguyenthaithanh@hotmail.com");
+                    var adminUser = manager.FindByEmail(user.Email);
 
-                    manager.AddToRoles(adminUser.Id, "Admin");
+                    manager.AddToRoles(adminUser.Id, RoleConstants.Admin);
                 }
+
+                AddNewUser(manager, "dat.nguyen@gmail.com", RoleConstants.Student);
+                AddNewUser(manager, "lukas.nguyen@gmail.com", RoleConstants.Student);
+                AddNewUser(manager, "dakas.nguyen@gmail.com", RoleConstants.Student);
+
+                AddNewUser(manager, "dat.nguyen@iuh.edu.vn", RoleConstants.Lecturer);
+                AddNewUser(manager, "lukas.nguyen@iuh.edu.vn", RoleConstants.Lecturer);
+                AddNewUser(manager, "dakas.nguyen@iuh.edu.vn", RoleConstants.Lecturer);
             }
 
+
             context.SaveChanges();
+        }
+
+        private static void AddNewUser(UserManager<ApplicationUser> manager,string email,string role)
+        {
+            var user = new ApplicationUser()
+            {
+                UserName = email,
+                Email = email
+            };
+
+            if (manager.Users.Count(n => n.Email == email) == 0)
+            {
+                manager.Create(user, "123456789");
+
+                manager.AddToRole(user.Id, role);
+            }
         }
     }
 }

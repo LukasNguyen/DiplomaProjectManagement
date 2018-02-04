@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace DiplomaProjectManagement.Web.Infrastructure
+namespace DiplomaProjectManagement.Web.Infrastructure.Core
 {
     public class PaginationSet<T>
     {

@@ -1,29 +1,35 @@
-﻿using System;
+﻿using AutoMapper;
+using DiplomaProjectManagement.Model.Models;
+using DiplomaProjectManagement.Service;
+using DiplomaProjectManagement.Web.Infrastructure.Core;
+using DiplomaProjectManagement.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web;
-using DiplomaProjectManagement.Service;
-using DiplomaProjectManagement.Web.Infrastructure;
 using System.Web.Http;
 using System.Web.Script.Serialization;
-using AutoMapper;
-using DiplomaProjectManagement.Model.Models;
-using DiplomaProjectManagement.Web.Models;
+using DiplomaProjectManagement.Common;
+using DiplomaProjectManagement.Web.App_Start;
+using DiplomaProjectManagement.Web.Infrastructure.Extensions;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace DiplomaProjectManagement.Web.Api
 {
     [RoutePrefix("api/students")]
     [Authorize]
-
     public class StudentController : ApiControllerBase
     {
         private readonly IStudentService _studentService;
+        private ApplicationUserManager _applicationUserManager;
 
-        public StudentController(IErrorService errorService,IStudentService studentService) : base(errorService)
+        public StudentController(IErrorService errorService, ApplicationUserManager applicationUserManager, IStudentService studentService) : base(errorService)
         {
             this._studentService = studentService;
+            this._applicationUserManager = applicationUserManager;
         }
 
         [Route("getbyid/{id:int}")]
@@ -67,6 +73,7 @@ namespace DiplomaProjectManagement.Web.Api
                 return request.CreateResponse(HttpStatusCode.OK, paginationSet);
             });
         }
+
         [Route("delete")]
         [HttpDelete]
         public HttpResponseMessage Delete(HttpRequestMessage request, int id)
@@ -118,5 +125,55 @@ namespace DiplomaProjectManagement.Web.Api
                 return response;
             });
         }
+
+        [Route("create")]
+        [HttpPost]
+        public HttpResponseMessage Create(HttpRequestMessage request, StudentLoginViewModel studentLoginViewModel)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+
+                if (!ModelState.IsValid)
+                {
+                    request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+                else
+                {
+                    // Add new student
+                    var student = new Student();
+                    student.Update(studentLoginViewModel,User.Identity.Name);
+                    var newStudent = _studentService.AddStudent(student);
+
+                    // Add new student's account
+                    var user = new ApplicationUser()
+                    {
+                        UserName = student.Email,
+                        Email = student.Email
+                    };
+                    UserManager.Create(user, studentLoginViewModel.Password);
+                    UserManager.AddToRole(user.Id, RoleConstants.Student);
+
+                    _studentService.Save();
+
+                    response = request.CreateResponse(HttpStatusCode.Created, studentLoginViewModel);
+                }
+
+                return response;
+            });
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _applicationUserManager ?? HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _applicationUserManager = value;
+            }
+        }
+
     }
 }

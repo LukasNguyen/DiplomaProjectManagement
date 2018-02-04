@@ -27,9 +27,6 @@ namespace DiplomaProjectManagement.Web.Models
 
         public DateTime? CreatedDate { get; set; }
 
-        [MaxLength(256)]
-        public string CreatedBy { get; set; }
-
         public DateTime? UpdatedDate { get; set; }
 
         [MaxLength(256)]
@@ -39,5 +36,13 @@ namespace DiplomaProjectManagement.Web.Models
         public bool Status { get; set; }
 
         public virtual ICollection<DiplomaProjectRegistration> DiplomaProjectRegistration { get; set; }
+    }
+
+    public class StudentLoginViewModel : StudentViewModel
+    {
+        public string ApplicationUserId { get; set; }
+
+        [Required]
+        public string Password { get; set; }
     }
 }

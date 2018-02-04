@@ -8,7 +8,7 @@ using DiplomaProjectManagement.Web.Models;
 
 namespace DiplomaProjectManagement.Web.Mappings
 {
-    public class AutoMapperConfiguration
+    public static class AutoMapperConfiguration
     {
         public static void Configure()
         {
