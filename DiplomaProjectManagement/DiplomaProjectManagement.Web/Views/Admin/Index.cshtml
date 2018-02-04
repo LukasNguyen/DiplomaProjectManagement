@@ -37,38 +37,45 @@
     <![endif]-->
 </head>
 <body class="hold-transition skin-blue sidebar-mini" ng-app="application" ng-controller="rootController">
-<div ui-view></div>
+    <div ui-view></div>
 
 
-<!-- jQuery 2.1.4 -->
-@*<script src="../../plugins/jQuery/jQuery-2.1.4.min.js"></script>*@
-<script src="~/Assets/admin/libs/jquery/dist/jquery.js"></script>
-<!-- Bootstrap 3.3.5 -->
-<script src="~/Assets/admin/libs/bootstrap/dist/js/bootstrap.js"></script>
+    <!-- jQuery 2.1.4 -->
+    @*<script src="../../plugins/jQuery/jQuery-2.1.4.min.js"></script>*@
+    <script src="~/Assets/admin/libs/jquery/dist/jquery.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="~/Assets/admin/libs/bootstrap/dist/js/bootstrap.js"></script>
 
-<!-- Begin embedded AngularJS-->
-<script src="~/Assets/admin/libs/angular/angular.js"></script>
-<script src="~/Assets/admin/libs/angular-ui-router/release/angular-ui-router.js"></script>
+    <!-- Begin embedded AngularJS-->
+    <script src="~/Assets/admin/libs/angular/angular.js"></script>
+    <script src="~/Assets/admin/libs/angular-ui-router/release/angular-ui-router.js"></script>
 
-<script src="~/Assets/admin/libs/toastr/toastr.js"></script>
-<script src="~/Assets/admin/libs/bootbox/bootbox.js"></script>
-<script src="~/Assets/admin/libs/ngBootbox/ngBootbox.js"></script>
-<script src="~/Assets/admin/libs/angular-local-storage/dist/angular-local-storage.js"></script>
-<script src="~/Assets/admin/libs/angular-loading-bar/build/loading-bar.js"></script>
-<script src="~/Assets/admin/libs/angular-ui-select/dist/select.js"></script>
+    <script src="~/Assets/admin/libs/toastr/toastr.js"></script>
+    <script src="~/Assets/admin/libs/bootbox/bootbox.js"></script>
+    <script src="~/Assets/admin/libs/ngBootbox/ngBootbox.js"></script>
+    <script src="~/Assets/admin/libs/checklist-model/checklist-model.js"></script>
+    <script src="~/Assets/admin/libs/angular-local-storage/dist/angular-local-storage.js"></script>
+    <script src="~/Assets/admin/libs/angular-loading-bar/build/loading-bar.js"></script>
+    <script src="~/Assets/admin/libs/angular-ui-select/dist/select.js"></script>
 
-<script src="~/app/shared/modules/application.common.js"></script>
-<script src="~/app/shared/services/apiService.js"></script>
+    <script src="~/app/shared/modules/application.common.js"></script>
+    <script src="~/app/shared/services/apiService.js"></script>
 
-<script src="~/app/shared/services/notificationService.js"></script>
-<script src="~/app/shared/services/authData.js"></script>
-<script src="~/app/shared/services/authenticationService.js"></script>
-<script src="~/app/shared/services/loginService.js"></script>
-<script src="~/app/app.js"></script>
+    <script src="~/app/shared/services/notificationService.js"></script>
+    <script src="~/app/shared/services/authData.js"></script>
+    <script src="~/app/shared/services/authenticationService.js"></script>
+    <script src="~/app/shared/services/loginService.js"></script>
+    <script src="~/app/app.js"></script>
 
-<script src="~/app/components/home/rootController.js"></script>
-<script src="~/app/components/home/homeController.js"></script>
-<script src="~/app/components/login/loginController.js"></script>
+    <script src="~/app/components/home/rootController.js"></script>
+    <script src="~/app/components/home/homeController.js"></script>
+    <script src="~/app/components/login/loginController.js"></script>
+
+    <script src="~/app/components/students/students.module.js"></script>
+    <script src="~/app/components/students/studentListController.js"></script>
+    <script src="~/app/components/students/studentAddController.js"></script>
+    <script src="~/app/components/students/studentEditController.js"></script>
+
 
 </body>
 </html>

@@ -98,6 +98,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\DiplomaProjectManagement.Common\DiplomaProjectManagement.Common.csproj">
+      <Project>{0BB003FE-9835-4D7C-846B-A84DCB9F121A}</Project>
+      <Name>DiplomaProjectManagement.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DiplomaProjectManagement.Model\DiplomaProjectManagement.Model.csproj">
       <Project>{1C77E370-7B87-4E4A-945D-9AEE0163A767}</Project>
       <Name>DiplomaProjectManagement.Model</Name>

@@ -8,7 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace DiplomaProjectManagement.Web.Infrastructure
+namespace DiplomaProjectManagement.Web.Infrastructure.Core
 {
     public class ApiControllerBase : ApiController
     {

@@ -199,6 +199,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\AccountController.cs" />
+    <Compile Include="Api\StudentController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -211,9 +212,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\ApiControllerBase.cs" />
-    <Compile Include="Infrastructure\ServiceFactory.cs" />
+    <Compile Include="Infrastructure\Core\ApiControllerBase.cs" />
+    <Compile Include="Infrastructure\Core\PaginationSet.cs" />
+    <Compile Include="Infrastructure\Core\ServiceFactory.cs" />
+    <Compile Include="Infrastructure\Extensions\EntityExtensions.cs" />
+    <Compile Include="Mappings\AutoMapperConfiguration.cs" />
+    <Compile Include="Models\ApplicationUserViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\StudentViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -223,6 +229,15 @@
     <Content Include="app\components\home\rootController.js" />
     <Content Include="app\components\login\loginController.js" />
     <Content Include="app\components\login\loginView.html" />
+    <Content Include="app\components\students\studentAddController.js" />
+    <Content Include="app\components\students\studentAddView.html" />
+    <Content Include="app\components\students\studentEditController.js" />
+    <Content Include="app\components\students\studentEditView.html" />
+    <Content Include="app\components\students\studentListController.js" />
+    <Content Include="app\components\students\studentListView.html" />
+    <Content Include="app\components\students\students.module.js" />
+    <Content Include="app\shared\directives\pagerDirective.html" />
+    <Content Include="app\shared\directives\pagerDirective.js" />
     <Content Include="app\shared\modules\application.common.js" />
     <Content Include="app\shared\services\apiService.js" />
     <Content Include="app\shared\services\authData.js" />
@@ -365,6 +380,8 @@
     <Content Include="Assets\admin\libs\bootstrap\js\tooltip.js" />
     <Content Include="Assets\admin\libs\bootstrap\js\transition.js" />
     <Content Include="Assets\admin\libs\bootstrap\package.js" />
+    <Content Include="Assets\admin\libs\checklist-model\checklist-model.js" />
+    <Content Include="Assets\admin\libs\checklist-model\LICENSE.txt" />
     <Content Include="Assets\admin\libs\gentelella\build\css\custom.css" />
     <Content Include="Assets\admin\libs\gentelella\build\css\custom.min.css" />
     <Content Include="Assets\admin\libs\gentelella\build\js\custom.js" />
@@ -5712,6 +5729,9 @@
     <Content Include="Assets\admin\libs\angular-ui-router\CONTRIBUTING.md" />
     <Content Include="Assets\admin\libs\angular-ui-router\LICENSE" />
     <Content Include="Assets\admin\libs\angular-ui-router\README.md" />
+    <Content Include="Assets\admin\libs\checklist-model\.bower.json" />
+    <Content Include="Assets\admin\libs\checklist-model\bower.json" />
+    <Content Include="Assets\admin\libs\checklist-model\readme.md" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -5744,7 +5764,9 @@
     <Content Include="Views\Home\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app\shared\filters\" />
     <Folder Include="App_Data\" />
+    <Folder Include="Assets\admin\libs\checklist-model\test\" />
     <Folder Include="Assets\client\" />
   </ItemGroup>
   <ItemGroup>
@@ -5761,6 +5783,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DiplomaProjectManagement.Common\DiplomaProjectManagement.Common.csproj">
+      <Project>{0BB003FE-9835-4D7C-846B-A84DCB9F121A}</Project>
+      <Name>DiplomaProjectManagement.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DiplomaProjectManagement.Data\DiplomaProjectManagement.Data.csproj">
       <Project>{067A857B-B80F-4250-8172-A9AABAB53FCF}</Project>
       <Name>DiplomaProjectManagement.Data</Name>
