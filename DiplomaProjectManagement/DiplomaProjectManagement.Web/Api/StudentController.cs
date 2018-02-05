@@ -129,40 +129,44 @@ namespace DiplomaProjectManagement.Web.Api
 
         [Route("create")]
         [HttpPost]
-        public HttpResponseMessage Create(HttpRequestMessage request, StudentLoginViewModel studentLoginViewModel)
+        public async Task<HttpResponseMessage> CreateAsync(HttpRequestMessage request, StudentLoginViewModel studentLoginViewModel)
         {
-            return CreateHttpResponse(request, () =>
+            HttpResponseMessage response = null;
+
+            if (!ModelState.IsValid)
             {
-                HttpResponseMessage response = null;
+                request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+            }
+            else
+            {
+                var existingUser = await UserManager.FindByEmailAsync(studentLoginViewModel.Email);
 
-                if (!ModelState.IsValid)
+                if (existingUser != null)
                 {
-                    request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-                }
-                else
-                {
-                    // Add new student
-                    var student = new Student();
-                    student.Update(studentLoginViewModel);
-                    student.CreatedBy(User.Identity.Name);
-                    var newStudent = _studentService.AddStudent(student);
-
-                    // Add new student's account
-                    var user = new ApplicationUser()
-                    {
-                        UserName = student.Email,
-                        Email = student.Email
-                    };
-                    UserManager.Create(user, studentLoginViewModel.Password);
-                    UserManager.AddToRole(user.Id, RoleConstants.Student);
-
-                    _studentService.Save();
-
-                    response = request.CreateResponse(HttpStatusCode.Created, studentLoginViewModel);
+                    return request.CreateErrorResponse(HttpStatusCode.BadRequest, "This email already existing in system. Please use another email.");
                 }
 
-                return response;
-            });
+                // Add new student
+                var student = new Student();
+                student.Update(studentLoginViewModel);
+                student.CreatedBy(User.Identity.Name);
+                _studentService.AddStudent(student);
+
+                // Add new student's account
+                var user = new ApplicationUser()
+                {
+                    UserName = student.Email,
+                    Email = student.Email
+                };
+                await UserManager.CreateAsync(user, studentLoginViewModel.Password);
+                await UserManager.AddToRoleAsync(user.Id, RoleConstants.Student);
+
+                _studentService.Save();
+
+                response = request.CreateResponse(HttpStatusCode.Created, studentLoginViewModel);
+            }
+
+            return response;
         }
 
         [Route("update")]
@@ -174,19 +178,26 @@ namespace DiplomaProjectManagement.Web.Api
                 var dbStudent = _studentService.GetStudentById(studentLoginViewModel.ID);
 
                 var user = await UserManager.FindByEmailAsync(dbStudent.Email);
+
+                var existingUser = await UserManager.FindByEmailAsync(studentLoginViewModel.Email);
+
+                if (existingUser != null && user != null && !string.Equals(existingUser.Email, dbStudent.Email, StringComparison.OrdinalIgnoreCase))
+                {
+                    return request.CreateErrorResponse(HttpStatusCode.BadRequest, "This email already existing in system. Please use another email.");
+                }
+
+
+                user.UserName = studentLoginViewModel.Email;
+                user.Email = studentLoginViewModel.Email;
+                await UserManager.UpdateAsync(user);
+
                 if (!string.IsNullOrWhiteSpace(studentLoginViewModel.Password))
                 {
-                    user.Email = studentLoginViewModel.Email;
-                    user.UserName = studentLoginViewModel.Email;
-
-                    await UserManager.UpdateAsync(user);
                     await UserManager.RemovePasswordAsync(user.Id);
                     await UserManager.AddPasswordAsync(user.Id, studentLoginViewModel.Password);
                 }
 
                 dbStudent.Update(studentLoginViewModel);
-
-
                 dbStudent.UpdatedBy(User.Identity.Name);
 
                 _studentService.Save();

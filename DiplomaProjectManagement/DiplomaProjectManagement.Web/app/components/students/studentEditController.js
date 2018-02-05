@@ -12,7 +12,7 @@
                 notificationService.displaySuccess('Student name: ' + result.data.Name + ' are updated.');
                 $state.go('students');
             }, (failure) => {
-                notificationService.displayError('Add new student are failed');
+                notificationService.displayError(failure.data.Message);
             });
         }
 
