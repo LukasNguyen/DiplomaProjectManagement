@@ -1,8 +1,13 @@
 ﻿using AutoMapper;
+using DiplomaProjectManagement.Common;
 using DiplomaProjectManagement.Model.Models;
 using DiplomaProjectManagement.Service;
+using DiplomaProjectManagement.Web.App_Start;
 using DiplomaProjectManagement.Web.Infrastructure.Core;
+using DiplomaProjectManagement.Web.Infrastructure.Extensions;
 using DiplomaProjectManagement.Web.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +17,6 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Script.Serialization;
-using DiplomaProjectManagement.Common;
-using DiplomaProjectManagement.Web.App_Start;
-using DiplomaProjectManagement.Web.Infrastructure.Extensions;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 
 namespace DiplomaProjectManagement.Web.Api
 {
@@ -131,28 +131,33 @@ namespace DiplomaProjectManagement.Web.Api
         [HttpPost]
         public async Task<HttpResponseMessage> CreateAsync(HttpRequestMessage request, StudentLoginViewModel studentLoginViewModel)
         {
-            HttpResponseMessage response = null;
-
             if (!ModelState.IsValid)
             {
-                request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                return request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
-            else
+
+            var existingUser = await UserManager.FindByEmailAsync(studentLoginViewModel.Email);
+            if (existingUser != null)
             {
-                var existingUser = await UserManager.FindByEmailAsync(studentLoginViewModel.Email);
+                return request.CreateErrorResponse(HttpStatusCode.BadRequest, "This email already existing in system. Please use another email.");
+            }
 
-                if (existingUser != null)
-                {
-                    return request.CreateErrorResponse(HttpStatusCode.BadRequest, "This email already existing in system. Please use another email.");
-                }
+            Student student = CreateStudentInformation();
+            await CreateStudentAccount();
+            _studentService.Save();
 
-                // Add new student
-                var student = new Student();
-                student.Update(studentLoginViewModel);
-                student.CreatedBy(User.Identity.Name);
-                _studentService.AddStudent(student);
+            return request.CreateResponse(HttpStatusCode.Created, studentLoginViewModel);
 
-                // Add new student's account
+            Student CreateStudentInformation()
+            {
+                var newStudent = new Student();
+                newStudent.Update(studentLoginViewModel);
+                newStudent.CreatedBy(User.Identity.Name);
+                return _studentService.AddStudent(newStudent);
+            }
+
+            async Task CreateStudentAccount()
+            {
                 var user = new ApplicationUser()
                 {
                     UserName = student.Email,
@@ -160,13 +165,7 @@ namespace DiplomaProjectManagement.Web.Api
                 };
                 await UserManager.CreateAsync(user, studentLoginViewModel.Password);
                 await UserManager.AddToRoleAsync(user.Id, RoleConstants.Student);
-
-                _studentService.Save();
-
-                response = request.CreateResponse(HttpStatusCode.Created, studentLoginViewModel);
             }
-
-            return response;
         }
 
         [Route("update")]
@@ -176,37 +175,50 @@ namespace DiplomaProjectManagement.Web.Api
             if (ModelState.IsValid)
             {
                 var dbStudent = _studentService.GetStudentById(studentLoginViewModel.ID);
-
                 var user = await UserManager.FindByEmailAsync(dbStudent.Email);
 
                 var existingUser = await UserManager.FindByEmailAsync(studentLoginViewModel.Email);
-
-                if (existingUser != null && user != null && !string.Equals(existingUser.Email, dbStudent.Email, StringComparison.OrdinalIgnoreCase))
+                if (CheckExistingAccount(dbStudent, existingUser))
                 {
                     return request.CreateErrorResponse(HttpStatusCode.BadRequest, "This email already existing in system. Please use another email.");
                 }
 
-
-                user.UserName = studentLoginViewModel.Email;
-                user.Email = studentLoginViewModel.Email;
-                await UserManager.UpdateAsync(user);
-
-                if (!string.IsNullOrWhiteSpace(studentLoginViewModel.Password))
-                {
-                    await UserManager.RemovePasswordAsync(user.Id);
-                    await UserManager.AddPasswordAsync(user.Id, studentLoginViewModel.Password);
-                }
-
-                dbStudent.Update(studentLoginViewModel);
-                dbStudent.UpdatedBy(User.Identity.Name);
+                await UpdateStudentAccount(user);
+                await UpdateWhenExistingNewPassword(user);
+                UpdateStudentInformation(dbStudent);
 
                 _studentService.Save();
 
                 return request.CreateResponse(HttpStatusCode.Created, studentLoginViewModel);
             }
-            else
+
+            return request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+
+            bool CheckExistingAccount(Student dbStudent, ApplicationUser existingUser)
             {
-                return request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                return existingUser != null && dbStudent != null && !string.Equals(existingUser.Email, dbStudent.Email, StringComparison.OrdinalIgnoreCase);
+            }
+
+            async Task UpdateStudentAccount(ApplicationUser user)
+            {
+                user.UserName = studentLoginViewModel.Email;
+                user.Email = studentLoginViewModel.Email;
+                await UserManager.UpdateAsync(user);
+            }
+
+            async Task UpdateWhenExistingNewPassword(ApplicationUser user)
+            {
+                if (!string.IsNullOrWhiteSpace(studentLoginViewModel.Password))
+                {
+                    await UserManager.RemovePasswordAsync(user.Id);
+                    await UserManager.AddPasswordAsync(user.Id, studentLoginViewModel.Password);
+                }
+            }
+
+            void UpdateStudentInformation(Student dbStudent)
+            {
+                dbStudent.Update(studentLoginViewModel);
+                dbStudent.UpdatedBy(User.Identity.Name);
             }
         }
 
@@ -221,6 +233,5 @@ namespace DiplomaProjectManagement.Web.Api
                 _applicationUserManager = value;
             }
         }
-
     }
 }
