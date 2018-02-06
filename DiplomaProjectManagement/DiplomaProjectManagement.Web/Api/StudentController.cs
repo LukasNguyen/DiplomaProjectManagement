@@ -115,9 +115,9 @@ namespace DiplomaProjectManagement.Web.Api
                 {
                     var students = new JavaScriptSerializer().Deserialize<List<int>>(checkedStudents);
 
-                    foreach (var item in students)
+                    foreach (var student in students)
                     {
-                        _studentService.DeleteStudentByModifyStatus(item);
+                        _studentService.DeleteStudentByModifyStatus(student);
                     }
                     _studentService.Save();
 

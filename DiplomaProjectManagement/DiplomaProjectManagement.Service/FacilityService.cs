@@ -1,4 +1,5 @@
-﻿using DiplomaProjectManagement.Data.Infrastructures;
+﻿using System;
+using DiplomaProjectManagement.Data.Infrastructures;
 using DiplomaProjectManagement.Data.Repositories;
 using DiplomaProjectManagement.Model.Models;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace DiplomaProjectManagement.Service
 
         Facility DeleteFacilityByModifyStatus(int id);
 
-        IEnumerable<Facility> GetAllFacilities();
+        IEnumerable<Facility> GetAllFacilities(string keyword = null);
 
         void Save();
     }
@@ -49,8 +50,14 @@ namespace DiplomaProjectManagement.Service
             return facility;
         }
 
-        public IEnumerable<Facility> GetAllFacilities()
+        public IEnumerable<Facility> GetAllFacilities(string keyword = null)
         {
+            if (!String.IsNullOrWhiteSpace(keyword))
+                return _facilityRepository.GetMulti(
+                        n => n.Name.Contains(keyword))
+                        .Where(n => n.Status)
+                        .ToList();
+
             return _facilityRepository.GetAll().Where(n => n.Status).ToList();
         }
 

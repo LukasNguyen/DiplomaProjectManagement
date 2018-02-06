@@ -1,12 +1,12 @@
 ﻿    <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Student
+        Facilities
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i>Dashboard</a></li>
-        <li><a href="#">Students</a></li>
-        <li class="active">List Students</li>
+        <li><a href="#">Facilities</a></li>
+        <li class="active">List Facilities</li>
     </ol>
 </section>
 <!-- Main content -->
@@ -14,7 +14,7 @@
     <!-- Default box -->
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">Students</h3>
+            <h3 class="box-title">Facilities</h3>
             <div class="box-tools pull-right">
                 <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
                 <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
@@ -31,35 +31,35 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <button class="btn btn-success" ui-sref="student_add">Add new student</button>
-                    <button class="btn btn-danger" ng-click="deleteMultiple()" id="btnDelete" disabled>Delete students</button>
+                    <button class="btn btn-success" ui-sref="facility_add">Add new facility</button>
+                    <button class="btn btn-danger" ng-click="deleteMultiple()" id="btnDelete" disabled>Delete facilities</button>
                 </div>
             </div>
-            <br/>
+            <br />
             <div class="row">
                 <div class="col-md-12">
                     <table class="table table-bordered">
                         <tr>
                             <th style="width: 5%"><label>All <input name="all" type="checkbox" ng-click="selectAll()" /></label></th>
-                            <th style="width: 10%">Student ID</th>
+                            <th style="width: 10%">Facility ID</th>
                             <th style="width: 20%">Name</th>
-                            <th style="width: 10%">Phone</th>
+                            <th style="width: 10%">Location Building</th>
                             <th style="width: 15%">Email</th>
-                            <th style="width: 20%">Address</th>
+                            <th style="width: 20%">Website</th>
                             <th style="width: 10%">Created Date</th>
                             <th style="width: 15%"></th>
                         </tr>
-                        <tr ng-repeat="item in students">
+                        <tr ng-repeat="item in facilities">
                             <td><input type="checkbox" ng-model="item.checked" name="all" /></td>
                             <td>{{item.ID}}</td>
                             <td>{{item.Name}}</td>
-                            <td>{{item.Phone}}</td>
+                            <td>{{item.LocationBuilding}}</td>
                             <td>{{item.Email}}</td>
-                            <td>{{item.Address}}</td>
+                            <td>{{item.UrlWebsite}}</td>
                             <td>{{item.CreatedDate | date:'dd/MM/yyyy HH:mm:ss'}}</td>
                             <td>
-                                <button class="btn btn-sm btn-primary" ui-sref="student_edit({id:item.ID})"><i class="fa fa-pencil"></i></button>
-                                <button class="btn btn-sm btn-danger" ng-click="deleteStudent(item.ID)"><i class="fa fa-trash"></i></button>
+                                <button class="btn btn-sm btn-primary" ui-sref="facility_edit({id:item.ID})"><i class="fa fa-pencil"></i></button>
+                                <button class="btn btn-sm btn-danger" ng-click="deleteFacility(item.ID)"><i class="fa fa-trash"></i></button>
                             </td>
                         </tr>
                         <tfoot>

@@ -35,7 +35,6 @@ namespace DiplomaProjectManagement.Web.Models
 
         public bool Status { get; set; }
 
-        public virtual ICollection<DiplomaProjectRegistration> DiplomaProjectRegistration { get; set; }
     }
 
     public class StudentLoginViewModel : StudentViewModel
