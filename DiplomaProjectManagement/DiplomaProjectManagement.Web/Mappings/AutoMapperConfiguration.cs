@@ -12,12 +12,21 @@ namespace DiplomaProjectManagement.Web.Mappings
     {
         public static void Configure()
         {
-            Mapper.Initialize(RegisterMappingForStudent);
+            Mapper.Initialize(cfg =>
+            {
+                RegisterMappingForStudent(cfg);
+                RegisterMappingForFacility(cfg);
+            });
         }
 
         private static void RegisterMappingForStudent(IMapperConfigurationExpression cfg)
         {
-            cfg.CreateMap<Student, StudentViewModel>();
+            cfg.CreateMap<Student, StudentViewModel>().ReverseMap();
+        }
+
+        private static void RegisterMappingForFacility(IMapperConfigurationExpression cfg)
+        {
+            cfg.CreateMap<Facility, FacilityViewModel>().ReverseMap();
         }
     }
 }

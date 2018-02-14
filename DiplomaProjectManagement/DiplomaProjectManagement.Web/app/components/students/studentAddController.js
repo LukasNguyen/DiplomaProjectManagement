@@ -7,9 +7,9 @@
         $scope.student = {
             Status: true
         };
-        $scope.AddStudent = AddStudent;
+        $scope.addStudent = addStudent;
 
-        function AddStudent() {
+        function addStudent() {
 
             apiService.post('/api/students/create', $scope.student, (result) => {
                 notificationService.displaySuccess('Student name: ' + result.data.Name + ' are added to system.');

@@ -5,9 +5,9 @@
     function studentEditController($scope, apiService, notificationService, $state, $stateParams) {
 
         $scope.student = {};
-        $scope.UpdateStudent = UpdateStudent;
+        $scope.updateStudent = updateStudent;
 
-        function UpdateStudent() {
+        function updateStudent() {
             apiService.put('/api/students/update', $scope.student, (result) => {
                 notificationService.displaySuccess('Student name: ' + result.data.Name + ' are updated.');
                 $state.go('students');
@@ -23,6 +23,7 @@
                 notificationService.displayError(error.data);
             });
         }
+
         loadStudentDetail();
     }
 })(angular.module('application.students'));

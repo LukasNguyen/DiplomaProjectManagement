@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using DiplomaProjectManagement.Model.Models;
 
 namespace DiplomaProjectManagement.Web.Models
 {
-    public class StudentViewModel
+    public class FacilityViewModel
     {
         public int ID { get; set; }
 
@@ -15,36 +11,25 @@ namespace DiplomaProjectManagement.Web.Models
         [Required]
         public string Name { get; set; }
 
-        [MaxLength(50)]
-        public string Phone { get; set; }
+        public string LocationBuilding { get; set; }
 
+        [EmailAddress]
         [MaxLength(50)]
-        [Required]
         public string Email { get; set; }
 
-        [MaxLength(250)]
-        public string Address { get; set; }
+        [Url]
+        public string UrlWebsite { get; set; }
 
         public DateTime? CreatedDate { get; set; }
 
         public DateTime? UpdatedDate { get; set; }
 
         [MaxLength(256)]
-
         public string UpdatedBy { get; set; }
 
         [MaxLength(256)]
-
         public string CreatedBy { get; set; }
 
         public bool Status { get; set; }
-
-    }
-
-    public class StudentLoginViewModel : StudentViewModel
-    {
-        public string ApplicationUserId { get; set; }
-
-        public string Password { get; set; }
     }
 }

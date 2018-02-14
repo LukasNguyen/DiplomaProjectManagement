@@ -199,6 +199,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\AccountController.cs" />
+    <Compile Include="Api\FacilityController.cs" />
     <Compile Include="Api\StudentController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -218,12 +219,20 @@
     <Compile Include="Infrastructure\Extensions\EntityExtensions.cs" />
     <Compile Include="Mappings\AutoMapperConfiguration.cs" />
     <Compile Include="Models\ApplicationUserViewModel.cs" />
+    <Compile Include="Models\FacilityViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\StudentViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\components\facilities\facilities.module.js" />
+    <Content Include="app\components\facilities\facilityAddController.js" />
+    <Content Include="app\components\facilities\facilityAddView.html" />
+    <Content Include="app\components\facilities\facilityEditController.js" />
+    <Content Include="app\components\facilities\facilityEditView.html" />
+    <Content Include="app\components\facilities\facilityListController.js" />
+    <Content Include="app\components\facilities\facilityListView.html" />
     <Content Include="app\components\home\homeController.js" />
     <Content Include="app\components\home\homeView.html" />
     <Content Include="app\components\home\rootController.js" />
