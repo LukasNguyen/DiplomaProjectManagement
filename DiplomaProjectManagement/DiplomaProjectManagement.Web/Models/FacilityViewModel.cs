@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace DiplomaProjectManagement.Web.Models
 {
@@ -17,8 +14,22 @@ namespace DiplomaProjectManagement.Web.Models
         public string LocationBuilding { get; set; }
 
         [EmailAddress]
+        [MaxLength(50)]
         public string Email { get; set; }
 
+        [Url]
         public string UrlWebsite { get; set; }
+
+        public DateTime? CreatedDate { get; set; }
+
+        public DateTime? UpdatedDate { get; set; }
+
+        [MaxLength(256)]
+        public string UpdatedBy { get; set; }
+
+        [MaxLength(256)]
+        public string CreatedBy { get; set; }
+
+        public bool Status { get; set; }
     }
 }

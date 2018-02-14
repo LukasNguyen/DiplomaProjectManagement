@@ -33,6 +33,10 @@ namespace DiplomaProjectManagement.Web.Models
 
         public string UpdatedBy { get; set; }
 
+        [MaxLength(256)]
+
+        public string CreatedBy { get; set; }
+
         public bool Status { get; set; }
 
     }

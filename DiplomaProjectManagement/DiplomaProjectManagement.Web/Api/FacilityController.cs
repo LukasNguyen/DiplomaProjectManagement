@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web;
-using System.Web.Http;
-using System.Web.Script.Serialization;
-using AutoMapper;
+﻿using AutoMapper;
 using DiplomaProjectManagement.Model.Models;
 using DiplomaProjectManagement.Service;
 using DiplomaProjectManagement.Web.Infrastructure.Core;
 using DiplomaProjectManagement.Web.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using System.Web.Script.Serialization;
 
 namespace DiplomaProjectManagement.Web.Api
 {
@@ -20,7 +19,7 @@ namespace DiplomaProjectManagement.Web.Api
     {
         private readonly IFacilityService _facilityService;
 
-        public FacilityController(IErrorService errorService,IFacilityService facilityService) : base(errorService)
+        public FacilityController(IErrorService errorService, IFacilityService facilityService) : base(errorService)
         {
             _facilityService = facilityService;
         }
@@ -37,7 +36,7 @@ namespace DiplomaProjectManagement.Web.Api
 
                 totalRow = model.Count();
 
-                var query = model.OrderByDescending(n => n.CreatedDate).Skip(page * pageSize).Take(pageSize);
+                var query = model.OrderBy(n => n.CreatedDate).Skip(page * pageSize).Take(pageSize);
 
                 var responseData = Mapper.Map<List<FacilityViewModel>>(query);
 
@@ -116,6 +115,64 @@ namespace DiplomaProjectManagement.Web.Api
                 var responseData = Mapper.Map<Facility, FacilityViewModel>(model);
 
                 return request.CreateResponse(HttpStatusCode.OK, responseData);
+            });
+        }
+
+        [Route("create")]
+        [HttpPost]
+        public HttpResponseMessage Create(HttpRequestMessage request, FacilityViewModel facilityViewModel)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+
+                if (!ModelState.IsValid)
+                {
+                    request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+                else
+                {
+                    Facility newFacility = Mapper.Map<Facility>(facilityViewModel);
+
+                    newFacility.CreatedDate = DateTime.Now;
+                    newFacility.CreatedBy = User.Identity.Name;
+
+                    Facility facility = _facilityService.AddFacility(newFacility);
+
+                    _facilityService.Save();
+
+                    response = request.CreateResponse(HttpStatusCode.Created, facility);
+                }
+
+                return response;
+            });
+        }
+
+        [Route("update")]
+        [HttpPut]
+        public HttpResponseMessage Update(HttpRequestMessage request, FacilityViewModel facilityViewModel)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+
+                if (!ModelState.IsValid)
+                {
+                    request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+                else
+                {
+                    Facility facilityUpdated = Mapper.Map<Facility>(facilityViewModel);
+                    facilityUpdated.UpdatedDate = DateTime.Now;
+                    facilityUpdated.UpdatedBy = User.Identity.Name;
+
+                    _facilityService.UpdateFacility(facilityUpdated);
+                    _facilityService.Save();
+
+                    response = request.CreateResponse(HttpStatusCode.Created, facilityUpdated);
+                }
+
+                return response;
             });
         }
     }
