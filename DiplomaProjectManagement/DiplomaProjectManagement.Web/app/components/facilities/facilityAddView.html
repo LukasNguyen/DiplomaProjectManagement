@@ -1,9 +1,63 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <title>facilityAddView</title>
-</head>
-<body>
-    
-</body>
-</html>
+﻿    <!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Add new facility
+        <!--<small>This is homepage of SPA</small>-->
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+        <li><a href="#">Facility</a></li>
+        <li><a ui-sref="products">List facilities</a></li>
+        <li class="active">Add new facility</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <!-- Horizontal Form -->
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">
+                Facility Information
+            </h3>
+        </div><!-- /.box-header -->
+        <!-- form start -->
+        <form class="form-horizontal" novalidate name="frmAddFacility" role="form" ng-submit="addFacility()">
+            <div class="form-group">
+                <label for="name" class="col-sm-2 control-label">Facility Name</label>
+                <div class="col-sm-10">
+                    <input type="text" required id="name" name="name" ng-maxlength="256" class="form-control" ng-model="facility.Name">
+                    <span ng-show="frmAddFacility.name.$error.required" class="has-error">Facility name is required</span>
+                    <span ng-show="frmAddFacility.name.$error.maxlength" class="has-error">Facility name only contains 256 characters</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="locationBuilding" class="col-sm-2 control-label">Location Building</label>
+                <div class="col-sm-10">
+                    <input type="text" required id="locationBuilding" name="locationBuilding" ng-maxlength="1" class="form-control" ng-model="facility.LocationBuilding">
+                    <span ng-show="frmAddFacility.locationBuilding.$error.required" class="has-error">Location Building is required</span>
+                    <span ng-show="frmAddFacility.locationBuilding.$error.maxlength" class="has-error">Location Building only contains 1 characters</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email" class="col-sm-2 control-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="email" required id="email" name="email" ng-maxlength="50" class="form-control" ng-model="facility.Email">
+                    <span ng-show="frmAddFacility.email.$error.required" class="has-error">Email is required</span>
+                    <span ng-show="frmAddFacility.email.$error.maxlength" class="has-error">Email Building only contains 50 characters</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="urlWebsite" class="col-sm-2 control-label">Website</label>
+                <div class="col-sm-10">
+                    <input type="url" required id="urlWebsite" name="urlWebsite" ng-maxlength="256" class="form-control" ng-model="facility.UrlWebsite">
+                    <span ng-show="frmAddFacility.urlWebsite.$error.required" class="has-error">Website is required</span>
+                    <span ng-show="frmAddFacility.urlWebsite.$error.maxlength" class="has-error">Website Building only contains 256 characters</span>
+                </div>
+            </div>
+            <div class="box-footer">
+                <button ui-sref="facilities" class="btn btn-default">Cancel</button>
+                <button type="submit" ng-disabled="frmAddFacility.$invalid" class="btn btn-success pull-right">Save</button>
+            </div><!-- /.box-footer -->
+        </form>
+    </div><!-- /.box -->
+</section><!-- /.content -->

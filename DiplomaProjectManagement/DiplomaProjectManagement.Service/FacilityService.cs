@@ -17,6 +17,8 @@ namespace DiplomaProjectManagement.Service
 
         IEnumerable<Facility> GetAllFacilities(string keyword = null);
 
+        Facility GetFacilityById(int id);
+
         void Save();
     }
 
@@ -59,6 +61,11 @@ namespace DiplomaProjectManagement.Service
                         .ToList();
 
             return _facilityRepository.GetAll().Where(n => n.Status).ToList();
+        }
+
+        public Facility GetFacilityById(int id)
+        {
+            return _facilityRepository.GetSingleById(id);
         }
 
         public void Save()

@@ -104,5 +104,19 @@ namespace DiplomaProjectManagement.Web.Api
                 return response;
             });
         }
+
+        [Route("getbyid/{id:int}")]
+        [HttpGet]
+        public HttpResponseMessage GetById(HttpRequestMessage request, int id)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                var model = _facilityService.GetFacilityById(id);
+
+                var responseData = Mapper.Map<Facility, FacilityViewModel>(model);
+
+                return request.CreateResponse(HttpStatusCode.OK, responseData);
+            });
+        }
     }
 }

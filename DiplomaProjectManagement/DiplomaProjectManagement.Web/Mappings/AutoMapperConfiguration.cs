@@ -21,7 +21,7 @@ namespace DiplomaProjectManagement.Web.Mappings
 
         private static void RegisterMappingForStudent(IMapperConfigurationExpression cfg)
         {
-            cfg.CreateMap<Student, StudentViewModel>();
+            cfg.CreateMap<Student, StudentViewModel>().ReverseMap();
         }
 
         private static void RegisterMappingForFacility(IMapperConfigurationExpression cfg)

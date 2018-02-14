@@ -16,6 +16,7 @@ namespace DiplomaProjectManagement.Web.Models
 
         public string LocationBuilding { get; set; }
 
+        [EmailAddress]
         public string Email { get; set; }
 
         public string UrlWebsite { get; set; }
