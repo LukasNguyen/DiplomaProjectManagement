@@ -70,23 +70,22 @@ namespace DiplomaProjectManagement.Web.Api
         {
             return CreateHttpResponse(request, () =>
             {
-                HttpResponseMessage response = null;
-
                 if (!ModelState.IsValid)
                 {
-                    request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                    return request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
                 }
-                else
+                if (registrationTimeViewModel.RegisteredDate > registrationTimeViewModel.ClosedRegisteredDate ||
+                    registrationTimeViewModel.RegisteredDate > registrationTimeViewModel.ClosedDate ||
+                    registrationTimeViewModel.ClosedDate < registrationTimeViewModel.ClosedRegisteredDate)
                 {
+                     return request.CreateErrorResponse(HttpStatusCode.BadRequest, "Ngày đăng ký phải trước ngày giảng viên chấm điểm và ngày giảng viên chấm phải sau ngày kết thúc");
+                }
                     RegistrationTime newRegistrationTime = Mapper.Map<RegistrationTime>(registrationTimeViewModel);
 
                     RegistrationTime registrationTime = _registrationTimeService.AddRegistrationTime(newRegistrationTime);
                     _registrationTimeService.Save();
 
-                    response = request.CreateResponse(HttpStatusCode.Created, registrationTime);
-                }
-
-                return response;
+                    return request.CreateResponse(HttpStatusCode.Created, registrationTime);
             });
         }
 
@@ -96,23 +95,22 @@ namespace DiplomaProjectManagement.Web.Api
         {
             return CreateHttpResponse(request, () =>
             {
-                HttpResponseMessage response = null;
-
                 if (!ModelState.IsValid)
                 {
-                    request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                    return request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
                 }
-                else
+                if (registrationTimeViewModel.RegisteredDate > registrationTimeViewModel.ClosedRegisteredDate ||
+                    registrationTimeViewModel.RegisteredDate > registrationTimeViewModel.ClosedDate ||
+                    registrationTimeViewModel.ClosedDate < registrationTimeViewModel.ClosedRegisteredDate)
                 {
-                    RegistrationTime registrationTimeUpdated = Mapper.Map<RegistrationTime>(registrationTimeViewModel);
-
-                    _registrationTimeService.UpdateRegistrationTime(registrationTimeUpdated);
-                    _registrationTimeService.Save();
-
-                    response = request.CreateResponse(HttpStatusCode.Created, registrationTimeUpdated);
+                    return request.CreateErrorResponse(HttpStatusCode.BadRequest, "Ngày đăng ký phải trước ngày giảng viên chấm điểm và ngày giảng viên chấm phải sau ngày kết thúc");
                 }
+                RegistrationTime RegistrationTimeUpdated = Mapper.Map<RegistrationTime>(registrationTimeViewModel);
 
-                return response;
+                _registrationTimeService.UpdateRegistrationTime(RegistrationTimeUpdated);
+                _registrationTimeService.Save();
+
+                return request.CreateResponse(HttpStatusCode.Created, RegistrationTimeUpdated);
             });
         }
     }
