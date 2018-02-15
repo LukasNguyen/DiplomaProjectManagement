@@ -39,9 +39,7 @@
 <body class="hold-transition skin-blue sidebar-mini" ng-app="application" ng-controller="rootController">
     <div ui-view></div>
 
-
     <!-- jQuery 2.1.4 -->
-    @*<script src="../../plugins/jQuery/jQuery-2.1.4.min.js"></script>*@
     <script src="~/Assets/admin/libs/jquery/dist/jquery.js"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="~/Assets/admin/libs/bootstrap/dist/js/bootstrap.js"></script>
@@ -61,6 +59,7 @@
     <script src="~/app/shared/modules/application.common.js"></script>
     <script src="~/app/shared/directives/pagerDirective.js"></script>
     <script src="~/app/shared/services/apiService.js"></script>
+    <script src="~/app/shared/filters/registrationTimeStatusFilter.js"></script>
 
     <script src="~/app/shared/services/notificationService.js"></script>
     <script src="~/app/shared/services/authData.js"></script>
@@ -82,5 +81,9 @@
     <script src="~/app/components/facilities/facilityAddController.js"></script>
     <script src="~/app/components/facilities/facilityEditController.js"></script>
 
+    <script src="~/app/components/registrationTimes/registrationTimes.module.js"></script>
+    <script src="~/app/components/registrationTimes/registrationTimeListController.js"></script>
+    <script src="~/app/components/registrationTimes/registrationTimeAddController.js"></script>
+    <script src="~/app/components/registrationTimes/registrationTimeEditController.js"></script>
 </body>
 </html>
