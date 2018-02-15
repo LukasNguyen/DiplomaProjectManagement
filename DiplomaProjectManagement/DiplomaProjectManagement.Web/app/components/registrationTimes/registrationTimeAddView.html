@@ -1,0 +1,60 @@
+﻿    <!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Add new registration time
+        <!--<small>This is homepage of SPA</small>-->
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+        <li><a href="#">Registration times</a></li>
+        <li><a ui-sref="registrationTimes">Registration times</a></li>
+        <li class="active">Add new registration time</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <!-- Horizontal Form -->
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">
+                Registration time Information
+            </h3>
+        </div><!-- /.box-header -->
+        <!-- form start -->
+        <form class="form-horizontal" novalidate name="frmAddRegistrationTime" role="form" ng-submit="addRegistrationTime()">
+            <div class="form-group">
+                <label for="name" class="col-sm-2 control-label">Registration Time Name</label>
+                <div class="col-sm-10">
+                    <input type="text" required id="name" name="name" ng-maxlength="256" class="form-control" ng-model="registrationTime.Name">
+                    <span ng-show="frmAddRegistrationTime.name.$error.required" class="has-error">Registration time name is required</span>
+                    <span ng-show="frmAddRegistrationTime.name.$error.maxlength" class="has-error">Registration time name only contains 256 characters</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="registeredDate" class="col-sm-2 control-label">Opening Date</label>
+                <div class="col-sm-10">
+                    <input type="date" required id="registeredDate" name="registeredDate" class="form-control" ng-model="registrationTime.RegisteredDate">
+                    <span ng-show="frmAddRegistrationTime.registeredDate.$error.required" class="has-error">Opening date is required</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="closedRegisteredDate" class="col-sm-2 control-label">Teacher Assign Grades Date</label>
+                <div class="col-sm-10">
+                    <input type="date" required id="closedRegisteredDate" name="closedRegisteredDate" class="form-control" ng-model="registrationTime.ClosedRegisteredDate">
+                    <span ng-show="frmAddRegistrationTime.closedRegisteredDate.$error.required" class="has-error">Teacher Assign Grades is required</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="closedDate" class="col-sm-2 control-label">Closed Date</label>
+                <div class="col-sm-10">
+                    <input type="date" required id="closedDate" name="closedDate" class="form-control" ng-model="registrationTime.ClosedDate">
+                    <span ng-show="frmAddRegistrationTime.closedDate.$error.required" class="has-error">Closed date is required</span>
+                </div>
+            </div>
+            <div class="box-footer">
+                <button ui-sref="registrationTimes" class="btn btn-default">Cancel</button>
+                <button type="submit" ng-disabled="frmAddRegistrationTime.$invalid" class="btn btn-success pull-right">Save</button>
+            </div><!-- /.box-footer -->
+        </form>
+    </div><!-- /.box -->
+</section><!-- /.content -->

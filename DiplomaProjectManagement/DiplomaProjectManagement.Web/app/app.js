@@ -1,5 +1,12 @@
 ﻿(function () {
-    angular.module('application', ['application.students', 'application.facilities', 'application.common']).config(config).config(configAuthentication).config(['$qProvider', function ($qProvider) {
+    angular.module('application', [
+        'application.students',
+        'application.facilities',
+        'application.registrationTimes',
+        'application.common'])
+        .config(config)
+        .config(configAuthentication)
+        .config(['$qProvider', function ($qProvider) {
         $qProvider.errorOnUnhandledRejections(false);
     }]);
 

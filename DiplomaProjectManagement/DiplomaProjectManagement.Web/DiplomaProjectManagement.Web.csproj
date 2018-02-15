@@ -200,6 +200,7 @@
   <ItemGroup>
     <Compile Include="Api\AccountController.cs" />
     <Compile Include="Api\FacilityController.cs" />
+    <Compile Include="Api\RegistrationTimeController.cs" />
     <Compile Include="Api\StudentController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -221,6 +222,7 @@
     <Compile Include="Models\ApplicationUserViewModel.cs" />
     <Compile Include="Models\FacilityViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\RegistrationTimeViewModel.cs" />
     <Compile Include="Models\StudentViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -238,6 +240,13 @@
     <Content Include="app\components\home\rootController.js" />
     <Content Include="app\components\login\loginController.js" />
     <Content Include="app\components\login\loginView.html" />
+    <Content Include="app\components\registrationTimes\registrationTimeAddController.js" />
+    <Content Include="app\components\registrationTimes\registrationTimeAddView.html" />
+    <Content Include="app\components\registrationTimes\registrationTimeEditController.js" />
+    <Content Include="app\components\registrationTimes\registrationTimeEditView.html" />
+    <Content Include="app\components\registrationTimes\registrationTimeListController.js" />
+    <Content Include="app\components\registrationTimes\registrationTimeListView.html" />
+    <Content Include="app\components\registrationTimes\registrationTimes.module.js" />
     <Content Include="app\components\students\studentAddController.js" />
     <Content Include="app\components\students\studentAddView.html" />
     <Content Include="app\components\students\studentEditController.js" />
@@ -247,6 +256,7 @@
     <Content Include="app\components\students\students.module.js" />
     <Content Include="app\shared\directives\pagerDirective.html" />
     <Content Include="app\shared\directives\pagerDirective.js" />
+    <Content Include="app\shared\filters\registrationTimeStatusFilter.js" />
     <Content Include="app\shared\modules\application.common.js" />
     <Content Include="app\shared\services\apiService.js" />
     <Content Include="app\shared\services\authData.js" />
@@ -5773,7 +5783,6 @@
     <Content Include="Views\Home\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\shared\filters\" />
     <Folder Include="App_Data\" />
     <Folder Include="Assets\admin\libs\checklist-model\test\" />
     <Folder Include="Assets\client\" />

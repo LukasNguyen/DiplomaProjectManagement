@@ -17,6 +17,9 @@ namespace DiplomaProjectManagement.Service
 
         IEnumerable<RegistrationTime> GetAllRegistrationTimes();
 
+        RegistrationTime GetRegistrationTimeById(int id);
+
+
         void Save();
     }
 
@@ -53,6 +56,11 @@ namespace DiplomaProjectManagement.Service
         public IEnumerable<RegistrationTime> GetAllRegistrationTimes()
         {
             return _registrationTimeRepository.GetAll().ToList();
+        }
+
+        public RegistrationTime GetRegistrationTimeById(int id)
+        {
+            return _registrationTimeRepository.GetSingleById(id);
         }
 
         public void Save()
