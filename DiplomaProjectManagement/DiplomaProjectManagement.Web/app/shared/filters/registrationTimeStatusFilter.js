@@ -2,11 +2,11 @@
     app.filter('registrationTimeStatusFilter', function () {
         return function (input) {
             if (input == 0) {
-                return "Opening";
+                return "Mở cho sinh viên đăng ký";
             } else if (input == 1) {
-                return "Teacher assigning grades";
+                return "Giáo viên chấm điểm";
             } else {
-                return "Closed";
+                return "Đóng";
             }
         }
     });

@@ -32,11 +32,11 @@
             apiService.del('/api/facilities/deletemulti',
                 config,
                 (result) => {
-                    notificationService.displaySuccess('Delete succeeded ' + result.data + ' facilities');
+                    notificationService.displaySuccess('Xóa thành công ' + result.data + ' khoa');
                     search();
                 },
                 (failure) => {
-                    notificationService.displayError('Delete facilities failed');
+                    notificationService.displayError('Xóa các khoa trên thất bại');
                 });
         }
 
@@ -67,7 +67,7 @@
         }, true);
 
         function deleteFacility(id) {
-            $ngBootbox.confirm('Do you really want to delete this facility?').then(function () {
+            $ngBootbox.confirm('Bạn có thật sự muốn xóa khoa này không?').then(function () {
                 var config = {
                     params: {
                         id: id
@@ -77,11 +77,11 @@
                 apiService.del('/api/facilities/delete',
                     config,
                     (success) => {
-                        notificationService.displaySuccess('Delete facility succeeded');
+                        notificationService.displaySuccess('Xóa khoa thành công');
                         search();
                     },
                     (failure) => {
-                        notificationService.displayError('Delete facility failed');
+                        notificationService.displayError('Xóa khoa thất bại');
                     });
             });
         }
@@ -105,14 +105,14 @@
             apiService.get('/api/facilities/getall', config, (result) => {
 
                 if (result.data.TotalCount == 0)
-                    notificationService.displayWarning('Not found any records');
+                    notificationService.displayWarning('Không tìm thấy khoa nào trong hệ thống');
 
                 $scope.facilities = result.data.Items;
                 $scope.page = result.data.Page;
                 $scope.pagesCount = result.data.TotalPages;
                 $scope.totalCount = result.data.TotalCount;
             }, (failure) => {
-                console.log('Load list facilities failed');
+                console.log('Load danh sách khoa thất bại');
             });
         }
 

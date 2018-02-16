@@ -32,11 +32,11 @@
             apiService.del('/api/students/deletemulti',
                 config,
                 (result) => {
-                    notificationService.displaySuccess('Delete succeeded ' + result.data + ' students');
+                    notificationService.displaySuccess('Xóa thành công ' + result.data + ' sinh viên');
                     search();
                 },
                 (failure) => {
-                    notificationService.displayError('Delete student failed');
+                    notificationService.displayError('Xóa các sinh viên trên thất bại');
                 });
         }
 
@@ -67,7 +67,7 @@
         }, true);
 
         function deleteStudent(id) {
-            $ngBootbox.confirm('Do you really want to delete this student?').then(function () {
+            $ngBootbox.confirm('Bạn có thật sự muốn xóa sinh viên này không?').then(function () {
                 var config = {
                     params: {
                         id: id
@@ -77,11 +77,11 @@
                 apiService.del('/api/students/delete',
                     config,
                     (success) => {
-                        notificationService.displaySuccess('Delete student succeeded');
+                        notificationService.displaySuccess('Xóa sinh viên thành công');
                         search();
                     },
                     (failure) => {
-                        notificationService.displayError('Delete student failed');
+                        notificationService.displayError('Xóa sinh viên thất bại');
                     });
             });
         }
@@ -105,14 +105,14 @@
             apiService.get('/api/students/getall', config, (result) => {
 
                 if (result.data.TotalCount == 0)
-                    notificationService.displayWarning('Not found any records');
+                    notificationService.displayWarning('Không tìm thấy sinh viên nào trong hệ thống');
 
                 $scope.students = result.data.Items;
                 $scope.page = result.data.Page;
                 $scope.pagesCount = result.data.TotalPages;
                 $scope.totalCount = result.data.TotalCount;
             }, (failure) => {
-                console.log('Load list student failed');
+                console.log('Load danh sách sinh viên thất bại');
             });
         }
 

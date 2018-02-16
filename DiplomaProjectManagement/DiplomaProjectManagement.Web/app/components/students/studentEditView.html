@@ -1,14 +1,14 @@
 ﻿    <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Update student: {{student.Name}}
+        Cập nhật thông tin: {{student.Name}}
         <!--<small>This is homepage of SPA</small>-->
     </h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i>Dashboard</a></li>
-        <li><a href="#">Student</a></li>
-        <li><a ui-sref="students">List Students</a></li>
-        <li class="active">Update student</li>
+        <li><a href="#"><i class="fa fa-dashboard"></i>Trang chủ</a></li>
+        <li><a href="#">Sinh viên</a></li>
+        <li><a ui-sref="students">Danh sách sinh viên</a></li>
+        <li class="active">Cập nhật thông tin sinh viên</li>
     </ol>
 </section>
 <!-- Main content -->
@@ -17,7 +17,7 @@
     <div class="box box-info">
         <div class="box-header with-border">
             <h3 class="box-title">
-                Student Login Information
+                Thông tin sinh viên
             </h3>
         </div><!-- /.box-header -->
         <!-- form start -->
@@ -27,43 +27,43 @@
                 <label for="email" class="col-sm-2 control-label">Email</label>
                 <div class="col-sm-8">
                     <input type="email" required id="email" name="email" class="form-control" ng-model="student.Email">
-                    <span ng-show="frmUpdateStudent.email.$error.required" class="has-error">Email is required.</span>
-                    <span ng-show="frmUpdateStudent.email.$error.email" class="has-error">Email is not in valid format.</span>
+                    <span ng-show="frmUpdateStudent.email.$error.required" class="has-error">Vui lòng nhập Email.</span>
+                    <span ng-show="frmUpdateStudent.email.$error.email" class="has-error">Email không đúng định dạng.</span>
                 </div>
             </div>
             <div class="form-group">
-                <label for="password" class="col-sm-2 control-label">New Password</label>
+                <label for="password" class="col-sm-2 control-label">Mật khẩu mới</label>
                 <div class="col-sm-8">
-                    <input type="password" id="password" class="form-control" ng-model="student.Password" placeholder="Only fill in when you really want to change your password">
+                    <input type="password" id="password" class="form-control" ng-model="student.Password" placeholder="Chỉ nên điền vào nếu bạn thật sự muốn thay đổi mật khẩu">
                 </div>
             </div>
             <div class="box box-info"></div>
             <div class="form-group">
-                <label for="studentName" class="col-sm-2 control-label">Student Name</label>
+                <label for="studentName" class="col-sm-2 control-label">Tên sinh viên</label>
                 <div class="col-sm-8">
                     <input type="text" required id="studentName" name="studentName" class="form-control" ng-model="student.Name">
-                    <span ng-show="frmUpdateStudent.studentName.$error.required" class="has-error">Student Name is required.</span>
+                    <span ng-show="frmUpdateStudent.studentName.$error.required" class="has-error">Vui lòng nhập tên sinh viên.</span>
                 </div>
             </div>
             <div class="form-group">
-                <label for="phoneNumber" class="col-sm-2 control-label">Phone Number</label>
+                <label for="phoneNumber" class="col-sm-2 control-label">Số điện thoại</label>
                 <div class="col-sm-8">
                     <input type="text" required id="phoneNumber" name="phoneNumber" ng-minlength="10" ng-maxlength="11" class="form-control" ng-model="student.Phone">
-                    <span ng-show="frmUpdateStudent.phoneNumber.$error.required" class="has-error">Phone number is required.</span>
-                    <span ng-show="frmUpdateStudent.phoneNumber.$error.minlength || frmUpdateStudent.phoneNumber.$error.maxlength" class="has-error">Phone Number lengths are between 10 and 11 characters</span>
+                    <span ng-show="frmUpdateStudent.phoneNumber.$error.required" class="has-error">Vui lòng nhập số điện thoại.</span>
+                    <span ng-show="frmUpdateStudent.phoneNumber.$error.minlength || frmUpdateStudent.phoneNumber.$error.maxlength" class="has-error">Số điện thoại bao gồm 10 hoặc 11 số.</span>
                 </div>
             </div>
             <div class="form-group">
-                <label for="address" class="col-sm-2 control-label">Address</label>
+                <label for="address" class="col-sm-2 control-label">Địa chỉ</label>
                 <div class="col-sm-8">
                     <input type="text" required id="address" name="address" class="form-control" ng-model="student.Address">
-                    <span ng-show="frmUpdateStudent.address.$error.required" class="has-error">Password is required.</span>
+                    <span ng-show="frmUpdateStudent.address.$error.required" class="has-error">Vui lòng nhập địa chỉ.</span>
                 </div>
             </div>
             <div class="box-footer">
                 <div class="col-sm-offset-1 col-sm-9">
-                    <button ui-sref="students" class="btn btn-default">Cancel</button>
-                    <button type="submit" ng-disabled="frmUpdateStudent.$invalid" class="btn btn-success pull-right">Save</button>
+                    <button ui-sref="students" class="btn btn-default">Hủy bỏ</button>
+                    <button type="submit" ng-disabled="frmUpdateStudent.$invalid" class="btn btn-success pull-right">Lưu</button>
                 </div><!-- /.box-footer -->
             </div>
         </form>

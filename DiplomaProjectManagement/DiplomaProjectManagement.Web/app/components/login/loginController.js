@@ -12,12 +12,12 @@
 
                     if (response != null && response.data.error != undefined) {
                         if (response.data.error == "invalid_grant")
-                            notificationService.displayError("Username or password isn't correctly. Please try again.");
+                            notificationService.displayError("Tài khoản hoặc mật khẩu không chính xác.");
                         if (response.data.error == "invalid_role")
-                            notificationService.displayError("You haven't got administration permission to login to this page.");
+                            notificationService.displayError("Tài khoản không có quyền admin để truy cập hệ thống này.");
                     }
                     else {
-                        notificationService.displayInfo("Login Succeeded. Welcome to administration system.");
+                        notificationService.displayInfo("Đăng nhập thành công. Chào mừng đến hệ thống của Admin.");
                         var stateService = $injector.get('$state');
                         stateService.go('home');
                     }

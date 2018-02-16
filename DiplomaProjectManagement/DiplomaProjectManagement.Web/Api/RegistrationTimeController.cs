@@ -42,7 +42,7 @@ namespace DiplomaProjectManagement.Web.Api
                 {
                     Items = responseData,
                     Page = page,
-                    TotalCount = totalRow,
+                    TotalCount = responseData.Count,
                     TotalPages = (int)Math.Ceiling((decimal)totalRow / pageSize)
                 };
 
@@ -74,9 +74,7 @@ namespace DiplomaProjectManagement.Web.Api
                 {
                     return request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
                 }
-                if (registrationTimeViewModel.RegisteredDate > registrationTimeViewModel.ClosedRegisteredDate ||
-                    registrationTimeViewModel.RegisteredDate > registrationTimeViewModel.ClosedDate ||
-                    registrationTimeViewModel.ClosedDate < registrationTimeViewModel.ClosedRegisteredDate)
+                if (CheckValidDate(registrationTimeViewModel))
                 {
                      return request.CreateErrorResponse(HttpStatusCode.BadRequest, "Ngày đăng ký phải trước ngày giảng viên chấm điểm và ngày giảng viên chấm phải sau ngày kết thúc");
                 }
@@ -99,9 +97,7 @@ namespace DiplomaProjectManagement.Web.Api
                 {
                     return request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
                 }
-                if (registrationTimeViewModel.RegisteredDate > registrationTimeViewModel.ClosedRegisteredDate ||
-                    registrationTimeViewModel.RegisteredDate > registrationTimeViewModel.ClosedDate ||
-                    registrationTimeViewModel.ClosedDate < registrationTimeViewModel.ClosedRegisteredDate)
+                if (CheckValidDate(registrationTimeViewModel))
                 {
                     return request.CreateErrorResponse(HttpStatusCode.BadRequest, "Ngày đăng ký phải trước ngày giảng viên chấm điểm và ngày giảng viên chấm phải sau ngày kết thúc");
                 }
@@ -112,6 +108,12 @@ namespace DiplomaProjectManagement.Web.Api
 
                 return request.CreateResponse(HttpStatusCode.Created, RegistrationTimeUpdated);
             });
+        }
+        private static bool CheckValidDate(RegistrationTimeViewModel registrationTimeViewModel)
+        {
+            return registrationTimeViewModel.RegisteredDate > registrationTimeViewModel.ClosedRegisteredDate ||
+                   registrationTimeViewModel.RegisteredDate > registrationTimeViewModel.ClosedDate ||
+                   registrationTimeViewModel.ClosedDate < registrationTimeViewModel.ClosedRegisteredDate;
         }
     }
 }

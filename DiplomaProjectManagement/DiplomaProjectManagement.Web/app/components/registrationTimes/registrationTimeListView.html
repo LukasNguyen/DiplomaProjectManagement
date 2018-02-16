@@ -1,12 +1,12 @@
 ﻿    <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Registration Times
+        Đợt đăng ký đồ án tốt nghiệp
     </h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i>Dashboard</a></li>
-        <li><a href="#">Registration Times</a></li>
-        <li class="active">Registration Times</li>
+        <li><a href="#"><i class="fa fa-dashboard"></i>Trang chủ</a></li>
+        <li><a href="#">Đợt đăng ký đồ án</a></li>
+        <li class="active">Danh sách các đợt</li>
     </ol>
 </section>
 <!-- Main content -->
@@ -14,7 +14,7 @@
     <!-- Default box -->
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">Registration Times</h3>
+            <h3 class="box-title">Đợt đăng ký đồ án</h3>
             <div class="box-tools pull-right">
                 <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
                 <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
@@ -24,14 +24,14 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="input-group">
-                        <input type="text" class="form-control" ng-model="keyword" placeholder="Keyword">
+                        <input type="text" class="form-control" ng-model="keyword" placeholder="Từ khóa tìm kiếm">
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" ng-click="search()">Search</button>
+                            <button class="btn btn-default" type="button" ng-click="search()">Tìm kiếm</button>
                         </span>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <button class="btn btn-success" ui-sref="registrationTime_add">Add new registration time</button>
+                    <button class="btn btn-success" ui-sref="registrationTime_add">Thêm mới đợt đăng ký</button>
                 </div>
             </div>
             <br />
@@ -40,11 +40,11 @@
                     <table class="table table-bordered">
                         <tr>
                             <th style="width: 5%">ID</th>
-                            <th style="width: 20%">Name</th>
-                            <th style="width: 15%">Opening registration time</th>
-                            <th style="width: 15%">Allowing teacher's assign grades</th>
-                            <th style="width: 15%">Closed registration time</th>
-                            <th style="width: 20%">Status</th>
+                            <th style="width: 20%">Tên đợt đăng ký</th>
+                            <th style="width: 15%">Thời gian mở đợt</th>
+                            <th style="width: 15%">Thời gian giảng viên cho điểm</th>
+                            <th style="width: 15%">Thời gian đóng đợt</th>
+                            <th style="width: 20%">Trạng thái</th>
                             <th style="width: 10%"></th>
                         </tr>
                         <tr ng-repeat="item in registrationTimes">
@@ -61,7 +61,7 @@
                         <tfoot>
                             <tr>
                                 <td colspan="6">
-                                    <span class="pull-right">Page: {{page+1}} - Total count: {{totalCount}}</span>
+                                    <span class="pull-right">Trang: {{page+1}} - Tổng đợt: {{totalCount}}</span>
                                 </td>
                             </tr>
                         </tfoot>

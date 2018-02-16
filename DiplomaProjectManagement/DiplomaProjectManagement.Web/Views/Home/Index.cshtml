@@ -19,20 +19,20 @@
                 <section class="login_content">
                     @using (Html.BeginForm("Login", "Account", new { returnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
                     {
-                        <h1>Login</h1>
+                        <h1>Đăng nhập</h1>
                         @Html.ValidationSummary()
                         <div>
-                            @Html.TextBoxFor(n => n.UserName, new { @class = "form-control", placeholder = "Username" })
+                            @Html.TextBoxFor(n => n.UserName, new { @class = "form-control", placeholder = "Tài khoản" })
                         </div>
                         <div>
-                            @Html.PasswordFor(n => n.Password, new { @class = "form-control", placeholder = "Password" })
+                            @Html.PasswordFor(n => n.Password, new { @class = "form-control", placeholder = "Mật khẩu" })
                         </div>
                         <div>
-                            <p class="pull-right">@Html.CheckBoxFor(n => n.RememberMe) Remember me ?</p>
+                            <p class="pull-right">@Html.CheckBoxFor(n => n.RememberMe) Nhớ mật khẩu ?</p>
                         </div>
                         <br /><br />
                         <div class="col-md-offset-2 col-md-4">
-                            <input style="width: 120px" type="submit" value="Login">
+                            <input style="width: 120px" type="submit" value="Đăng nhập">
                         </div>
                         <br />
                         <div class="clearfix"></div>
@@ -41,7 +41,7 @@
                             <br />
                             <div>
                                 <h1>
-                                    <i class="fa fa-paw"></i> Diploma Project Managment
+                                    <i class="fa fa-paw"></i> Quản lý đồ án tốt nghiệp
                                 </h1>
                             </div>
                         </div>

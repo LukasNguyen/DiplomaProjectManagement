@@ -12,7 +12,7 @@
         function addFacility() {
 
             apiService.post('/api/facilities/create', $scope.facility, (result) => {
-                notificationService.displaySuccess('Facility name: ' + result.data.Name + ' are added to system.');
+                notificationService.displaySuccess('Khoa: ' + result.data.Name + ' được thêm vào hệ thống.');
                 $state.go('facilities');
             }, (failure) => {
                 notificationService.displayError(failure.data.Message);
