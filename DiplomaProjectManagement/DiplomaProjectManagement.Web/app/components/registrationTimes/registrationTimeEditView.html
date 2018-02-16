@@ -5,9 +5,9 @@
         <!--<small>This is homepage of SPA</small>-->
     </h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+        <li><a href="#"><i class="fa fa-dashboard"></i>Trang chủ</a></li>
         <li><a href="#">Đợt đăng ký đồ án</a></li>
-        <li><a ui-sref="registrationTimes">Danh sách</a></li>
+        <li><a ui-sref="registrationTimes">Danh sách các đợt</a></li>
         <li class="active">Cập nhật đợt đăng ký đồ án</li>
     </ol>
 </section>
@@ -17,40 +17,40 @@
     <div class="box box-info">
         <div class="box-header with-border">
             <h3 class="box-title">
-                Registration time Information
+                Đợt đăng ký đồ án tốt nghiệp
             </h3>
         </div><!-- /.box-header -->
         <!-- form start -->
         <form class="form-horizontal" novalidate name="frmUpdateRegistrationTime" role="form" ng-submit="updateRegistrationTime()">
             <div class="form-group">
-                <label for="name" class="col-sm-2 control-label">Registration Time Name</label>
+                <label for="name" class="col-sm-2 control-label">Tên đợt đăng ký</label>
                 <div class="col-sm-10">
                     <input type="text" required id="name" name="name" ng-maxlength="256" class="form-control" ng-model="registrationTime.Name">
-                    <span ng-show="frmUpdateRegistrationTime.name.$error.required" class="has-error">Registration time name is required</span>
-                    <span ng-show="frmUpdateRegistrationTime.name.$error.maxlength" class="has-error">Registration time name only contains 256 characters</span>
+                    <span ng-show="frmUpdateRegistrationTime.name.$error.required" class="has-error">Vui lòng nhập tên đợt đăng ký.</span>
+                    <span ng-show="frmUpdateRegistrationTime.name.$error.maxlength" class="has-error">Tên đợt đăng ký chỉ gồm 256 ký tự.</span>
                 </div>
             </div>
             <div class="form-group">
-                <label for="registeredDate" class="col-sm-2 control-label">Opening Date</label>
+                <label for="registeredDate" class="col-sm-2 control-label">Thời gian mở đợt</label>
                 <div class="col-sm-10">
                     <input type="date" id="registeredDate" value="{{ registrationTime.RegisteredDate | date: 'yyyy-MM-dd' }}" class="form-control" ng-model="registrationTime.RegisteredDate">
                 </div>
             </div>
             <div class="form-group">
-                <label for="closedRegisteredDate" class="col-sm-2 control-label">Teacher Assign Grades Date</label>
+                <label for="closedRegisteredDate" class="col-sm-2 control-label">Thời gian giảng viên cho điểm</label>
                 <div class="col-sm-10">
                     <input type="date" id="closedRegisteredDate" value="{{ registrationTime.ClosedRegisteredDate | date: 'yyyy-MM-dd' }}" class="form-control" ng-model="registrationTime.ClosedRegisteredDate">
                 </div>
             </div>
             <div class="form-group">
-                <label for="closedDate" class="col-sm-2 control-label">Closed Date</label>
+                <label for="closedDate" class="col-sm-2 control-label">Thời gian đóng đợt</label>
                 <div class="col-sm-10">
                     <input type="date" id="closedDate" value="{{ registrationTime.ClosedDate | date: 'yyyy-MM-dd' }}"  class="form-control" ng-model="registrationTime.ClosedDate">
                 </div>
             </div>
             <div class="box-footer">
-                <button ui-sref="registrationTimes" class="btn btn-default">Cancel</button>
-                <button type="submit" ng-disabled="frmUpdateRegistrationTime.$invalid" class="btn btn-success pull-right">Save</button>
+                <button ui-sref="registrationTimes" class="btn btn-default">Hủy bỏ</button>
+                <button type="submit" ng-disabled="frmUpdateRegistrationTime.$invalid" class="btn btn-success pull-right">Lưu</button>
             </div><!-- /.box-footer -->
         </form>
     </div><!-- /.box -->

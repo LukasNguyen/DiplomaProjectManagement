@@ -1,12 +1,12 @@
 ﻿    <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Student
+        Quản lý thông tin sinh viên
     </h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i>Dashboard</a></li>
-        <li><a href="#">Students</a></li>
-        <li class="active">List Students</li>
+        <li><a href="#"><i class="fa fa-dashboard"></i>Trang chủ</a></li>
+        <li><a href="#">Sinh viên</a></li>
+        <li class="active">Danh sách sinh viên</li>
     </ol>
 </section>
 <!-- Main content -->
@@ -14,7 +14,7 @@
     <!-- Default box -->
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">Students</h3>
+            <h3 class="box-title">Sinh viên</h3>
             <div class="box-tools pull-right">
                 <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
                 <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
@@ -24,15 +24,15 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="input-group">
-                        <input type="text" class="form-control" ng-model="keyword" placeholder="Keyword">
+                        <input type="text" class="form-control" ng-model="keyword" placeholder="Từ khóa tìm kiếm">
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" ng-click="search()">Search</button>
+                            <button class="btn btn-default" type="button" ng-click="search()">Tìm kiếm</button>
                         </span>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <button class="btn btn-success" ui-sref="student_add">Add new student</button>
-                    <button class="btn btn-danger" ng-click="deleteMultiple()" id="btnDelete" disabled>Delete students</button>
+                    <button class="btn btn-success" ui-sref="student_add">Thêm sinh viên</button>
+                    <button class="btn btn-danger" ng-click="deleteMultiple()" id="btnDelete" disabled>Xóa nhiều sinh viên</button>
                 </div>
             </div>
             <br/>
@@ -40,13 +40,13 @@
                 <div class="col-md-12">
                     <table class="table table-bordered">
                         <tr>
-                            <th style="width: 5%"><label>All <input name="all" type="checkbox" ng-click="selectAll()" /></label></th>
-                            <th style="width: 10%">Student ID</th>
-                            <th style="width: 20%">Name</th>
-                            <th style="width: 10%">Phone</th>
+                            <th style="width: 5%"><label>Chọn <input name="all" type="checkbox" ng-click="selectAll()" /></label></th>
+                            <th style="width: 10%">ID</th>
+                            <th style="width: 20%">Tên sinh viên</th>
+                            <th style="width: 10%">Số điện thoại</th>
                             <th style="width: 15%">Email</th>
-                            <th style="width: 20%">Address</th>
-                            <th style="width: 10%">Created Date</th>
+                            <th style="width: 20%">Địa chỉ</th>
+                            <th style="width: 10%">Ngày tạo</th>
                             <th style="width: 15%"></th>
                         </tr>
                         <tr ng-repeat="item in students">
@@ -64,8 +64,8 @@
                         </tr>
                         <tfoot>
                             <tr>
-                                <td colspan="6">
-                                    <span class="pull-right">Page: {{page+1}} - Total count: {{totalCount}}</span>
+                                <td colspan="8">
+                                    <span class="pull-right">Trang: {{page+1}} - Tổng sinh viên: {{totalCount}}</span>
                                 </td>
                             </tr>
                         </tfoot>

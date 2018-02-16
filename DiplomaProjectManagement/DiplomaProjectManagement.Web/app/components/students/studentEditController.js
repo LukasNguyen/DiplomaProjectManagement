@@ -9,7 +9,7 @@
 
         function updateStudent() {
             apiService.put('/api/students/update', $scope.student, (result) => {
-                notificationService.displaySuccess('Student name: ' + result.data.Name + ' are updated.');
+                notificationService.displaySuccess('Sinh viên: ' + result.data.Name + ' được cập nhật thành công.');
                 $state.go('students');
             }, (failure) => {
                 notificationService.displayError(failure.data.Message);

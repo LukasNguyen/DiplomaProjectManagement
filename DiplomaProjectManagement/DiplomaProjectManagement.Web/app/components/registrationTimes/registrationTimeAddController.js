@@ -11,7 +11,7 @@
         function addRegistrationTime() {
 
             apiService.post('/api/registrationTimes/create', $scope.registrationTime, (result) => {
-                notificationService.displaySuccess('Registration time name: ' + result.data.Name + ' are added to system.');
+                notificationService.displaySuccess('Đợt đăng ký đồ án: ' + result.data.Name + ' được thêm vào hệ thống.');
                 $state.go('registrationTimes');
             }, (failure) => {
                 notificationService.displayError(failure.data.Message);

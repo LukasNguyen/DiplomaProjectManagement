@@ -31,14 +31,14 @@
             apiService.get('/api/registrationTimes/getall', config, (result) => {
 
                 if (result.data.TotalCount == 0)
-                    notificationService.displayWarning('Not found any records');
+                    notificationService.displayWarning('Không tìm thấy đợt đăng ký nào trong hệ thống');
 
                 $scope.registrationTimes = result.data.Items;
                 $scope.page = result.data.Page;
                 $scope.pagesCount = result.data.TotalPages;
                 $scope.totalCount = result.data.TotalCount;
             }, (failure) => {
-                console.log('Load list registration times failed');
+                console.log('Load danh sách đợt đăng ký thất bại');
             });
         }
 

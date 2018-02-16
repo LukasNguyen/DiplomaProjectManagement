@@ -12,7 +12,7 @@
         function addStudent() {
 
             apiService.post('/api/students/create', $scope.student, (result) => {
-                notificationService.displaySuccess('Student name: ' + result.data.Name + ' are added to system.');
+                notificationService.displaySuccess('Sinh viên: ' + result.data.Name + ' được thêm vào hệ thống.');
                 $state.go('students');
             }, (failure) => {
                 notificationService.displayError(failure.data.Message);

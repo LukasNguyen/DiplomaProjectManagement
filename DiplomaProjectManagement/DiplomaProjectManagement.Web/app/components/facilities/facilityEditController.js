@@ -9,7 +9,7 @@
 
         function updateFacility() {
             apiService.put('/api/facilities/update', $scope.facility, (result) => {
-                notificationService.displaySuccess('Facility name: ' + result.data.Name + ' are updated.');
+                notificationService.displaySuccess('Khoa: ' + result.data.Name + ' được cập nhật thông tin.');
                 $state.go('facilities');
             }, (failure) => {
                 notificationService.displayError(failure.data.Message);

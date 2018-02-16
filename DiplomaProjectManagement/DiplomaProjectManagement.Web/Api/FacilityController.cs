@@ -44,7 +44,7 @@ namespace DiplomaProjectManagement.Web.Api
                 {
                     Items = responseData,
                     Page = page,
-                    TotalCount = totalRow,
+                    TotalCount = responseData.Count,
                     TotalPages = (int)Math.Ceiling((decimal)totalRow / pageSize)
                 };
 
