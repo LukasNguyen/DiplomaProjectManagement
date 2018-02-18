@@ -54,7 +54,7 @@ namespace DiplomaProjectManagement.Service
 
         public Student DeleteStudentByModifyStatus(int id)
         {
-            var student =  _studentRepository.GetSingleById(id);
+            var student = GetStudentById(id);
 
             student.Status = false;
 

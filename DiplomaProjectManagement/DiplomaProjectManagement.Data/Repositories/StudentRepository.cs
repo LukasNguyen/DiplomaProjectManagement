@@ -45,10 +45,10 @@ namespace DiplomaProjectManagement.Data.Repositories
         public DiplomaProjectRegistration GetStudentRegistrationdByStudentIdAndDiplomaId(int studentId, int diplomaProjectId)
         {
             return (from dpr in DbContext.DiplomaProjectRegistrations
-                join s in DbContext.Students
-                on dpr.StudentId equals s.ID
-                where s.ID == studentId && dpr.DiplomaProjectId == diplomaProjectId
-                select dpr).FirstOrDefault();
+                    join s in DbContext.Students
+                    on dpr.StudentId equals s.ID
+                    where s.ID == studentId && dpr.DiplomaProjectId == diplomaProjectId
+                    select dpr).FirstOrDefault();
         }
 
         public void UpdateIntroducedGradesStudent(int studentId, int diplomaProjectId, float score)
@@ -58,6 +58,7 @@ namespace DiplomaProjectManagement.Data.Repositories
             if (studentRegistration != null)
                 studentRegistration.IntroducedGrades = score;
         }
+
         public void UpdateReviewedGradesStudent(int studentId, int diplomaProjectId, float score)
         {
             var studentRegistration = GetStudentRegistrationdByStudentIdAndDiplomaId(studentId, diplomaProjectId);
@@ -65,6 +66,7 @@ namespace DiplomaProjectManagement.Data.Repositories
             if (studentRegistration != null)
                 studentRegistration.ReviewedGrades = score;
         }
+
         public IEnumerable<Student> GetIntroducedStudentsByRegisterTimeId(int registerTimeId, int lecturerId)
         {
             return GetIntroducedStudentsByRegisterTimeId();

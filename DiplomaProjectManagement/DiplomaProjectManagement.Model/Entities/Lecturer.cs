@@ -1,11 +1,7 @@
-﻿using System;
+﻿using DiplomaProjectManagement.Model.Abstracts;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DiplomaProjectManagement.Model.Abstracts;
 
 namespace DiplomaProjectManagement.Model.Models
 {
@@ -29,6 +25,7 @@ namespace DiplomaProjectManagement.Model.Models
 
         [MaxLength(250)]
         public string Address { get; set; }
+
         public virtual ICollection<DiplomaProject> DiplomaProjects { get; set; }
 
         public int FacilityId { get; set; }

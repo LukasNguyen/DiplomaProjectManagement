@@ -1,9 +1,9 @@
-﻿using System;
+﻿using DiplomaProjectManagement.Model.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using DiplomaProjectManagement.Model.Enums;
 
 namespace DiplomaProjectManagement.Model.Models
 {
@@ -17,6 +17,7 @@ namespace DiplomaProjectManagement.Model.Models
         [MaxLength(50)]
         [Required]
         public string Name { get; set; }
+
         public DateTime RegisteredDate { get; set; }
 
         public DateTime ClosedRegisteredDate { get; set; }
