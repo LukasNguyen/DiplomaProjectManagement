@@ -38,6 +38,7 @@ namespace DiplomaProjectManagement.Web.Infrastructure.Extensions
         public static void Update(this Lecturer lecturer, LecturerLoginViewModel lecturerViewModel)
         {
             lecturer.ID = lecturerViewModel.ID;
+            lecturer.FacilityId = lecturerViewModel.FacilityId;
             lecturer.Address = lecturerViewModel.Address;
             lecturer.Email = lecturerViewModel.Email;
             lecturer.Name = lecturerViewModel.Name;

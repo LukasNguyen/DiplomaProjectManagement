@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.Owin.Security.OAuth;
+using Newtonsoft.Json.Serialization;
 using System.Web.Http;
 
 namespace DiplomaProjectManagement.Web
@@ -13,6 +12,12 @@ namespace DiplomaProjectManagement.Web
 
             // Web API routes
             config.MapHttpAttributeRoutes();
+
+            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new DefaultContractResolver { IgnoreSerializableAttribute = true };
+
+            //Bỏ cơ chế mặc định và chỉ áp dụng cơ chế token cho webapi
+            config.SuppressDefaultHostAuthentication();
+            config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

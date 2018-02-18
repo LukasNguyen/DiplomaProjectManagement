@@ -1,17 +1,16 @@
 ﻿(function (app) {
-    app.controller('facilityListController', facilityListController);
-    facilityListController.$inject = ['$scope', 'apiService', 'notificationService', '$ngBootbox', '$filter'];
+    app.controller('lecturerListController', lecturerListController);
+    lecturerListController.$inject = ['$scope', 'apiService', 'notificationService', '$ngBootbox', '$filter'];
 
-    function facilityListController($scope, apiService, notificationService, $ngBootbox, $filter) {
+    function lecturerListController($scope, apiService, notificationService, $ngBootbox, $filter) {
 
-        //Phân trang
-        $scope.facilities = [];
+        $scope.lecturers = [];
         $scope.page = 0;
         $scope.pagesCount = 0;
-        $scope.getFacilities = getFacilities;
+        $scope.getLecturers = getLecturers;
         $scope.search = search;
         $scope.keyword = '';
-        $scope.deleteFacility = deleteFacility;
+        $scope.deleteLecturer = deleteLecturer;
         $scope.selectAll = selectAll;
         $scope.isAll = false;
         $scope.deleteMultiple = deleteMultiple;
@@ -26,37 +25,37 @@
 
             var config = {
                 params: {
-                    checkedFacilities: JSON.stringify(listId)
+                    checkedLecturers: JSON.stringify(listId)
                 }
             };
-            apiService.del('/api/facilities/deletemulti',
+            apiService.del('/api/lecturers/deletemulti',
                 config,
                 (result) => {
-                    notificationService.displaySuccess('Xóa thành công ' + result.data + ' khoa');
+                    notificationService.displaySuccess('Xóa thành công ' + result.data + ' giảng viên');
                     search();
                 },
                 (failure) => {
-                    notificationService.displayError('Xóa các khoa trên thất bại');
+                    notificationService.displayError('Xóa các giảng viên trên thất bại');
                 });
         }
 
         //Select all item that you would like to delete
         function selectAll() {
             if ($scope.isAll === false) {
-                angular.forEach($scope.facilities, function (item) {
+                angular.forEach($scope.lecturers, function (item) {
                     item.checked = true;
                 });
                 $scope.isAll = true;
             } else {
-                angular.forEach($scope.facilities, function (item) {
+                angular.forEach($scope.lecturers, function (item) {
                     item.checked = false;
                 });
                 $scope.isAll = false;
             }
         }
 
-        //Button delete multiple only enable when user have selected facilities
-        $scope.$watch("facilities", function (n, o) {
+        //Button delete multiple only enable when user have selected lecturers
+        $scope.$watch("lecturers", function (n, o) {
             var checked = $filter('filter')(n, { checked: true });
             if (checked.length) {
                 $scope.selected = checked;
@@ -66,31 +65,31 @@
             }
         }, true);
 
-        function deleteFacility(id) {
-            $ngBootbox.confirm('Bạn có thật sự muốn xóa khoa này không?').then(function () {
+        function deleteLecturer(id) {
+            $ngBootbox.confirm('Bạn có thật sự muốn xóa giảng viên này không?').then(function () {
                 var config = {
                     params: {
                         id: id
                     }
                 };
 
-                apiService.del('/api/facilities/delete',
+                apiService.del('/api/lecturers/delete',
                     config,
                     (success) => {
-                        notificationService.displaySuccess('Xóa khoa thành công');
+                        notificationService.displaySuccess('Xóa giảng viên thành công');
                         search();
                     },
                     (failure) => {
-                        notificationService.displayError('Xóa khoa thất bại');
+                        notificationService.displayError('Xóa giảng viên thất bại');
                     });
             });
         }
 
         function search() {
-            getFacilities();
+            getLecturers();
         }
 
-        function getFacilities(page) {
+        function getLecturers(page) {
 
             page = page || 0;
 
@@ -102,20 +101,20 @@
                 }
             }
 
-            apiService.get('/api/facilities/getall', config, (result) => {
+            apiService.get('/api/lecturers/getall', config, (result) => {
 
                 if (result.data.TotalCount == 0)
-                    notificationService.displayWarning('Không tìm thấy khoa nào trong hệ thống');
+                    notificationService.displayWarning('Không tìm thấy giảng viên nào trong hệ thống');
 
-                $scope.facilities = result.data.Items;
+                $scope.lecturers = result.data.Items;
                 $scope.page = result.data.Page;
                 $scope.pagesCount = result.data.TotalPages;
                 $scope.totalCount = result.data.TotalCount;
             }, (failure) => {
-                console.log('Load danh sách khoa thất bại');
+                console.log('Load danh sách giảng viên thất bại');
             });
         }
 
-        $scope.getFacilities();
+        $scope.getLecturers();
     }
-})(angular.module('application.facilities'));
+})(angular.module('application.lecturers'));

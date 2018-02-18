@@ -23,11 +23,11 @@ namespace DiplomaProjectManagement.Web.Models
         [MaxLength(250)]
         public string Address { get; set; }
 
-        public ICollection<DiplomaProject> DiplomaProjects { get; set; }
+        public ICollection<DiplomaProjectViewModel> DiplomaProjects { get; set; }
 
         public int FacilityId { get; set; }
 
-        public Facility Facility { get; set; }
+        public FacilityViewModel Facility { get; set; }
 
         public DateTime? CreatedDate { get; set; }
 

@@ -46,21 +46,36 @@ namespace DiplomaProjectManagement.Service
 
         public IEnumerable<Lecturer> GetAllLecturers(bool hasIncludeFacility, string keyword = null)
         {
-            if (!String.IsNullOrWhiteSpace(keyword))
+            if (ExistingKeyWord())
                 return !hasIncludeFacility ?
-                    _lecturerRepository.GetMulti(n => n.Name.Contains(keyword)
-                             || n.ID.ToString().Contains(keyword))
-                    .Where(n => n.Status).ToList()
-                    : _lecturerRepository.GetMulti(n => n.Name.Contains(keyword)
-                                 || n.ID.ToString().Contains(keyword),
-                            new[] { CommonConstants.Facility })
-                        .Where(n => n.Status).ToList();
+                    GetLecturersByKeywordNotIncludingFacility()
+                    : GetLecturerByKeywordIncludingFacility();
 
             return !hasIncludeFacility
                 ? _lecturerRepository.GetAll()
                 .Where(n => n.Status).ToList()
                 : _lecturerRepository.GetAll(new[] { CommonConstants.Facility })
                 .Where(n => n.Status).ToList();
+
+            bool ExistingKeyWord()
+            {
+                return !String.IsNullOrWhiteSpace(keyword);
+            }
+
+            List<Lecturer> GetLecturerByKeywordIncludingFacility()
+            {
+                return _lecturerRepository.GetMulti(n => n.Name.Contains(keyword)
+                                                         || n.ID.ToString().Contains(keyword),
+                        new[] { CommonConstants.Facility })
+                    .Where(n => n.Status).ToList();
+            }
+
+            List<Lecturer> GetLecturersByKeywordNotIncludingFacility()
+            {
+                return _lecturerRepository.GetMulti(n => n.Name.Contains(keyword)
+                                                         || n.ID.ToString().Contains(keyword))
+                    .Where(n => n.Status).ToList();
+            }
         }
 
         public Lecturer DeleteLecturerByModifyStatus(int id)

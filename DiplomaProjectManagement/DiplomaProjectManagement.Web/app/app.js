@@ -3,6 +3,7 @@
         'application.students',
         'application.facilities',
         'application.registrationTimes',
+        'application.lecturers',
         'application.common'])
         .config(config)
         .config(configAuthentication)
