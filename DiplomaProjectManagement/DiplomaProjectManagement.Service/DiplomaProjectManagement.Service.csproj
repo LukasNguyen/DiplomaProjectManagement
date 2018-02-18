@@ -67,6 +67,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DiplomaProjectManagement.Common\DiplomaProjectManagement.Common.csproj">
+      <Project>{0bb003fe-9835-4d7c-846b-a84dcb9f121a}</Project>
+      <Name>DiplomaProjectManagement.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DiplomaProjectManagement.Data\DiplomaProjectManagement.Data.csproj">
       <Project>{067A857B-B80F-4250-8172-A9AABAB53FCF}</Project>
       <Name>DiplomaProjectManagement.Data</Name>

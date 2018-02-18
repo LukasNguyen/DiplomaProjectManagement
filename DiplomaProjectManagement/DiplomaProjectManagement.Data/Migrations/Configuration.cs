@@ -62,8 +62,8 @@ namespace DiplomaProjectManagement.Data.Migrations
             context.Lecturers.AddRange(new List<Lecturer>()
             {
                 new Lecturer { Name = "Dat Nguyen", Address = "Ho Chi Minh City", Email  = "dat.nguyen@iuh.edu.vn", Phone = "0949209493", Status = true, FacilityId = 1 },
-                new Lecturer { Name = "Lukas Nguyen", Address = "Ho Chi Minh City", Email  = "lukas.nguyen@edu.vn", Phone = "0949209492", Status = true , FacilityId = 1 },
-                new Lecturer { Name = "Dakas Nguyen", Address = "Ho Chi Minh City", Email  = "dakas.nguyen@edu.vn", Phone = "0949209491", Status = true, FacilityId = 1 }
+                new Lecturer { Name = "Lukas Nguyen", Address = "Ho Chi Minh City", Email  = "lukas.nguyen@iuh.edu.vn", Phone = "0949209492", Status = true , FacilityId = 1 },
+                new Lecturer { Name = "Dakas Nguyen", Address = "Ho Chi Minh City", Email  = "dakas.nguyen@iuh.edu.vn", Phone = "0949209491", Status = true, FacilityId = 1 }
             });
             context.SaveChanges();
         }

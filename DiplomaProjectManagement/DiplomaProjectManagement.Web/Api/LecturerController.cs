@@ -6,7 +6,6 @@ using DiplomaProjectManagement.Web.App_Start;
 using DiplomaProjectManagement.Web.Infrastructure.Core;
 using DiplomaProjectManagement.Web.Infrastructure.Extensions;
 using DiplomaProjectManagement.Web.Models;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
@@ -20,18 +19,16 @@ using System.Web.Script.Serialization;
 
 namespace DiplomaProjectManagement.Web.Api
 {
-    [RoutePrefix("api/students")]
+    [RoutePrefix("api/lecturers")]
     [Authorize]
-    public class StudentController : ApiControllerBase
+    public class LecturerController : ApiControllerBase
     {
-        private readonly IStudentService _studentService;
+        private readonly ILecturerService _lecturerService;
         private ApplicationUserManager _applicationUserManager;
 
-        public StudentController(IErrorService errorService,
-            ApplicationUserManager applicationUserManager,
-            IStudentService studentService) : base(errorService)
+        public LecturerController(IErrorService errorService, ApplicationUserManager applicationUserManager, ILecturerService lecturerService) : base(errorService)
         {
-            this._studentService = studentService;
+            this._lecturerService = lecturerService;
             this._applicationUserManager = applicationUserManager;
         }
 
@@ -41,9 +38,9 @@ namespace DiplomaProjectManagement.Web.Api
         {
             return CreateHttpResponse(request, () =>
             {
-                var model = _studentService.GetStudentById(id);
+                var model = _lecturerService.GetLecturerById(id);
 
-                var responseData = Mapper.Map<Student, StudentViewModel>(model);
+                var responseData = Mapper.Map<LecturerViewModel>(model);
 
                 return request.CreateResponse(HttpStatusCode.OK, responseData);
             });
@@ -57,15 +54,15 @@ namespace DiplomaProjectManagement.Web.Api
             {
                 int totalRow = 0;
 
-                var model = _studentService.GetAllStudents(keyword);
+                var model = _lecturerService.GetAllLecturers(true, keyword);
 
                 totalRow = model.Count();
 
                 var query = model.OrderByDescending(n => n.CreatedDate).Skip(page * pageSize).Take(pageSize);
 
-                var responseData = Mapper.Map<List<StudentViewModel>>(query);
+                var responseData = Mapper.Map<List<LecturerViewModel>>(query);
 
-                var paginationSet = new PaginationSet<StudentViewModel>()
+                var paginationSet = new PaginationSet<LecturerViewModel>()
                 {
                     Items = responseData,
                     Page = page,
@@ -91,10 +88,10 @@ namespace DiplomaProjectManagement.Web.Api
                 }
                 else
                 {
-                    Student student = _studentService.DeleteStudentByModifyStatus(id);
-                    _studentService.Save();
+                    Lecturer lecturer = _lecturerService.DeleteLecturerByModifyStatus(id);
+                    _lecturerService.Save();
 
-                    var responseData = Mapper.Map<Student, StudentViewModel>(student);
+                    var responseData = Mapper.Map<LecturerViewModel>(lecturer);
                     response = request.CreateResponse(HttpStatusCode.Created, responseData);
                 }
                 return response;
@@ -103,7 +100,7 @@ namespace DiplomaProjectManagement.Web.Api
 
         [Route("deletemulti")]
         [HttpDelete]
-        public HttpResponseMessage DeleteMulti(HttpRequestMessage request, string checkedStudents)
+        public HttpResponseMessage DeleteMulti(HttpRequestMessage request, string checkedLecturers)
         {
             return CreateHttpResponse(request, () =>
             {
@@ -115,15 +112,15 @@ namespace DiplomaProjectManagement.Web.Api
                 }
                 else
                 {
-                    var students = new JavaScriptSerializer().Deserialize<List<int>>(checkedStudents);
+                    var lecturers = new JavaScriptSerializer().Deserialize<List<int>>(checkedLecturers);
 
-                    foreach (var student in students)
+                    foreach (var lecturer in lecturers)
                     {
-                        _studentService.DeleteStudentByModifyStatus(student);
+                        _lecturerService.DeleteLecturerByModifyStatus(lecturer);
                     }
-                    _studentService.Save();
+                    _lecturerService.Save();
 
-                    response = request.CreateResponse(HttpStatusCode.OK, students.Count);
+                    response = request.CreateResponse(HttpStatusCode.OK, lecturers.Count);
                 }
                 return response;
             });
@@ -131,96 +128,96 @@ namespace DiplomaProjectManagement.Web.Api
 
         [Route("create")]
         [HttpPost]
-        public async Task<HttpResponseMessage> CreateAsync(HttpRequestMessage request, StudentLoginViewModel studentLoginViewModel)
+        public async Task<HttpResponseMessage> CreateAsync(HttpRequestMessage request, LecturerLoginViewModel lecturerLoginViewModel)
         {
             if (!ModelState.IsValid)
             {
                 return request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
 
-            var existingUser = await UserManager.FindByEmailAsync(studentLoginViewModel.Email);
+            var existingUser = await UserManager.FindByEmailAsync(lecturerLoginViewModel.Email);
             if (existingUser != null)
             {
                 return request.CreateErrorResponse(HttpStatusCode.BadRequest, "Email này đã tồn tại trong hệ thống. Vui lòng chọn email khác.");
             }
 
-            Student student = CreateStudentInformation();
-            await CreateStudentAccount();
-            _studentService.Save();
+            Lecturer lecturer = CreateLecturerInformation();
+            await CreateLecturerAccount();
+            _lecturerService.Save();
 
-            return request.CreateResponse(HttpStatusCode.Created, studentLoginViewModel);
+            return request.CreateResponse(HttpStatusCode.Created, lecturerLoginViewModel);
 
-            Student CreateStudentInformation()
+            Lecturer CreateLecturerInformation()
             {
-                var newStudent = new Student();
-                newStudent.Update(studentLoginViewModel);
-                newStudent.CreatedBy(User.Identity.Name);
-                return _studentService.AddStudent(newStudent);
+                var newLecturer = new Lecturer();
+                newLecturer.Update(lecturerLoginViewModel);
+                newLecturer.CreatedBy(User.Identity.Name);
+                return _lecturerService.AddLecturer(newLecturer);
             }
 
-            async Task CreateStudentAccount()
+            async Task CreateLecturerAccount()
             {
                 var user = new ApplicationUser()
                 {
-                    UserName = student.Email,
-                    Email = student.Email
+                    UserName = lecturer.Email,
+                    Email = lecturer.Email
                 };
-                await UserManager.CreateAsync(user, studentLoginViewModel.Password);
-                await UserManager.AddToRoleAsync(user.Id, RoleConstants.Student);
+                await UserManager.CreateAsync(user, lecturerLoginViewModel.Password);
+                await UserManager.AddToRoleAsync(user.Id, RoleConstants.Lecturer);
             }
         }
 
         [Route("update")]
         [HttpPut]
-        public async Task<HttpResponseMessage> UpdateAsync(HttpRequestMessage request, StudentLoginViewModel studentLoginViewModel)
+        public async Task<HttpResponseMessage> UpdateAsync(HttpRequestMessage request, LecturerLoginViewModel lecturerLoginViewModel)
         {
             if (ModelState.IsValid)
             {
-                var existingStudent = _studentService.GetStudentById(studentLoginViewModel.ID);
-                var user = await UserManager.FindByEmailAsync(existingStudent.Email);
+                var existingLecturer = _lecturerService.GetLecturerById(lecturerLoginViewModel.ID);
+                var user = await UserManager.FindByEmailAsync(existingLecturer.Email);
 
-                var existingUser = await UserManager.FindByEmailAsync(studentLoginViewModel.Email);
-                if (CheckExistingAccount(existingStudent, existingUser))
+                var existingUser = await UserManager.FindByEmailAsync(lecturerLoginViewModel.Email);
+                if (CheckExistingAccount(existingLecturer, existingUser))
                 {
                     return request.CreateErrorResponse(HttpStatusCode.BadRequest, "Email này đã tồn tại trong hệ thống. Vui lòng chọn email khác.");
                 }
 
-                await UpdateStudentAccount(user);
+                await UpdateLecturerAccount(user);
                 await UpdateWhenExistingNewPassword(user);
-                UpdateStudentInformation(existingStudent);
+                UpdateLecturerInformation(existingLecturer);
 
-                _studentService.Save();
+                _lecturerService.Save();
 
-                return request.CreateResponse(HttpStatusCode.Created, studentLoginViewModel);
+                return request.CreateResponse(HttpStatusCode.Created, lecturerLoginViewModel);
             }
 
             return request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
 
-            bool CheckExistingAccount(Student existingStudent, ApplicationUser existingUser)
+            bool CheckExistingAccount(Lecturer existingLecturer, ApplicationUser existingUser)
             {
-                return existingUser != null && existingStudent != null && !string.Equals(existingUser.Email, existingStudent.Email, StringComparison.OrdinalIgnoreCase);
+                return existingUser != null && existingLecturer != null && !string.Equals(existingUser.Email, existingLecturer.Email, StringComparison.OrdinalIgnoreCase);
             }
 
-            async Task UpdateStudentAccount(ApplicationUser user)
+            async Task UpdateLecturerAccount(ApplicationUser user)
             {
-                user.UserName = studentLoginViewModel.Email;
-                user.Email = studentLoginViewModel.Email;
+                user.UserName = lecturerLoginViewModel.Email;
+                user.Email = lecturerLoginViewModel.Email;
                 await UserManager.UpdateAsync(user);
             }
 
             async Task UpdateWhenExistingNewPassword(ApplicationUser user)
             {
-                if (!string.IsNullOrWhiteSpace(studentLoginViewModel.Password))
+                if (!string.IsNullOrWhiteSpace(lecturerLoginViewModel.Password))
                 {
                     await UserManager.RemovePasswordAsync(user.Id);
-                    await UserManager.AddPasswordAsync(user.Id, studentLoginViewModel.Password);
+                    await UserManager.AddPasswordAsync(user.Id, lecturerLoginViewModel.Password);
                 }
             }
 
-            void UpdateStudentInformation(Student existingStudent)
+            void UpdateLecturerInformation(Lecturer existingLecturer)
             {
-                existingStudent.Update(studentLoginViewModel);
-                existingStudent.UpdatedBy(User.Identity.Name);
+                existingLecturer.Update(lecturerLoginViewModel);
+                existingLecturer.UpdatedBy(User.Identity.Name);
             }
         }
 

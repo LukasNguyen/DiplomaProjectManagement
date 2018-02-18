@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using DiplomaProjectManagement.Model.Abstracts;
+using System.Collections.Generic;
 using System.ComponentModel;
-using DiplomaProjectManagement.Model.Abstracts;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 

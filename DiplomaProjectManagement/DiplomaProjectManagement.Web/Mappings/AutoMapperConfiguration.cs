@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using DiplomaProjectManagement.Model.Models;
 using DiplomaProjectManagement.Web.Models;
-using System;
-using DiplomaProjectManagement.Model.Enums;
 
 namespace DiplomaProjectManagement.Web.Mappings
 {
@@ -15,6 +13,7 @@ namespace DiplomaProjectManagement.Web.Mappings
                 RegisterMappingForStudent(cfg);
                 RegisterMappingForFacility(cfg);
                 RegisterMappingForRegistrationTime(cfg);
+                RegisterMappingForLecturer(cfg);
             });
         }
 
@@ -31,6 +30,11 @@ namespace DiplomaProjectManagement.Web.Mappings
         private static void RegisterMappingForRegistrationTime(IMapperConfigurationExpression cfg)
         {
             cfg.CreateMap<RegistrationTime, RegistrationTimeViewModel>().ReverseMap();
+        }
+
+        private static void RegisterMappingForLecturer(IMapperConfigurationExpression cfg)
+        {
+            cfg.CreateMap<Lecturer, LecturerViewModel>().ReverseMap();
         }
     }
 }

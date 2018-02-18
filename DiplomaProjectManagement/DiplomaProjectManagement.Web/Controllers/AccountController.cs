@@ -57,7 +57,7 @@ namespace DiplomaProjectManagement.Web.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Username or password isn't correctly.");
+                    ModelState.AddModelError("", "Tài khoản hoặc mật khẩu không chính xác.");
                 }
             }
             return View(model);
