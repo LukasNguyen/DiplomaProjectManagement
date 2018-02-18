@@ -52,6 +52,19 @@ namespace DiplomaProjectManagement.Web.Api
             });
         }
 
+        [Route("getallnotpagination")]
+        [HttpGet]
+        public HttpResponseMessage GetAll(HttpRequestMessage request)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                var model = _facilityService.GetAllFacilities();
+                var responseData = Mapper.Map<List<FacilityViewModel>>(model);
+
+                return request.CreateResponse(HttpStatusCode.OK, responseData);
+            });
+        }
+
         [Route("delete")]
         [HttpDelete]
         public HttpResponseMessage Delete(HttpRequestMessage request, int id)
