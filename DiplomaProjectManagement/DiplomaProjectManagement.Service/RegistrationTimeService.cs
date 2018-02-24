@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using DiplomaProjectManagement.Data.Infrastructures;
+﻿using DiplomaProjectManagement.Data.Infrastructures;
 using DiplomaProjectManagement.Data.Repositories;
 using DiplomaProjectManagement.Model.Enums;
 using DiplomaProjectManagement.Model.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DiplomaProjectManagement.Service
 {
@@ -19,6 +19,7 @@ namespace DiplomaProjectManagement.Service
 
         RegistrationTime GetRegistrationTimeById(int id);
 
+        bool CheckExistingRegistrationTimeOpening();
 
         void Save();
     }
@@ -61,6 +62,11 @@ namespace DiplomaProjectManagement.Service
         public RegistrationTime GetRegistrationTimeById(int id)
         {
             return _registrationTimeRepository.GetSingleById(id);
+        }
+
+        public bool CheckExistingRegistrationTimeOpening()
+        {
+            return _registrationTimeRepository.CheckExistingRegistrationTimeOpening();
         }
 
         public void Save()

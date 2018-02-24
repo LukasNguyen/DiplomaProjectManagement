@@ -76,9 +76,14 @@ namespace DiplomaProjectManagement.Web.Api
                 }
                 if (CheckValidDate(registrationTimeViewModel))
                 {
-                     return request.CreateErrorResponse(HttpStatusCode.BadRequest, "Ngày đăng ký phải trước ngày giảng viên chấm điểm và ngày giảng viên chấm phải sau ngày kết thúc");
+                     return request.CreateErrorResponse(HttpStatusCode.BadRequest, "Ngày đăng ký phải trước ngày giảng viên chấm điểm và ngày giảng viên chấm phải sau ngày kết thúc.");
                 }
-                    RegistrationTime newRegistrationTime = Mapper.Map<RegistrationTime>(registrationTimeViewModel);
+                if (_registrationTimeService.CheckExistingRegistrationTimeOpening())
+                {
+                    return request.CreateErrorResponse(HttpStatusCode.BadRequest, "Không thể thêm đợt đăng ký mới do đang tồn tại một đợt đăng ký đang mở.");
+                }
+
+                RegistrationTime newRegistrationTime = Mapper.Map<RegistrationTime>(registrationTimeViewModel);
 
                     RegistrationTime registrationTime = _registrationTimeService.AddRegistrationTime(newRegistrationTime);
                     _registrationTimeService.Save();
