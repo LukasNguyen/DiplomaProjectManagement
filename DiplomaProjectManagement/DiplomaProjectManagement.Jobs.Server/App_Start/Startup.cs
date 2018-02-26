@@ -1,4 +1,7 @@
-﻿using Autofac;
+﻿using System.Configuration;
+using System.Web.Mvc;
+using Autofac;
+using Autofac.Integration.Mvc;
 using DiplomaProjectManagement.Data;
 using DiplomaProjectManagement.Data.Infrastructures;
 using DiplomaProjectManagement.Data.Repositories;
@@ -22,9 +25,10 @@ namespace DiplomaProjectManagement.Jobs.Server.App_Start
             RegisterPerRequestForRepository(builder);
 
             IContainer container = builder.Build();
-
             GlobalConfiguration.Configuration.UseActivator(new ContainerJobActivator(container));
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
             app.UseHangfireDashboard("");
+            app.UseHangfireServer();
         }
 
         private void RegisterForInfrastructureModelAtDataLayer(ContainerBuilder builder)

@@ -6,7 +6,12 @@ namespace DiplomaProjectManagement.Jobs.Server
     {
         private readonly IRegistrationTimeRepository _registrationTimeRepository;
 
-        public UpdateRegistrationTimeStatusService(IRegistrationTimeRepository registrationTimeRepository)
+        public UpdateRegistrationTimeStatusService()
+        {
+            // this needs to be here, although this won't be used in the actual running
+        }
+
+        public UpdateRegistrationTimeStatusService(IRegistrationTimeRepository registrationTimeRepository) : this()
         {
             this._registrationTimeRepository = registrationTimeRepository;
         }
