@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiplomaProjectManagement.Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiplomaProjectManagement.Web", "DiplomaProjectManagement.Web\DiplomaProjectManagement.Web.csproj", "{568F7EED-7D62-4F04-B817-15BB082A5C82}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiplomaProjectManagement.Jobs.Server", "DiplomaProjectManagement.Jobs.Server\DiplomaProjectManagement.Jobs.Server.csproj", "{1C304A14-519A-49D7-A972-CAB0D0E3610D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{568F7EED-7D62-4F04-B817-15BB082A5C82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{568F7EED-7D62-4F04-B817-15BB082A5C82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{568F7EED-7D62-4F04-B817-15BB082A5C82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C304A14-519A-49D7-A972-CAB0D0E3610D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C304A14-519A-49D7-A972-CAB0D0E3610D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C304A14-519A-49D7-A972-CAB0D0E3610D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C304A14-519A-49D7-A972-CAB0D0E3610D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

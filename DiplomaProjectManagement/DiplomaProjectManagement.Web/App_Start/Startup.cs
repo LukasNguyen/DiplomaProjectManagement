@@ -4,17 +4,16 @@ using Autofac.Integration.WebApi;
 using DiplomaProjectManagement.Data;
 using DiplomaProjectManagement.Data.Infrastructures;
 using DiplomaProjectManagement.Data.Repositories;
+using DiplomaProjectManagement.Model.Models;
 using DiplomaProjectManagement.Service;
+using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
+using Microsoft.Owin.Security.DataProtection;
 using Owin;
-using System;
 using System.Reflection;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
-using DiplomaProjectManagement.Model.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.Owin.Security.DataProtection;
 
 [assembly: OwinStartup(typeof(DiplomaProjectManagement.Web.App_Start.Startup))]
 
@@ -41,7 +40,7 @@ namespace DiplomaProjectManagement.Web.App_Start
             //Register WebApi
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
-            RegisterForSomeDataTierService(builder);
+            RegisterForInfrastructureModelAtDataLayer(builder);
 
             //Register ASP.NET Identity
             RegisterForAspNetIdentity(app, builder);
@@ -57,13 +56,13 @@ namespace DiplomaProjectManagement.Web.App_Start
             GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
         }
 
-        private static void RegisterForSomeDataTierService(ContainerBuilder builder)
-        {
-            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest(); // khi tạo biến IUnitOfWork thì gán type UnitOfWork cho nó
-            builder.RegisterType<DbFactory>().As<IDbFactory>().InstancePerRequest();
+            private static void RegisterForInfrastructureModelAtDataLayer(ContainerBuilder builder)
+            {
+                builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest(); // khi tạo biến IUnitOfWork thì gán type UnitOfWork cho nó
+                builder.RegisterType<DbFactory>().As<IDbFactory>().InstancePerRequest();
 
-            builder.RegisterType<DiplomaProjectDbContext>().AsSelf().InstancePerRequest();
-        }
+                builder.RegisterType<DiplomaProjectDbContext>().AsSelf().InstancePerRequest();
+            }
 
         private static void RegisterForAspNetIdentity(IAppBuilder app, ContainerBuilder builder)
         {
