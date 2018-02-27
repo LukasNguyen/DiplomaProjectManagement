@@ -1,4 +1,8 @@
-﻿using Hangfire;
+﻿using System.Configuration;
+using Autofac;
+using Autofac.Extras.CommonServiceLocator;
+using CommonServiceLocator;
+using Hangfire;
 using System.Web.Hosting;
 
 namespace DiplomaProjectManagement.Jobs.Server
@@ -29,6 +33,7 @@ namespace DiplomaProjectManagement.Jobs.Server
 
                 HostingEnvironment.RegisterObject(this);
                 ConfigureHangfireStorage();
+                ConfigureHangfireAutofac();
 
                 _backgroundJobServer = new BackgroundJobServer();
             }
@@ -36,7 +41,21 @@ namespace DiplomaProjectManagement.Jobs.Server
 
         private void ConfigureHangfireStorage()
         {
-            GlobalConfiguration.Configuration.UseSqlServerStorage("DiplomaProjectConnection");
+            GlobalConfiguration.Configuration.UseSqlServerStorage(
+                ConfigurationManager
+                .ConnectionStrings["DiplomaProjectConnection"]
+                .ConnectionString);
+        }
+
+        private void ConfigureHangfireAutofac()
+        {
+            var containerBuilder = new ContainerBuilder();
+            containerBuilder.RegisterModule(new JobsModule());
+
+            var container = containerBuilder.Build();
+            GlobalConfiguration.Configuration.UseAutofacActivator(container);
+            var csl = new AutofacServiceLocator(container);
+            ServiceLocator.SetLocatorProvider(() => csl);
         }
 
         public void Stop()
