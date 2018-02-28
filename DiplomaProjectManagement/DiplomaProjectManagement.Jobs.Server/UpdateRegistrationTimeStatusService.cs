@@ -22,6 +22,7 @@ namespace DiplomaProjectManagement.Jobs.Server
         public void Run()
         {
             _registrationTimeRepository.UpdateRegistrationTimeStatusToTeacherAssignGrades();
+            _registrationTimeRepository.UpdateRegistrationTimeStatusToCloseRegistrationTime();
             _unitOfWork.Commit();
         }
     }

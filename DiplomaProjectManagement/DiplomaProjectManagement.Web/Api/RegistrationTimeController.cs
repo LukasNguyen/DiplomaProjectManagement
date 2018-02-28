@@ -34,7 +34,9 @@ namespace DiplomaProjectManagement.Web.Api
                 var model = _registrationTimeService.GetAllRegistrationTimes();
 
                 totalRow = model.Count();
-                var query = model.Skip(page * pageSize).Take(pageSize);
+
+                var query = model.OrderBy(n => n.RegistrationStatus)
+                    .Skip(page * pageSize).Take(pageSize);
 
                 var responseData = Mapper.Map<List<RegistrationTimeViewModel>>(query);
 

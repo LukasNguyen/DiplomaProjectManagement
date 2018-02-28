@@ -11,6 +11,8 @@ namespace DiplomaProjectManagement.Data.Repositories
         bool CheckExistingRegistrationTimeOpening();
 
         void UpdateRegistrationTimeStatusToTeacherAssignGrades();
+
+        void UpdateRegistrationTimeStatusToCloseRegistrationTime();
     }
 
     public class RegistrationTimeRepository : RepositoryBase<RegistrationTime>, IRegistrationTimeRepository
@@ -30,6 +32,14 @@ namespace DiplomaProjectManagement.Data.Repositories
                 DbContext.RegistrationTimes.Where(n => n.ClosedRegisteredDate <= DateTime.Now).ToList();
 
             updatedRegistrationTimes.ForEach(n => n.RegistrationStatus = RegistrationStatus.ClosedRegistrationTime);
+        }
+
+        public void UpdateRegistrationTimeStatusToCloseRegistrationTime()
+        {
+            var updatedRegistrationTimes =
+                DbContext.RegistrationTimes.Where(n => n.ClosedDate <= DateTime.Now).ToList();
+
+            updatedRegistrationTimes.ForEach(n => n.RegistrationStatus = RegistrationStatus.ClosedAssignGradesTime);
         }
     }
 }
