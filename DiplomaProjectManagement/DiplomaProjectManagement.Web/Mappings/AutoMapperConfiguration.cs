@@ -14,6 +14,7 @@ namespace DiplomaProjectManagement.Web.Mappings
                 RegisterMappingForFacility(cfg);
                 RegisterMappingForRegistrationTime(cfg);
                 RegisterMappingForLecturer(cfg);
+                RegisterMappingForDiplomaProject(cfg);
             });
         }
 
@@ -36,5 +37,11 @@ namespace DiplomaProjectManagement.Web.Mappings
         {
             cfg.CreateMap<Lecturer, LecturerViewModel>().ReverseMap();
         }
+
+        private static void RegisterMappingForDiplomaProject(IMapperConfigurationExpression cfg)
+        {
+            cfg.CreateMap<DiplomaProject, DiplomaProjectViewModel>().ReverseMap();
+        }
+
     }
 }

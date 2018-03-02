@@ -1,0 +1,65 @@
+﻿@model IEnumerable<DiplomaProjectManagement.Web.Models.DiplomaProjectViewModel>
+
+<div class="page-title">
+    <div class="title_left">
+        <h3>Đồ án <small>Danh sách đồ án</small></h3>
+    </div>
+
+    <div class="title_right">
+        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Từ khóa tìm kiếm...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">Tìm kiếm</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="clearfix"></div>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_content">
+                <table class="table table-bordered">
+                    <tr>
+                        <th width="20">
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th width="50%">
+                            @Html.DisplayNameFor(model => model.Description)
+                        </th>
+                        <th width="15%">
+                            @Html.DisplayNameFor(model => model.numberOfStudentsRegistered)
+                        </th>
+                        <th width="7.5%"></th>
+                        <th width="7.5%"></th>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.numberOfStudentsRegistered)
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Edit", "DiplomaProject", new { id = item.ID })"><i class="fa fa-pencil"></i> Sửa</a>
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Delete", "DiplomaProject", new { id = item.ID })"><i class="fa fa-trash"></i> Xóa</a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
