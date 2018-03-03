@@ -22,7 +22,7 @@ namespace DiplomaProjectManagement.Model.Models
         public string Description { get; set; }
 
         [DefaultValue(0)]
-        public int numberOfStudentsRegistered { get; set; }
+        public int NumberOfStudentsRegistered { get; set; }
 
         public int LecturerId { get; set; }
 

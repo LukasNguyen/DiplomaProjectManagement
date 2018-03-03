@@ -82,6 +82,10 @@
     <Compile Include="Migrations\201801301533116_ModifyLogicRegisterTime.Designer.cs">
       <DependentUpon>201801301533116_ModifyLogicRegisterTime.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803030839442_ChangePropertyToTeacherAssignGrades.cs" />
+    <Compile Include="Migrations\201803030839442_ChangePropertyToTeacherAssignGrades.Designer.cs">
+      <DependentUpon>201803030839442_ChangePropertyToTeacherAssignGrades.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\DiplomaProjectRegistrationRepository.cs" />
@@ -122,6 +126,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801301533116_ModifyLogicRegisterTime.resx">
       <DependentUpon>201801301533116_ModifyLogicRegisterTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803030839442_ChangePropertyToTeacherAssignGrades.resx">
+      <DependentUpon>201803030839442_ChangePropertyToTeacherAssignGrades.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -20,7 +20,7 @@ namespace DiplomaProjectManagement.Model.Models
 
         public DateTime RegisteredDate { get; set; }
 
-        public DateTime ClosedRegisteredDate { get; set; }
+        public DateTime TeacherAssignGradesDate { get; set; }
 
         public DateTime ClosedDate { get; set; }
 

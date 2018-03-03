@@ -1,5 +1,13 @@
 ﻿@model IEnumerable<DiplomaProjectManagement.Web.Models.DiplomaProjectViewModel>
 
+@section Scripts{
+    <script src="~/Assets/client/controllers/diplomaProject/index.js"></script>
+    <script>
+        var productController = new productController();
+        productController.initialize();
+    </script>
+}
+
 <div class="page-title">
     <div class="title_left">
         <h3>Đồ án <small>Danh sách đồ án</small></h3>
@@ -25,6 +33,7 @@
         <div class="x_panel">
             <div class="x_content">
                 <table class="table table-bordered">
+                    <thead>
                     <tr>
                         <th width="20">
                             @Html.DisplayNameFor(model => model.Name)
@@ -33,33 +42,57 @@
                             @Html.DisplayNameFor(model => model.Description)
                         </th>
                         <th width="15%">
-                            @Html.DisplayNameFor(model => model.numberOfStudentsRegistered)
+                            @Html.DisplayNameFor(model => model.NumberOfStudentsRegistered)
                         </th>
-                        <th width="7.5%"></th>
-                        <th width="7.5%"></th>
+                        <th width="15%"></th>
                     </tr>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Description)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.numberOfStudentsRegistered)
-                            </td>
-                            <td>
-                                <a href="@Url.Action("Edit", "DiplomaProject", new { id = item.ID })"><i class="fa fa-pencil"></i> Sửa</a>
-                            </td>
-                            <td>
-                                <a href="@Url.Action("Delete", "DiplomaProject", new { id = item.ID })"><i class="fa fa-trash"></i> Xóa</a>
-                            </td>
-                        </tr>
-                    }
+                    </thead>
+                    <tbody id="tbl-content"></tbody>
                 </table>
+                <!--Pagination-->
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="dataTables_info" id="datatable-checkbox_info" role="status" aria-live="polite">
+                            <select id="ddlShowPage">
+                                <option value="10" selected="selected">10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="50">50</option>
+                            </select>
+                            <span class="item-per-page">
+                                bản ghi/trang.
+                            </span>
+                            Tổng số bản ghi: <strong id="lblTotalRecords"></strong>
+                        </div>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="dataTables_paginate paging_simple_numbers" id="datatable-checkbox_paginate">
+                            <ul id="paginationUL"></ul>
+                        </div>
+                    </div>
+                </div>
+                <!--Loading Bar-->
+                <div class="dv-loading">
+                    <div class="col-xs-4"></div>
+                    <div class="col-xs-4">
+                        <i class="fa fa-refresh fa-4x fa-spin"></i> <label class="label label-primary">Đang tải...</label>
+                    </div>
+                    <div class="col-xs-4"></div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<script id="table-template" type="x-tmpl-mustache">
+    <tr>
+        <td>{{Name}}</td>
+        <td>{{Description}}</td>
+        <td>{{NumberOfStudentsRegistered}}</td>
+        <td scope="row">
+            <button class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i></button>
+            <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+        </td>
+
+
+    </tr>
+</script>

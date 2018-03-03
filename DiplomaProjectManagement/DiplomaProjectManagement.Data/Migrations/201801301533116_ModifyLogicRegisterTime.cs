@@ -2,7 +2,7 @@ namespace DiplomaProjectManagement.Data.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class ModifyLogicRegisterTime : DbMigration
     {
         public override void Up()
@@ -14,7 +14,7 @@ namespace DiplomaProjectManagement.Data.Migrations
             DropColumn("dbo.RegistrationTimes", "FinishedDate");
             DropColumn("dbo.RegistrationTimes", "Status");
         }
-        
+
         public override void Down()
         {
             AddColumn("dbo.RegistrationTimes", "Status", c => c.Boolean(nullable: false));

@@ -23,7 +23,7 @@ namespace DiplomaProjectManagement.Web.Models
         public string Description { get; set; }
 
         [DisplayName("Số sinh viên đăng ký")]
-        public int numberOfStudentsRegistered { get; set; }
+        public int NumberOfStudentsRegistered { get; set; }
 
         public int LecturerId { get; set; }
 
