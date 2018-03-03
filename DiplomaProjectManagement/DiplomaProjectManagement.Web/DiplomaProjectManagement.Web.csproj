@@ -6150,6 +6150,11 @@
     <Content Include="Assets\admin\libs\toastr\toastr.js" />
     <Content Include="Assets\admin\libs\toastr\toastr.min.css" />
     <Content Include="Assets\admin\libs\toastr\toastr.min.js" />
+    <Content Include="Assets\admin\libs\twbs-pagination\examples\bootstrap-v4.html" />
+    <Content Include="Assets\admin\libs\twbs-pagination\examples\index.html" />
+    <Content Include="Assets\admin\libs\twbs-pagination\Gruntfile.js" />
+    <Content Include="Assets\admin\libs\twbs-pagination\jquery.twbsPagination.js" />
+    <Content Include="Assets\admin\libs\twbs-pagination\jquery.twbsPagination.min.js" />
     <Content Include="Assets\client\controllers\diplomaProject\index.js" />
     <Content Include="Assets\client\shared\common.js" />
     <Content Include="Content\bootstrap.css" />
@@ -7163,6 +7168,12 @@
     <Content Include="Assets\admin\libs\ionicons\scss\_ionicons-font.scss" />
     <Content Include="Assets\admin\libs\ionicons\scss\_ionicons-icons.scss" />
     <Content Include="Assets\admin\libs\ionicons\scss\_ionicons-variables.scss" />
+    <Content Include="Assets\admin\libs\twbs-pagination\.bower.json" />
+    <Content Include="Assets\admin\libs\twbs-pagination\bower.json" />
+    <Content Include="Assets\admin\libs\twbs-pagination\LICENSE" />
+    <Content Include="Assets\admin\libs\twbs-pagination\package.json" />
+    <Content Include="Assets\admin\libs\twbs-pagination\README.md" />
+    <Content Include="Assets\admin\libs\twbs-pagination\twbs-pagination.jquery.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

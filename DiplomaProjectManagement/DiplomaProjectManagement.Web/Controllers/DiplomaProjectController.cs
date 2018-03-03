@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using DiplomaProjectManagement.Service;
+using DiplomaProjectManagement.Web.Infrastructure.Core;
 using DiplomaProjectManagement.Web.Models;
 
 namespace DiplomaProjectManagement.Web.Controllers
@@ -12,22 +13,15 @@ namespace DiplomaProjectManagement.Web.Controllers
     public class DiplomaProjectController : Controller
     {
         private readonly IDiplomaProjectService _diplomaProjectService;
-        private readonly ILecturerService _lecturerService;
 
-        public DiplomaProjectController(IDiplomaProjectService diplomaProjectService, ILecturerService lecturerService)
+        public DiplomaProjectController(IDiplomaProjectService diplomaProjectService)
         {
             this._diplomaProjectService = diplomaProjectService;
-            this._lecturerService = lecturerService;
         }
         // GET: DiplomaProject
         public ActionResult Index()
         {
-            var currentLecturerId = GetLecturerIdByUserEmail(User.Identity.Name);
-            var getDiplomaProjectsActive = _diplomaProjectService.GetDiplomaProjectsByLecturerId(currentLecturerId);
-
-            var diplomaProjectsActive = Mapper.Map<List<DiplomaProjectViewModel>>(getDiplomaProjectsActive);
-
-            return View(diplomaProjectsActive);
+            return View();
         }
 
         public ActionResult Edit()
@@ -40,9 +34,30 @@ namespace DiplomaProjectManagement.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        private int GetLecturerIdByUserEmail(string email)
+        public JsonResult GetDiplomaProjectPagination(int page, int pageSize, string keyword = null)
         {
-            return _lecturerService.GetLecturerByEmail(email).ID;
+            var currentLecturerId = (int)Session["lecturerId"];
+            var query = _diplomaProjectService.GetDiplomaProjectsByLecturerId(currentLecturerId);
+
+            if (!string.IsNullOrWhiteSpace(keyword))
+            {
+                query = query.Where(n => n.Name.Contains(keyword));
+            }
+
+            int totalRow = query.Count();
+
+            query = query.OrderByDescending(n => n.CreatedDate).Skip((page - 1) * pageSize).Take(pageSize);
+
+            var responseData = Mapper.Map<List<DiplomaProjectViewModel>>(query);
+
+            var paginationSet = new PaginationSet<DiplomaProjectViewModel>()
+            {
+                Items = responseData,
+                TotalCount = responseData.Count,
+                TotalPages = (int)Math.Ceiling((decimal)totalRow / pageSize)
+            };
+
+            return Json(new { data = paginationSet }, JsonRequestBehavior.AllowGet);
         }
     }
 }
