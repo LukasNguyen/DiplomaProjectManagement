@@ -4,12 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
+using DiplomaProjectManagement.Common;
 using DiplomaProjectManagement.Service;
 using DiplomaProjectManagement.Web.Infrastructure.Core;
 using DiplomaProjectManagement.Web.Models;
 
 namespace DiplomaProjectManagement.Web.Controllers
 {
+    [Authorize(Roles = RoleConstants.Lecturer)]
     public class DiplomaProjectController : Controller
     {
         private readonly IDiplomaProjectService _diplomaProjectService;
@@ -24,25 +26,29 @@ namespace DiplomaProjectManagement.Web.Controllers
             return View();
         }
 
-        public ActionResult Edit()
+        [HttpGet]
+        public ActionResult Edit(int id)
         {
             return RedirectToAction("Index");
         }
 
-        public ActionResult Delete()
+        [HttpPost]
+        public ActionResult Delete(int id)
         {
-            return RedirectToAction("Index");
+            var deletedDiplomaProject = _diplomaProjectService.DeleteDiplomaProjectByModifyStatus(id);
+            if (deletedDiplomaProject == null)
+            {
+                return Json(new { status = false });
+            }
+
+            _diplomaProjectService.Save();
+            return Json(new { status = true });
         }
 
         public JsonResult GetDiplomaProjectPagination(int page, int pageSize, string keyword = null)
         {
             var currentLecturerId = (int)Session["lecturerId"];
-            var query = _diplomaProjectService.GetDiplomaProjectsByLecturerId(currentLecturerId);
-
-            if (!string.IsNullOrWhiteSpace(keyword))
-            {
-                query = query.Where(n => n.Name.Contains(keyword));
-            }
+            var query = _diplomaProjectService.GetDiplomaProjectsByLecturerId(currentLecturerId, keyword);
 
             int totalRow = query.Count();
 

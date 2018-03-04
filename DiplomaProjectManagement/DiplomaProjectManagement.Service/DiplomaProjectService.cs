@@ -16,7 +16,7 @@ namespace DiplomaProjectManagement.Service
 
         IEnumerable<DiplomaProject> GetAllDiplomaProjectsActive();
 
-        IEnumerable<DiplomaProject> GetDiplomaProjectsByLecturerId(int lectureId);
+        IEnumerable<DiplomaProject> GetDiplomaProjectsByLecturerId(int lectureId, string keyword = null);
 
         DiplomaProject GetDiplomaProjectByStudentId(int id);
 
@@ -49,9 +49,12 @@ namespace DiplomaProjectManagement.Service
             return _diplomaProjectRepository.GetAll().Where(n=>n.Status).ToList();
         }
 
-        public IEnumerable<DiplomaProject> GetDiplomaProjectsByLecturerId(int lectureId)
+        public IEnumerable<DiplomaProject> GetDiplomaProjectsByLecturerId(int lectureId, string keyword = null)
         {
-            return _diplomaProjectRepository.GetDiplomaProjectsByLecturerId(lectureId);
+            var query = _diplomaProjectRepository.GetDiplomaProjectsByLecturerId(lectureId);
+            if (!string.IsNullOrWhiteSpace(keyword))
+                return query.Where(n => n.Name.Contains(keyword) || n.Description.Contains(keyword) ).ToList();
+            return query.ToList();
         }
 
         public DiplomaProject GetDiplomaProjectByStudentId(int id)

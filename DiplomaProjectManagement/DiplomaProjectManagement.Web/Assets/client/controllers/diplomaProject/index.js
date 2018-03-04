@@ -10,6 +10,42 @@
             common.configs.pageIndex = 1;
             loadData(true);
         });
+        $('#btnDiplomaProjectSearch').off('click').on('click', function () {
+            loadData();
+        });
+
+        $('body').on('click', '#btnDeleteDiplomaProject', function (e) {
+            e.preventDefault();
+
+            var diplomaProjectId = $(this).data("id");
+            var diplomaProjectName = $(this).data("name");
+            $('#diplomaProjectModalId').html(diplomaProjectId);
+            $('#diplomaProjectModalName').html(diplomaProjectName);
+            $('#deleteDiplomaProjectModal').modal('show');
+        });
+        $('body').on('click', '#btnAcceptDeleteDiplomaProject', function (e) {
+            e.preventDefault();
+            $('#deleteDiplomaProjectModal').modal('hide');
+            $.ajax({
+                type: 'POST',
+                url: '/DiplomaProject/Delete',
+                data: {
+                    id: $('#diplomaProjectModalId').text()
+                },
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status) {
+                        common.notify('Xóa đồ án thành công', 'success');
+                        loadData();
+                    } else {
+                        common.notify('Xóa đồ án thất bại', 'error');
+                    }
+                },
+                error: function (status) {
+                    common.notify('Xóa đồ án thất bại', 'error');
+                }
+            });
+        });
     }
 
     function loadData(isPageChanged) {
@@ -26,9 +62,18 @@
             dataType: 'json',
             success: function (response) {
                 common.startLoading();
+
+                if (response.data.Items.length == 0) {
+                    $('#tbl-content').html('<td colspan="4" style="height:30px; text-align:center"><strong>Không có dữ liệu.</strong></td>');
+                    $('#lblTotalRecords').text(response.data.TotalCount);
+                    common.stopLoading();
+                    return;
+                }
+
                 $.each(response.data.Items, function (i, item) {
                     render += Mustache.render(template,
                         {
+                            ID: item.ID,
                             Name: item.Name,
                             Description: item.Description,
                             NumberOfStudentsRegistered: item.NumberOfStudentsRegistered
@@ -47,7 +92,7 @@
             },
             error: function (status) {
                 console.log(status);
-                common.notify('Cannot loading data', 'error');
+                common.notify('Không có dữ liệu.', 'error');
             }
         });
     }
