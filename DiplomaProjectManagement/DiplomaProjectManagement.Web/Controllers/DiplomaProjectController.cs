@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using DiplomaProjectManagement.Common;
 using DiplomaProjectManagement.Service;
 using DiplomaProjectManagement.Web.Infrastructure.Core;
 using DiplomaProjectManagement.Web.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace DiplomaProjectManagement.Web.Controllers
 {
@@ -20,8 +19,21 @@ namespace DiplomaProjectManagement.Web.Controllers
         {
             this._diplomaProjectService = diplomaProjectService;
         }
-        // GET: DiplomaProject
+
         public ActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Create()
+        {
+            var diplomaProjectViewModel = new DiplomaProjectViewModel();
+            return View(diplomaProjectViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Create(DiplomaProjectViewModel diplomaProjectViewModel)
         {
             return View();
         }
@@ -29,7 +41,15 @@ namespace DiplomaProjectManagement.Web.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            return RedirectToAction("Index");
+            var diplomaProject = _diplomaProjectService.GetDiplomaProjectById(id);
+            var diplomaProjectViewModel = Mapper.Map<DiplomaProjectViewModel>(diplomaProject);
+            return View(diplomaProjectViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(DiplomaProjectViewModel diplomaProjectViewModel)
+        {
+            return View();
         }
 
         [HttpPost]

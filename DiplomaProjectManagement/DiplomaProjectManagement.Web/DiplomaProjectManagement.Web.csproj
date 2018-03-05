@@ -7206,6 +7206,8 @@
     <Content Include="Views\Home\Dashboard.cshtml" />
     <Content Include="Views\DiplomaProject\Index.cshtml" />
     <Content Include="Views\DiplomaProject\_DeleteDiplomaProjectModal.cshtml" />
+    <Content Include="Views\DiplomaProject\Create.cshtml" />
+    <Content Include="Views\DiplomaProject\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
