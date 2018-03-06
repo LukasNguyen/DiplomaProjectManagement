@@ -13,12 +13,12 @@ namespace DiplomaProjectManagement.Web.Models
         public int ID { get; set; }
 
         [MaxLength(250)]
-        [Required]
+        [Required(ErrorMessage = "Vui lòng nhập tên đề tài")]
         [DisplayName("Tên đồ án")]
         public string Name { get; set; }
 
         [MaxLength(250)]
-        [Required]
+        [Required(ErrorMessage = "Vui lòng nhập mô tả đề tài")]
         [DisplayName("Mô tả đồ án")]
         public string Description { get; set; }
 

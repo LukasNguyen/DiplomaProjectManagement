@@ -26,7 +26,6 @@
                     @Html.AntiForgeryToken()
 
                     <div class="form-horizontal">
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
                             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
@@ -44,14 +43,6 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.NumberOfStudentsRegistered, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.NumberOfStudentsRegistered, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.NumberOfStudentsRegistered, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
                                 <input type="submit" value="Lưu" class="btn btn-primary" />
                             </div>
@@ -60,7 +51,7 @@
                 }
 
                 <div>
-                    @Html.ActionLink("Trở về", "Index", null, new { @class = "btn btn-success"})
+                    @Html.ActionLink("Trở về", "Index", null, new { @class = "btn btn-success" })
                 </div>
             </div>
         </div>

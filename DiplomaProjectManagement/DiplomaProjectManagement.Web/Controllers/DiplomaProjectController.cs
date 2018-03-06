@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DiplomaProjectManagement.Common;
+using DiplomaProjectManagement.Model.Models;
 using DiplomaProjectManagement.Service;
 using DiplomaProjectManagement.Web.Infrastructure.Core;
 using DiplomaProjectManagement.Web.Models;
@@ -35,13 +36,40 @@ namespace DiplomaProjectManagement.Web.Controllers
         [HttpPost]
         public ActionResult Create(DiplomaProjectViewModel diplomaProjectViewModel)
         {
-            return View();
+            if (!ModelState.IsValid)
+            {
+                AddErrorMessageToModelState();
+                return View(diplomaProjectViewModel);
+            }
+
+            CreateDiplomaProject();
+            return RedirectToAction("Index");
+
+            void CreateDiplomaProject()
+            {
+                diplomaProjectViewModel.LecturerId = (int)Session["lecturerId"];
+
+                var diplomaProject = Mapper.Map<DiplomaProject>(diplomaProjectViewModel);
+                AssignValueBeforeCreateDiplomaProject(diplomaProject);
+
+                _diplomaProjectService.AddDiplomaProject(diplomaProject);
+                _diplomaProjectService.Save();
+            }
+
+            void AssignValueBeforeCreateDiplomaProject(DiplomaProject diplomaProject)
+            {
+                diplomaProject.LecturerId = (int)Session["lecturerId"];
+                diplomaProject.CreatedDate = DateTime.Now;
+                diplomaProject.CreatedBy = User.Identity.Name;
+                diplomaProject.Status = true;
+            }
         }
 
         [HttpGet]
         public ActionResult Edit(int id)
         {
             var diplomaProject = _diplomaProjectService.GetDiplomaProjectById(id);
+
             var diplomaProjectViewModel = Mapper.Map<DiplomaProjectViewModel>(diplomaProject);
             return View(diplomaProjectViewModel);
         }
@@ -49,7 +77,31 @@ namespace DiplomaProjectManagement.Web.Controllers
         [HttpPost]
         public ActionResult Edit(DiplomaProjectViewModel diplomaProjectViewModel)
         {
-            return View();
+            if (!ModelState.IsValid)
+            {
+                AddErrorMessageToModelState();
+                return View(diplomaProjectViewModel);
+            }
+
+            EditDiplomaProject();
+            return RedirectToAction("Index");
+
+            void EditDiplomaProject()
+            {
+                var diplomaProject = Mapper.Map<DiplomaProject>(diplomaProjectViewModel);
+                AssignValueBeforeUpdateDiplomaProject(diplomaProject);
+
+                _diplomaProjectService.UpdateDiplomaProject(diplomaProject);
+                _diplomaProjectService.Save();
+            }
+
+            void AssignValueBeforeUpdateDiplomaProject(DiplomaProject diplomaProject)
+            {
+                diplomaProject.LecturerId = (int)Session["lecturerId"];
+                diplomaProject.UpdatedDate = DateTime.Now;
+                diplomaProject.UpdatedBy = User.Identity.Name;
+                diplomaProject.Status = true;
+            }
         }
 
         [HttpPost]
@@ -84,6 +136,19 @@ namespace DiplomaProjectManagement.Web.Controllers
             };
 
             return Json(new { data = paginationSet }, JsonRequestBehavior.AllowGet);
+        }
+
+        private void AddErrorMessageToModelState()
+        {
+            var errors = ModelState.Values
+                    .SelectMany(n => n.Errors)
+                    .Select(n => n.ErrorMessage)
+                    .ToList();
+
+            foreach (var error in errors)
+            {
+                ModelState.AddModelError(string.Empty, error);
+            }
         }
     }
 }

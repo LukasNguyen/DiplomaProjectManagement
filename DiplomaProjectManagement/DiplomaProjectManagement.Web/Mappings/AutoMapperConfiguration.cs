@@ -42,6 +42,5 @@ namespace DiplomaProjectManagement.Web.Mappings
         {
             cfg.CreateMap<DiplomaProject, DiplomaProjectViewModel>().ReverseMap();
         }
-
     }
 }
