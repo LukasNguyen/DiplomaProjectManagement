@@ -1,7 +1,7 @@
-﻿using System;
-using DiplomaProjectManagement.Data.Infrastructures;
+﻿using DiplomaProjectManagement.Data.Infrastructures;
 using DiplomaProjectManagement.Data.Repositories;
 using DiplomaProjectManagement.Model.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -28,6 +28,9 @@ namespace DiplomaProjectManagement.Service
         void UpdateReviewedGradesStudent(int studentId, int diplomaProjectId, float score);
 
         void UpdateIntroducedGradesStudent(int studentId, int diplomaProjectId, float score);
+
+        Student GetStudentByEmail(string email);
+
         void Save();
     }
 
@@ -70,7 +73,7 @@ namespace DiplomaProjectManagement.Service
                     .Where(n => n.Status)
                     .ToList();
 
-            return _studentRepository.GetAll().Where(n=>n.Status).ToList();
+            return _studentRepository.GetAll().Where(n => n.Status).ToList();
         }
 
         public Student GetStudentById(int id)
@@ -101,6 +104,11 @@ namespace DiplomaProjectManagement.Service
         public void UpdateIntroducedGradesStudent(int studentId, int diplomaProjectId, float score)
         {
             _studentRepository.UpdateIntroducedGradesStudent(studentId, diplomaProjectId, score);
+        }
+
+        public Student GetStudentByEmail(string email)
+        {
+            return _studentRepository.GetSingleByCondition(n => n.Email == email);
         }
 
         public void Save()

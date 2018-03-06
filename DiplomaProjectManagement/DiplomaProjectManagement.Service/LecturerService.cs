@@ -20,6 +20,8 @@ namespace DiplomaProjectManagement.Service
 
         Lecturer GetLecturerById(int id);
 
+        Lecturer GetLecturerByEmail(string email);
+
         void Save();
     }
 
@@ -90,6 +92,11 @@ namespace DiplomaProjectManagement.Service
         public Lecturer GetLecturerById(int id)
         {
             return _lecturerRepository.GetSingleById(id);
+        }
+
+        public Lecturer GetLecturerByEmail(string email)
+        {
+            return _lecturerRepository.GetSingleByCondition(n => n.Email == email);
         }
 
         public void Save()

@@ -29,7 +29,7 @@ namespace DiplomaProjectManagement.Data.Repositories
         public void UpdateRegistrationTimeStatusToTeacherAssignGrades()
         {
             var updatedRegistrationTimes =
-                DbContext.RegistrationTimes.Where(n => n.ClosedRegisteredDate <= DateTime.Now).ToList();
+                DbContext.RegistrationTimes.Where(n => n.TeacherAssignGradesDate <= DateTime.Now).ToList();
 
             updatedRegistrationTimes.ForEach(n => n.RegistrationStatus = RegistrationStatus.ClosedRegistrationTime);
         }

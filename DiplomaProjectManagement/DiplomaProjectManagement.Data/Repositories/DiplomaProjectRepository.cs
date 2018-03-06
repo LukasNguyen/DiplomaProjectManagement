@@ -8,7 +8,7 @@ namespace DiplomaProjectManagement.Data.Repositories
 {
     public interface IDiplomaProjectRepository : IRepository<DiplomaProject>
     {
-        IEnumerable<DiplomaProject> GetDiplomaProjectsActiveInRegisterTime();
+        IQueryable<DiplomaProject> GetDiplomaProjectsByLecturerId(int lectureId);
 
         DiplomaProject GetDiplomaProjectByStudentId(int studentId);
     }
@@ -19,15 +19,11 @@ namespace DiplomaProjectManagement.Data.Repositories
         {
         }
 
-        public IEnumerable<DiplomaProject> GetDiplomaProjectsActiveInRegisterTime()
+        public IQueryable<DiplomaProject> GetDiplomaProjectsByLecturerId(int lectureId)
         {
             return (from dp in DbContext.DiplomaProjects
-                    join dpr in DbContext.DiplomaProjectRegistrations
-                    on dp.ID equals dpr.DiplomaProjectId
-                    join rt in DbContext.RegistrationTimes
-                    on dpr.RegistrationTimeId equals rt.ID
-                    where rt.RegistrationStatus == RegistrationStatus.Opening && dp.Status
-                    select dp).ToList();
+                    where dp.Status && dp.LecturerId == lectureId
+                    select dp);
         }
 
         public DiplomaProject GetDiplomaProjectByStudentId(int studentId)

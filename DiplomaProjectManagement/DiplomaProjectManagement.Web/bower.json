@@ -19,6 +19,9 @@
     "gentelella": "~1.4.0",
     "notifyjs": "v0.4.2",
     "mustache.js": "mustache#v2.3.0",
-    "checklist-model": "~0.9.0"
+    "checklist-model": "~0.9.0",
+    "font-awesome": "4.4.0",
+    "ionicons": "2.0.1",
+    "twbs-pagination": "v1.4.1"
   }
 }
