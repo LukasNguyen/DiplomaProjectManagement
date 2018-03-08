@@ -35,14 +35,14 @@
                 dataType: 'json',
                 success: function (response) {
                     if (response.status) {
-                        common.notify('Xóa đồ án thành công', 'success');
+                        toastr.success('Xóa đồ án thành công');
                         loadData();
                     } else {
-                        common.notify('Xóa đồ án thất bại', 'error');
+                        toastr.error('Xóa đồ án thất bại');
                     }
                 },
                 error: function (status) {
-                    common.notify('Xóa đồ án thất bại', 'error');
+                    toastr.error('Xóa đồ án thất bại');
                 }
             });
         });
@@ -92,7 +92,7 @@
             },
             error: function (status) {
                 console.log(status);
-                common.notify('Không có dữ liệu.', 'error');
+                toastr.error('Không có dữ liệu.');
             }
         });
     }

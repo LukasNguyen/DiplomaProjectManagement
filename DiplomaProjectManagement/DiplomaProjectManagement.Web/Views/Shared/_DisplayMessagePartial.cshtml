@@ -1,0 +1,40 @@
+﻿@using DiplomaProjectManagement.Web.Infrastructure.Extensions
+
+@{
+    var preparedMessageList = this.TempData[ControllerExtensions.PreparedMessageListKey] as List<ControllerExtensions.PreparedMessage>;
+
+    if (preparedMessageList?.Any() == true)
+    {
+        <script type="text/javascript">
+            @foreach (var preparedMessage in preparedMessageList)
+            {
+                @RenderPreparedMessageJavaScript(preparedMessage)
+            }
+        </script>
+    }
+}
+
+@helper RenderPreparedMessageJavaScript(ControllerExtensions.PreparedMessage preparedMessage)
+{
+if (!string.IsNullOrWhiteSpace(preparedMessage?.Message))
+{
+    var message = preparedMessage.Message.Replace("'", "\\'");
+
+    switch (preparedMessage.Type)
+    {
+        case ControllerExtensions.PreparedMessageType.Success:
+                @:toastr.success('@message');
+                break;
+            case ControllerExtensions.PreparedMessageType.Warning:
+                @:toastr.warning('@message');
+                break;
+            case ControllerExtensions.PreparedMessageType.Error:
+                @:toastr.error('@message');
+                break;
+            case ControllerExtensions.PreparedMessageType.Info:
+            default:
+                @:toastr.info('@message');
+                break;
+        }
+    }
+}

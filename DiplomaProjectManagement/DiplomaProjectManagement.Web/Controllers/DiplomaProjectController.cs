@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using DiplomaProjectManagement.Web.Infrastructure.Extensions;
 
 namespace DiplomaProjectManagement.Web.Controllers
 {
@@ -43,6 +44,8 @@ namespace DiplomaProjectManagement.Web.Controllers
             }
 
             CreateDiplomaProject();
+            this.PrepareSuccessMessage("Thêm đề tài tốt nghiệp thành công");
+
             return RedirectToAction("Index");
 
             void CreateDiplomaProject()
@@ -84,6 +87,8 @@ namespace DiplomaProjectManagement.Web.Controllers
             }
 
             EditDiplomaProject();
+            this.PrepareSuccessMessage("Sửa đề tài tốt nghiệp thành công");
+
             return RedirectToAction("Index");
 
             void EditDiplomaProject()
