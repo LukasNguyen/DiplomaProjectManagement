@@ -39,7 +39,7 @@ namespace DiplomaProjectManagement.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                AddErrorMessageToModelState();
+                this.AddErrorMessageToModelState(ModelState);
                 return View(diplomaProjectViewModel);
             }
 
@@ -82,7 +82,7 @@ namespace DiplomaProjectManagement.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                AddErrorMessageToModelState();
+                this.AddErrorMessageToModelState(ModelState);
                 return View(diplomaProjectViewModel);
             }
 
@@ -141,19 +141,6 @@ namespace DiplomaProjectManagement.Web.Controllers
             };
 
             return Json(new { data = paginationSet }, JsonRequestBehavior.AllowGet);
-        }
-
-        private void AddErrorMessageToModelState()
-        {
-            var errors = ModelState.Values
-                    .SelectMany(n => n.Errors)
-                    .Select(n => n.ErrorMessage)
-                    .ToList();
-
-            foreach (var error in errors)
-            {
-                ModelState.AddModelError(string.Empty, error);
-            }
         }
     }
 }

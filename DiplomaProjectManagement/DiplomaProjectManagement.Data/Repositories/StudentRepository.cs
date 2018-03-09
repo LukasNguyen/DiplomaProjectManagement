@@ -20,6 +20,8 @@ namespace DiplomaProjectManagement.Data.Repositories
         void UpdateIntroducedGradesStudent(int studentId, int diplomaProjectId, float score);
 
         IEnumerable<Student> GetIntroducedStudentsByRegisterTimeId(int registerTimeId, int lecturerId);
+
+        string GetStudentEmail(int id);
     }
 
     public class StudentRepository : RepositoryBase<Student>, IStudentRepository
@@ -83,6 +85,14 @@ namespace DiplomaProjectManagement.Data.Repositories
                         where l.ID == lecturerId && dpr.RegistrationTimeId == registerTimeId
                         select s).ToList();
             }
+        }
+
+        public string GetStudentEmail(int id)
+        {
+            return DbContext.Students
+                .Where(n => n.ID == id)
+                .Select(n => n.Email)
+                .SingleOrDefault();
         }
     }
 }
