@@ -6,7 +6,7 @@
 
         $scope.registrationTime = {};
         $scope.RegisteredDate = undefined;
-        $scope.ClosedRegisteredDate = undefined;
+        $scope.TeacherAssignGradesDate = undefined;
         $scope.ClosedDate = undefined;
 
     $scope.addRegistrationTime = addRegistrationTime;
@@ -23,7 +23,7 @@
 
         function assignDataToModel() {
             $scope.registrationTime.RegisteredDate = $filter('date')($scope.RegisteredDate, 'MM/dd/yyyy');
-            $scope.registrationTime.ClosedRegisteredDate = $filter('date')($scope.ClosedRegisteredDate, 'MM/dd/yyyy');
+            $scope.registrationTime.TeacherAssignGradesDate = $filter('date')($scope.TeacherAssignGradesDate, 'MM/dd/yyyy');
             $scope.registrationTime.ClosedDate = $filter('date')($scope.ClosedDate, 'MM/dd/yyyy');
         }
     }

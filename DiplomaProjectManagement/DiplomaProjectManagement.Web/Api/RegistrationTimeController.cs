@@ -31,7 +31,7 @@ namespace DiplomaProjectManagement.Web.Api
             {
                 int totalRow = 0;
 
-                var model = _registrationTimeService.GetAllRegistrationTimes();
+                var model = _registrationTimeService.GetAllRegistrationTimes(keyword);
 
                 totalRow = model.Count();
 
@@ -108,19 +108,19 @@ namespace DiplomaProjectManagement.Web.Api
                 {
                     return request.CreateErrorResponse(HttpStatusCode.BadRequest, "Ngày đăng ký phải trước ngày giảng viên chấm điểm và ngày giảng viên chấm phải sau ngày kết thúc");
                 }
-                RegistrationTime RegistrationTimeUpdated = Mapper.Map<RegistrationTime>(registrationTimeViewModel);
+                RegistrationTime registrationTimeUpdated = Mapper.Map<RegistrationTime>(registrationTimeViewModel);
 
-                _registrationTimeService.UpdateRegistrationTime(RegistrationTimeUpdated);
+                _registrationTimeService.UpdateRegistrationTime(registrationTimeUpdated);
                 _registrationTimeService.Save();
 
-                return request.CreateResponse(HttpStatusCode.Created, RegistrationTimeUpdated);
+                return request.CreateResponse(HttpStatusCode.Created, registrationTimeUpdated);
             });
         }
         private static bool CheckValidDate(RegistrationTimeViewModel registrationTimeViewModel)
         {
-            return registrationTimeViewModel.RegisteredDate > registrationTimeViewModel.ClosedRegisteredDate ||
+            return registrationTimeViewModel.RegisteredDate > registrationTimeViewModel.TeacherAssignGradesDate ||
                    registrationTimeViewModel.RegisteredDate > registrationTimeViewModel.ClosedDate ||
-                   registrationTimeViewModel.ClosedDate < registrationTimeViewModel.ClosedRegisteredDate;
+                   registrationTimeViewModel.ClosedDate < registrationTimeViewModel.TeacherAssignGradesDate;
         }
     }
 }

@@ -15,7 +15,7 @@ namespace DiplomaProjectManagement.Service
 
         RegistrationTime DeleteRegistrationTimeByModifyStatus(int id);
 
-        IEnumerable<RegistrationTime> GetAllRegistrationTimes();
+        IEnumerable<RegistrationTime> GetAllRegistrationTimes(string keyword = null);
 
         RegistrationTime GetRegistrationTimeById(int id);
 
@@ -54,8 +54,15 @@ namespace DiplomaProjectManagement.Service
             return registrationTime;
         }
 
-        public IEnumerable<RegistrationTime> GetAllRegistrationTimes()
+        public IEnumerable<RegistrationTime> GetAllRegistrationTimes(string keyword = null)
         {
+            if (!string.IsNullOrWhiteSpace(keyword))
+            {
+                return _registrationTimeRepository
+                    .GetMulti(n => n.Name.Contains(keyword))
+                    .ToList();
+            }
+
             return _registrationTimeRepository.GetAll().ToList();
         }
 
