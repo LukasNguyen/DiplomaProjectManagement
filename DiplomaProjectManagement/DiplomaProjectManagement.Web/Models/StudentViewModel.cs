@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -12,17 +13,19 @@ namespace DiplomaProjectManagement.Web.Models
         public int ID { get; set; }
 
         [MaxLength(250)]
-        [Required]
+        [DisplayName("Tên sinh viên")]
+        [Required(ErrorMessage = "Vui lòng nhập tên sinh viên")]
         public string Name { get; set; }
 
         [MaxLength(50)]
+        [DisplayName("Số điện thoại")]
         public string Phone { get; set; }
 
         [MaxLength(50)]
-        [Required]
         public string Email { get; set; }
 
         [MaxLength(250)]
+        [DisplayName("Địa chỉ")]
         public string Address { get; set; }
 
         public DateTime? CreatedDate { get; set; }
@@ -30,11 +33,9 @@ namespace DiplomaProjectManagement.Web.Models
         public DateTime? UpdatedDate { get; set; }
 
         [MaxLength(256)]
-
         public string UpdatedBy { get; set; }
 
         [MaxLength(256)]
-
         public string CreatedBy { get; set; }
 
         public bool Status { get; set; }

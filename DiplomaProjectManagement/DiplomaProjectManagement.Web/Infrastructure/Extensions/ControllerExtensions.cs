@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace DiplomaProjectManagement.Web.Infrastructure.Extensions
 {
     public static class ControllerExtensions
     {
-        public static string PreparedMessageListKey = "PreparedMessageListKey";
+        public const string PreparedMessageListKey = "PreparedMessageListKey";
 
         public static void PrepareInfoMessage(this Controller controller, string message)
         {
@@ -60,6 +61,19 @@ namespace DiplomaProjectManagement.Web.Infrastructure.Extensions
             });
 
             controller.TempData[PreparedMessageListKey] = preparedMessageList;
+        }
+
+        public static void AddErrorMessageToModelState(this Controller controller, ModelStateDictionary modelState)
+        {
+            var errors = modelState.Values
+                .SelectMany(n => n.Errors)
+                .Select(n => n.ErrorMessage)
+                .ToList();
+
+            foreach (var error in errors)
+            {
+                modelState.AddModelError(string.Empty, error);
+            }
         }
 
         public enum PreparedMessageType : byte

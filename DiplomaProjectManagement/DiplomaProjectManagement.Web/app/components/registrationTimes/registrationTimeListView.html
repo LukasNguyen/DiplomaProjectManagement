@@ -51,7 +51,7 @@
                             <td>{{item.ID}}</td>
                             <td>{{item.Name}}</td>
                             <td>{{item.RegisteredDate | date:'dd/MM/yyyy HH:mm:ss'}}</td>
-                            <td>{{item.ClosedRegisteredDate | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                            <td>{{item.TeacherAssignGradesDate | date:'dd/MM/yyyy HH:mm:ss'}}</td>
                             <td>{{item.ClosedDate | date:'dd/MM/yyyy HH:mm:ss'}}</td>
                             <td><span ng-class="{'badge bg-green':item.RegistrationStatus == 0, 'badge bg-yellow':item.RegistrationStatus == 1, 'badge bg-red':item.RegistrationStatus == 2}">{{item.RegistrationStatus | registrationTimeStatusFilter}}</span></td>
                             <td>

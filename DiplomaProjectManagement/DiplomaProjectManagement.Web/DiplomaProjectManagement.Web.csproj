@@ -216,6 +216,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\DiplomaProjectController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -7194,6 +7195,7 @@
     <Content Include="Views\DiplomaProject\Create.cshtml" />
     <Content Include="Views\DiplomaProject\Edit.cshtml" />
     <Content Include="Views\Shared\_DisplayMessagePartial.cshtml" />
+    <Content Include="Views\Student\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

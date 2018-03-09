@@ -31,6 +31,8 @@ namespace DiplomaProjectManagement.Service
 
         Student GetStudentByEmail(string email);
 
+        string GetStudentEmail(int id);
+
         void Save();
     }
 
@@ -109,6 +111,11 @@ namespace DiplomaProjectManagement.Service
         public Student GetStudentByEmail(string email)
         {
             return _studentRepository.GetSingleByCondition(n => n.Email == email);
+        }
+
+        public string GetStudentEmail(int id)
+        {
+            return _studentRepository.GetStudentEmail(id);
         }
 
         public void Save()
