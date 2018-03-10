@@ -6,7 +6,7 @@ namespace DiplomaProjectManagement.Data.Repositories
 {
     public interface IDiplomaProjectRegistrationRepository : IRepository<DiplomaProjectRegistration>
     {
-        bool IsExistsStudentRegistered(int studentId, int diplomaProjectId);
+        bool IsCurrentStudentRegistered(int studentId, int registrationTimeId);
     }
 
     public class DiplomaProjectRegistrationRepository : RepositoryBase<DiplomaProjectRegistration>, IDiplomaProjectRegistrationRepository
@@ -15,15 +15,11 @@ namespace DiplomaProjectManagement.Data.Repositories
         {
         }
 
-        public bool IsExistsStudentRegistered(int studentId, int diplomaProjectId)
+        public bool IsCurrentStudentRegistered(int studentId, int registrationTimeId)
         {
-                return (from dpr in DbContext.DiplomaProjectRegistrations
-                    join s in DbContext.Students
-                    on dpr.StudentId equals s.ID
-                    join dp in DbContext.DiplomaProjects
-                    on dpr.DiplomaProjectId equals dp.ID
-                    where s.ID == studentId && dp.ID == diplomaProjectId
-                        select dpr).Any();
+            return DbContext.DiplomaProjectRegistrations
+                .Any(n => n.StudentId == studentId
+                    && n.RegistrationTimeId == registrationTimeId);
         }
     }
 }

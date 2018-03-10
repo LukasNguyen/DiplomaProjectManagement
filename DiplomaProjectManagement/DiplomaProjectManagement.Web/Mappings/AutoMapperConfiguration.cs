@@ -40,7 +40,11 @@ namespace DiplomaProjectManagement.Web.Mappings
 
         private static void RegisterMappingForDiplomaProject(IMapperConfigurationExpression cfg)
         {
-            cfg.CreateMap<DiplomaProject, DiplomaProjectViewModel>().ReverseMap();
+            cfg.CreateMap<DiplomaProject, DiplomaProjectViewModel>()
+                .ForMember(dest => dest.LecturerName, opt => opt.MapFrom(p => p.Lecturer.Name))
+                .ForMember(dest => dest.Lecturer, opt => opt.Ignore());
+
+            cfg.CreateMap<DiplomaProjectViewModel, DiplomaProject>();
         }
     }
 }

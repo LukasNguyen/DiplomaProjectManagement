@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using DiplomaProjectManagement.Model.Models;
 
 namespace DiplomaProjectManagement.Web.Models
 {
@@ -28,6 +24,8 @@ namespace DiplomaProjectManagement.Web.Models
         public int LecturerId { get; set; }
 
         public LecturerViewModel Lecturer { get; set; }
+
+        public string LecturerName { get; set; }
 
         public ICollection<DiplomaProjectRegistrationViewModel> DiplomaProjectRegistration { get; set; }
     }
