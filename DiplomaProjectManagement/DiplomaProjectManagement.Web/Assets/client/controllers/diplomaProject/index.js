@@ -75,8 +75,7 @@
                         {
                             ID: item.ID,
                             Name: item.Name,
-                            Description: item.Description,
-                            NumberOfStudentsRegistered: item.NumberOfStudentsRegistered
+                            Description: item.Description
                         });
 
                     $('#lblTotalRecords').text(response.data.TotalCount);

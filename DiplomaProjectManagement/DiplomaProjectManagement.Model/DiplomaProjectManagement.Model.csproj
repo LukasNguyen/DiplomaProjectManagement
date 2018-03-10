@@ -55,15 +55,15 @@
   <ItemGroup>
     <Compile Include="Abstracts\Auditable.cs" />
     <Compile Include="Abstracts\IAuditable.cs" />
-    <Compile Include="Entities\ApplicationRole.cs" />
-    <Compile Include="Entities\ApplicationUser.cs" />
-    <Compile Include="Entities\DiplomaProject.cs" />
-    <Compile Include="Entities\DiplomaProjectRegistration.cs" />
-    <Compile Include="Entities\Error.cs" />
-    <Compile Include="Entities\Facility.cs" />
-    <Compile Include="Entities\Lecturer.cs" />
-    <Compile Include="Entities\RegistrationTime.cs" />
-    <Compile Include="Entities\Student.cs" />
+    <Compile Include="Models\ApplicationRole.cs" />
+    <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\DiplomaProject.cs" />
+    <Compile Include="Models\DiplomaProjectRegistration.cs" />
+    <Compile Include="Models\Error.cs" />
+    <Compile Include="Models\Facility.cs" />
+    <Compile Include="Models\Lecturer.cs" />
+    <Compile Include="Models\RegistrationTime.cs" />
+    <Compile Include="Models\Student.cs" />
     <Compile Include="Enums\RegistrationStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

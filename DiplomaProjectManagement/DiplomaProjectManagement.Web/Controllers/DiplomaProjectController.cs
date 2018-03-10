@@ -129,7 +129,7 @@ namespace DiplomaProjectManagement.Web.Controllers
 
             int totalRow = query.Count();
 
-            query = query.OrderByDescending(n => n.CreatedDate).Skip((page - 1) * pageSize).Take(pageSize);
+            query = query.Skip((page - 1) * pageSize).Take(pageSize);
 
             var responseData = Mapper.Map<List<DiplomaProjectViewModel>>(query);
 

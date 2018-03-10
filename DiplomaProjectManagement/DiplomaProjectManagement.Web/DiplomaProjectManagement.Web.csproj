@@ -7193,9 +7193,9 @@
     <Content Include="Views\DiplomaProject\Index.cshtml" />
     <Content Include="Views\DiplomaProject\_DeleteDiplomaProjectModal.cshtml" />
     <Content Include="Views\DiplomaProject\Create.cshtml" />
-    <Content Include="Views\DiplomaProject\Edit.cshtml" />
     <Content Include="Views\Shared\_DisplayMessagePartial.cshtml" />
     <Content Include="Views\Student\Edit.cshtml" />
+    <Content Include="Views\DiplomaProject\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

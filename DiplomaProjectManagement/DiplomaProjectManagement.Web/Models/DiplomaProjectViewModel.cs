@@ -22,8 +22,8 @@ namespace DiplomaProjectManagement.Web.Models
         [DisplayName("Mô tả đồ án")]
         public string Description { get; set; }
 
-        [DisplayName("Số sinh viên đăng ký")]
-        public int NumberOfStudentsRegistered { get; set; }
+        [DisplayName("Hiển thị trong đợt đăng ký")]
+        public bool IsDisplayed { get; set; }
 
         public int LecturerId { get; set; }
 
