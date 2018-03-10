@@ -1,5 +1,4 @@
 ﻿using System;
-using DiplomaProjectManagement.Model.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -34,11 +33,9 @@ namespace DiplomaProjectManagement.Web.Models
         public DateTime? UpdatedDate { get; set; }
 
         [MaxLength(256)]
-
         public string UpdatedBy { get; set; }
 
         [MaxLength(256)]
-
         public string CreatedBy { get; set; }
 
         public bool Status { get; set; }

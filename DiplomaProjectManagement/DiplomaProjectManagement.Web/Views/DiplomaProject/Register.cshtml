@@ -1,5 +1,6 @@
-﻿@section Scripts{
-    <script src="~/Assets/client/controllers/diplomaProject/index.js"></script>
+﻿
+@section Scripts{
+    <script src="~/Assets/client/controllers/diplomaProject/register.js"></script>
     <script>
         var DiplomaProjectController = new DiplomaProjectController();
         DiplomaProjectController.initialize();
@@ -28,18 +29,20 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_content">
-                <a href="DiplomaProject/Create" class="btn btn-success btn-sm pull-right"><i class="fa fa-plus"></i> Thêm đề tài tốt nghiệp</a>
                 <table class="table table-bordered">
                     <thead>
                     <tr>
                         <th width="10%">
                             ID
                         </th>
-                        <th width="34%">
+                        <th width="24%">
                             Tên đồ án
                         </th>
-                        <th width="45%">
+                        <th width="30%">
                             Mô tả đồ án
+                        </th>
+                        <th width="25%">
+                            Giảng viên hướng dẫn
                         </th>
                         <th width="11%"></th>
                     </tr>
@@ -80,15 +83,16 @@
         </div>
     </div>
 </div>
-@Html.Partial("_DeleteDiplomaProjectModal")
+@Html.Partial("_RegisterDiplomaProjectModal")
+
 <script id="table-template" type="x-tmpl-mustache">
     <tr>
         <td id="diplomaProjectId">{{ID}}</td>
         <td>{{Name}}</td>
         <td>{{Description}}</td>
+        <td>{{LecturerName}}</td>
         <td scope="row">
-            <a href="DiplomaProject/Edit/{{ID}}" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i></a>
-            <button data-name="{{Name}}" data-id="{{ID}}" class="btn btn-danger btn-sm" id ="btnDeleteDiplomaProject"><i class="fa fa-trash"></i></button>
+            <button data-name="{{Name}}" data-id="{{ID}}" data-lecturer ="{{LecturerName}}" class="btn btn-success btn-sm" id="btnRegisterDiplomaProject"><i class="fa fa-check-circle"></i> Đăng ký</button>
         </td>
     </tr>
 </script>

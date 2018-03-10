@@ -2,6 +2,7 @@
 using DiplomaProjectManagement.Data.Repositories;
 using DiplomaProjectManagement.Model.Models;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace DiplomaProjectManagement.Service
@@ -18,6 +19,8 @@ namespace DiplomaProjectManagement.Service
 
         IEnumerable<DiplomaProject> GetDiplomaProjectsByLecturerId(int lectureId, string keyword = null);
 
+        IEnumerable<DiplomaProject> GetDiplomaProjectsToRegister(int studentId, string keyword = null);
+
         DiplomaProject GetDiplomaProjectById(int id);
 
         DiplomaProject GetDiplomaProjectByStudentId(int id);
@@ -29,10 +32,18 @@ namespace DiplomaProjectManagement.Service
     {
         private readonly IDiplomaProjectRepository _diplomaProjectRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IDiplomaProjectRegistrationRepository _diplomaProjectRegistrationRepository;
+        private readonly IRegistrationTimeRepository _registrationTimeRepository;
 
-        public DiplomaProjectService(IDiplomaProjectRepository diplomaProjectRepository, IUnitOfWork unitOfWork)
+        public DiplomaProjectService(
+            IDiplomaProjectRepository diplomaProjectRepository,
+            IDiplomaProjectRegistrationRepository diplomaProjectRegistrationRepository,
+            IRegistrationTimeRepository registrationTimeRepository,
+            IUnitOfWork unitOfWork)
         {
             _diplomaProjectRepository = diplomaProjectRepository;
+            _diplomaProjectRegistrationRepository = diplomaProjectRegistrationRepository;
+            _registrationTimeRepository = registrationTimeRepository;
             _unitOfWork = unitOfWork;
         }
 
@@ -57,6 +68,37 @@ namespace DiplomaProjectManagement.Service
             if (!string.IsNullOrWhiteSpace(keyword))
                 return query.Where(n => n.Name.Contains(keyword) || n.Description.Contains(keyword)).ToList();
             return query.ToList();
+        }
+
+        public IEnumerable<DiplomaProject> GetDiplomaProjectsToRegister(int studentId, string keyword = null)
+        {
+            var activeRegisterTimeId = GetRegisterTimeActiveId();
+
+            var isStudentRegistered = _diplomaProjectRegistrationRepository
+                .IsCurrentStudentRegistered(studentId, activeRegisterTimeId);
+
+            if (isStudentRegistered)
+            {
+                return Enumerable.Empty<DiplomaProject>();
+            }
+
+            var query = _diplomaProjectRepository.GetAll().Include(n => n.Lecturer)
+                .Where(n => n.IsDisplayed && n.Status);
+
+            if (!string.IsNullOrWhiteSpace(keyword))
+            {
+                return query.Where(n => n.Name.Contains(keyword)
+                                        || n.Description.Contains(keyword)
+                                        || n.Lecturer.Name.Contains(keyword))
+                    .ToList();
+            }
+
+            return query.ToList();
+        }
+
+        private int GetRegisterTimeActiveId()
+        {
+            return _registrationTimeRepository.GetRegistrationTimeActiveId();
         }
 
         public DiplomaProject GetDiplomaProjectById(int id)

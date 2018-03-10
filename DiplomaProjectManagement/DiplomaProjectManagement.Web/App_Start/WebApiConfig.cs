@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Serialization;
 using System.Web.Http;
 
-namespace DiplomaProjectManagement.Web
+namespace DiplomaProjectManagement.Web.App_Start
 {
     public static class WebApiConfig
     {

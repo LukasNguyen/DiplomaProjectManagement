@@ -10,6 +10,8 @@ namespace DiplomaProjectManagement.Service
 
         bool IsExistsStudentRegistered(int studentId, int diplomaProjectId);
 
+        DiplomaProjectRegistration AddDiplomaProjectRegistration(DiplomaProjectRegistration diplomaProjectRegistration);
+
         void Save();
     }
 
@@ -26,7 +28,12 @@ namespace DiplomaProjectManagement.Service
 
         public bool IsExistsStudentRegistered(int studentId, int diplomaProjectId)
         {
-            return _diplomaProjectRegistrationRepository.IsExistsStudentRegistered(studentId, diplomaProjectId);
+            return _diplomaProjectRegistrationRepository.IsCurrentStudentRegistered(studentId, diplomaProjectId);
+        }
+
+        public DiplomaProjectRegistration AddDiplomaProjectRegistration(DiplomaProjectRegistration diplomaProjectRegistration)
+        {
+            return _diplomaProjectRegistrationRepository.Add(diplomaProjectRegistration);
         }
 
         public DiplomaProjectRegistration RegisterDiplomaProject(DiplomaProjectRegistration diplomaProjectRegistration)

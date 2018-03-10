@@ -10,40 +10,46 @@
             common.configs.pageIndex = 1;
             loadData(true);
         });
-        $('#btnDiplomaProjectSearch').off('click').on('click', function () {
-            loadData();
-        });
 
-        $('body').on('click', '#btnDeleteDiplomaProject', function (e) {
+        $('#btnDiplomaProjectSearch').off('click').on('click',
+            function () {
+                loadData();
+            });
+
+
+        $('body').on('click', '#btnRegisterDiplomaProject', function (e) {
             e.preventDefault();
 
             var diplomaProjectId = $(this).data("id");
             var diplomaProjectName = $(this).data("name");
+            var lecturerName = $(this).data("lecturer");
+
             $('#diplomaProjectModalId').html(diplomaProjectId);
             $('#diplomaProjectModalName').html(diplomaProjectName);
-            $('#deleteDiplomaProjectModal').modal('show');
+            $('#diplomaProjectModalLecturerName').html(lecturerName);
+            $('#registerDiplomaProjectModal').modal('show');
         });
 
-        $('body').on('click', '#btnAcceptDeleteDiplomaProject', function (e) {
+        $('body').on('click', '#btnAcceptRegisterDiplomaProject', function (e) {
             e.preventDefault();
-            $('#deleteDiplomaProjectModal').modal('hide');
+            $('#registerDiplomaProjectModal').modal('hide');
             $.ajax({
                 type: 'POST',
-                url: '/DiplomaProject/Delete',
+                url: '/DiplomaProject/Register',
                 data: {
                     id: $('#diplomaProjectModalId').text()
                 },
                 dataType: 'json',
                 success: function (response) {
                     if (response.status) {
-                        toastr.success('Xóa đề tài thành công');
+                        toastr.success('Đăng ký đề tài thành công');
                         loadData();
                     } else {
-                        toastr.error('Xóa đề tài thất bại');
+                        toastr.error('Đăng ký đề tài thất bại');
                     }
                 },
                 error: function (status) {
-                    toastr.error('Xóa đề tài thất bại');
+                    toastr.error('Đăng ký đề tài thất bại');
                 }
             });
         });
@@ -54,7 +60,7 @@
         var render = "";
         $.ajax({
             type: 'GET',
-            url: '/DiplomaProject/GetDiplomaProjectPagination',
+            url: '/DiplomaProject/GetDiplomaProjectToRegisterPagination',
             data: {
                 page: common.configs.pageIndex,
                 pageSize: common.configs.pageSize,
@@ -65,7 +71,7 @@
                 common.startLoading();
 
                 if (response.data.Items.length == 0) {
-                    $('#tbl-content').html('<td colspan="4" style="height:30px; text-align:center"><strong>Không có dữ liệu.</strong></td>');
+                    $('#tbl-content').html('<td colspan="5" style="height:30px; text-align:center"><strong>Không có dữ liệu.</strong></td>');
                     $('#lblTotalRecords').text(response.data.TotalCount);
                     common.stopLoading();
                     return;
@@ -76,6 +82,7 @@
                         {
                             ID: item.ID,
                             Name: item.Name,
+                            LecturerName: item.LecturerName,
                             Description: item.Description
                         });
 

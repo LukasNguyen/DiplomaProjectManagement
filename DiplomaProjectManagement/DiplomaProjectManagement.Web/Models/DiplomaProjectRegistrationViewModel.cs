@@ -13,7 +13,5 @@ namespace DiplomaProjectManagement.Web.Models
         public int StudentId { get; set; }
 
         public int RegistrationTimeId { get; set; }
-
-        public DiplomaProjectViewModel DiplomaProject { get; set; }
     }
 }

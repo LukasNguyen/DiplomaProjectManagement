@@ -1,8 +1,10 @@
-﻿using DiplomaProjectManagement.Web.Mappings;
+﻿using System.Configuration;
+using DiplomaProjectManagement.Web.Mappings;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using DiplomaProjectManagement.Web.App_Start;
 
 namespace DiplomaProjectManagement.Web
 {

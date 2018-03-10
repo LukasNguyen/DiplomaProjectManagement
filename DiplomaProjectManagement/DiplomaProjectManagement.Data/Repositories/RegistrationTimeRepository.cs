@@ -13,6 +13,8 @@ namespace DiplomaProjectManagement.Data.Repositories
         void UpdateRegistrationTimeStatusToTeacherAssignGrades();
 
         void UpdateRegistrationTimeStatusToCloseRegistrationTime();
+
+        int GetRegistrationTimeActiveId();
     }
 
     public class RegistrationTimeRepository : RepositoryBase<RegistrationTime>, IRegistrationTimeRepository
@@ -40,6 +42,14 @@ namespace DiplomaProjectManagement.Data.Repositories
                 DbContext.RegistrationTimes.Where(n => n.ClosedDate <= DateTime.Now).ToList();
 
             updatedRegistrationTimes.ForEach(n => n.RegistrationStatus = RegistrationStatus.ClosedAssignGradesTime);
+        }
+
+        public int GetRegistrationTimeActiveId()
+        {
+            return DbContext.RegistrationTimes
+                .Where(n => n.RegistrationStatus == RegistrationStatus.Opening)
+                .Select(n => n.ID)
+                .SingleOrDefault();
         }
     }
 }

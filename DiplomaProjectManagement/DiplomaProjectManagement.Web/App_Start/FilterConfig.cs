@@ -1,7 +1,6 @@
-﻿using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
-namespace DiplomaProjectManagement.Web
+namespace DiplomaProjectManagement.Web.App_Start
 {
     public class FilterConfig
     {

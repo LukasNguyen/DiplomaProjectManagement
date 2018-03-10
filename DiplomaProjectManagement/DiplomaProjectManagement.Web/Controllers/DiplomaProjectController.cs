@@ -12,21 +12,29 @@ using DiplomaProjectManagement.Web.Infrastructure.Extensions;
 
 namespace DiplomaProjectManagement.Web.Controllers
 {
-    [Authorize(Roles = RoleConstants.Lecturer)]
     public class DiplomaProjectController : Controller
     {
         private readonly IDiplomaProjectService _diplomaProjectService;
+        private readonly IDiplomaProjectRegistrationService _diplomaProjectRegistrationService;
+        private readonly IRegistrationTimeService _registrationTimeService;
 
-        public DiplomaProjectController(IDiplomaProjectService diplomaProjectService)
+        public DiplomaProjectController(
+            IDiplomaProjectService diplomaProjectService,
+            IDiplomaProjectRegistrationService diplomaProjectRegistrationService,
+            IRegistrationTimeService registrationTimeService)
         {
-            this._diplomaProjectService = diplomaProjectService;
+            _diplomaProjectService = diplomaProjectService;
+            _diplomaProjectRegistrationService = diplomaProjectRegistrationService;
+            _registrationTimeService = registrationTimeService;
         }
 
+        [Authorize(Roles = RoleConstants.Lecturer)]
         public ActionResult Index()
         {
             return View();
         }
 
+        [Authorize(Roles = RoleConstants.Lecturer)]
         [HttpGet]
         public ActionResult Create()
         {
@@ -34,6 +42,7 @@ namespace DiplomaProjectManagement.Web.Controllers
             return View(diplomaProjectViewModel);
         }
 
+        [Authorize(Roles = RoleConstants.Lecturer)]
         [HttpPost]
         public ActionResult Create(DiplomaProjectViewModel diplomaProjectViewModel)
         {
@@ -68,6 +77,7 @@ namespace DiplomaProjectManagement.Web.Controllers
             }
         }
 
+        [Authorize(Roles = RoleConstants.Lecturer)]
         [HttpGet]
         public ActionResult Edit(int id)
         {
@@ -77,6 +87,7 @@ namespace DiplomaProjectManagement.Web.Controllers
             return View(diplomaProjectViewModel);
         }
 
+        [Authorize(Roles = RoleConstants.Lecturer)]
         [HttpPost]
         public ActionResult Edit(DiplomaProjectViewModel diplomaProjectViewModel)
         {
@@ -109,6 +120,7 @@ namespace DiplomaProjectManagement.Web.Controllers
             }
         }
 
+        [Authorize(Roles = RoleConstants.Lecturer)]
         [HttpPost]
         public ActionResult Delete(int id)
         {
@@ -122,6 +134,43 @@ namespace DiplomaProjectManagement.Web.Controllers
             return Json(new { status = true });
         }
 
+        [Authorize(Roles = RoleConstants.Student)]
+        [HttpGet]
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = RoleConstants.Student)]
+        [HttpPost]
+        public ActionResult Register(int id)
+        {
+            var diplomaProjectRegistrationViewModel = CreateDiplomaProjectRegistrationViewModel();
+
+            var dipmaProjectRegistration = Mapper.Map<DiplomaProjectRegistration>(diplomaProjectRegistrationViewModel);
+            _diplomaProjectRegistrationService.AddDiplomaProjectRegistration(dipmaProjectRegistration);
+
+            try
+            {
+                _diplomaProjectRegistrationService.Save();
+                return Json(new { status = true });
+            }
+            catch
+            {
+                return Json(new { status = false });
+            }
+
+            DiplomaProjectRegistrationViewModel CreateDiplomaProjectRegistrationViewModel()
+            {
+                return new DiplomaProjectRegistrationViewModel
+                {
+                    DiplomaProjectId = id,
+                    StudentId = (int)Session["studentId"],
+                    RegistrationTimeId = _registrationTimeService.GetActiveRegisterTimeId()
+                };
+            }
+        }
+
         public JsonResult GetDiplomaProjectPagination(int page, int pageSize, string keyword = null)
         {
             var currentLecturerId = (int)Session["lecturerId"];
@@ -129,7 +178,28 @@ namespace DiplomaProjectManagement.Web.Controllers
 
             int totalRow = query.Count();
 
-            query = query.OrderByDescending(n => n.CreatedDate).Skip((page - 1) * pageSize).Take(pageSize);
+            query = query.Skip((page - 1) * pageSize).Take(pageSize);
+
+            var responseData = Mapper.Map<List<DiplomaProjectViewModel>>(query);
+
+            var paginationSet = new PaginationSet<DiplomaProjectViewModel>()
+            {
+                Items = responseData,
+                TotalCount = responseData.Count,
+                TotalPages = (int)Math.Ceiling((decimal)totalRow / pageSize)
+            };
+
+            return Json(new { data = paginationSet }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetDiplomaProjectToRegisterPagination(int page, int pageSize, string keyword = null)
+        {
+            var currentStudentId = (int)Session["studentId"];
+            var query = _diplomaProjectService.GetDiplomaProjectsToRegister(currentStudentId, keyword);
+
+            int totalRow = query.Count();
+
+            query = query.Skip((page - 1) * pageSize).Take(pageSize);
 
             var responseData = Mapper.Map<List<DiplomaProjectViewModel>>(query);
 
