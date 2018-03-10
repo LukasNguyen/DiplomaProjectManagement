@@ -23,6 +23,7 @@
             $('#diplomaProjectModalName').html(diplomaProjectName);
             $('#deleteDiplomaProjectModal').modal('show');
         });
+
         $('body').on('click', '#btnAcceptDeleteDiplomaProject', function (e) {
             e.preventDefault();
             $('#deleteDiplomaProjectModal').modal('hide');
@@ -35,14 +36,14 @@
                 dataType: 'json',
                 success: function (response) {
                     if (response.status) {
-                        toastr.success('Xóa đồ án thành công');
+                        toastr.success('Xóa đề tài thành công');
                         loadData();
                     } else {
-                        toastr.error('Xóa đồ án thất bại');
+                        toastr.error('Xóa đề tài thất bại');
                     }
                 },
                 error: function (status) {
-                    toastr.error('Xóa đồ án thất bại');
+                    toastr.error('Xóa đề tài thất bại');
                 }
             });
         });

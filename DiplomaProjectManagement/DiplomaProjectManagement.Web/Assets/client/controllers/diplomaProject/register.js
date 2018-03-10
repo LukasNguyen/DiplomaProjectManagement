@@ -5,16 +5,54 @@
     }
 
     function registerEvents() {
-        $('#ddlShowPage').on('change', function() {
-                common.configs.pageSize = $(this).val();
-                common.configs.pageIndex = 1;
-                loadData(true);
-            });
+        $('#ddlShowPage').on('change', function () {
+            common.configs.pageSize = $(this).val();
+            common.configs.pageIndex = 1;
+            loadData(true);
+        });
 
         $('#btnDiplomaProjectSearch').off('click').on('click',
-            function() {
+            function () {
                 loadData();
             });
+
+
+        $('body').on('click', '#btnRegisterDiplomaProject', function (e) {
+            e.preventDefault();
+
+            var diplomaProjectId = $(this).data("id");
+            var diplomaProjectName = $(this).data("name");
+            var lecturerName = $(this).data("lecturer");
+
+            $('#diplomaProjectModalId').html(diplomaProjectId);
+            $('#diplomaProjectModalName').html(diplomaProjectName);
+            $('#diplomaProjectModalLecturerName').html(lecturerName);
+            $('#registerDiplomaProjectModal').modal('show');
+        });
+
+        $('body').on('click', '#btnAcceptRegisterDiplomaProject', function (e) {
+            e.preventDefault();
+            $('#registerDiplomaProjectModal').modal('hide');
+            $.ajax({
+                type: 'POST',
+                url: '/DiplomaProject/Register',
+                data: {
+                    id: $('#diplomaProjectModalId').text()
+                },
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status) {
+                        toastr.success('Đăng ký đề tài thành công');
+                        loadData();
+                    } else {
+                        toastr.error('Đăng ký đề tài thất bại');
+                    }
+                },
+                error: function (status) {
+                    toastr.error('Đăng ký đề tài thất bại');
+                }
+            });
+        });
     }
 
     function loadData(isPageChanged) {

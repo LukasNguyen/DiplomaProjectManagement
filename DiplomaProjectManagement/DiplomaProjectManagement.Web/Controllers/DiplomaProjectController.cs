@@ -15,10 +15,17 @@ namespace DiplomaProjectManagement.Web.Controllers
     public class DiplomaProjectController : Controller
     {
         private readonly IDiplomaProjectService _diplomaProjectService;
+        private readonly IDiplomaProjectRegistrationService _diplomaProjectRegistrationService;
+        private readonly IRegistrationTimeService _registrationTimeService;
 
-        public DiplomaProjectController(IDiplomaProjectService diplomaProjectService)
+        public DiplomaProjectController(
+            IDiplomaProjectService diplomaProjectService,
+            IDiplomaProjectRegistrationService diplomaProjectRegistrationService,
+            IRegistrationTimeService registrationTimeService)
         {
-            this._diplomaProjectService = diplomaProjectService;
+            _diplomaProjectService = diplomaProjectService;
+            _diplomaProjectRegistrationService = diplomaProjectRegistrationService;
+            _registrationTimeService = registrationTimeService;
         }
 
         [Authorize(Roles = RoleConstants.Lecturer)]
@@ -132,6 +139,36 @@ namespace DiplomaProjectManagement.Web.Controllers
         public ActionResult Register()
         {
             return View();
+        }
+
+        [Authorize(Roles = RoleConstants.Student)]
+        [HttpPost]
+        public ActionResult Register(int id)
+        {
+            var diplomaProjectRegistrationViewModel = CreateDiplomaProjectRegistrationViewModel();
+
+            var dipmaProjectRegistration = Mapper.Map<DiplomaProjectRegistration>(diplomaProjectRegistrationViewModel);
+            _diplomaProjectRegistrationService.AddDiplomaProjectRegistration(dipmaProjectRegistration);
+
+            try
+            {
+                _diplomaProjectRegistrationService.Save();
+                return Json(new { status = true });
+            }
+            catch
+            {
+                return Json(new { status = false });
+            }
+
+            DiplomaProjectRegistrationViewModel CreateDiplomaProjectRegistrationViewModel()
+            {
+                return new DiplomaProjectRegistrationViewModel
+                {
+                    DiplomaProjectId = id,
+                    StudentId = (int)Session["studentId"],
+                    RegistrationTimeId = _registrationTimeService.GetActiveRegisterTimeId()
+                };
+            }
         }
 
         public JsonResult GetDiplomaProjectPagination(int page, int pageSize, string keyword = null)

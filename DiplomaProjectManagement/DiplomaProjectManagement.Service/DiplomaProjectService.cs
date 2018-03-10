@@ -72,10 +72,11 @@ namespace DiplomaProjectManagement.Service
 
         public IEnumerable<DiplomaProject> GetDiplomaProjectsToRegister(int studentId, string keyword = null)
         {
-            var activeRegisterTimeId = _registrationTimeRepository.GetRegistrationTimeActiveId();
+            var activeRegisterTimeId = GetRegisterTimeActiveId();
 
             var isStudentRegistered = _diplomaProjectRegistrationRepository
                 .IsCurrentStudentRegistered(studentId, activeRegisterTimeId);
+
             if (isStudentRegistered)
             {
                 return Enumerable.Empty<DiplomaProject>();
@@ -93,6 +94,11 @@ namespace DiplomaProjectManagement.Service
             }
 
             return query.ToList();
+        }
+
+        private int GetRegisterTimeActiveId()
+        {
+            return _registrationTimeRepository.GetRegistrationTimeActiveId();
         }
 
         public DiplomaProject GetDiplomaProjectById(int id)

@@ -21,6 +21,8 @@ namespace DiplomaProjectManagement.Service
 
         bool CheckExistingRegistrationTimeOpening();
 
+        int GetActiveRegisterTimeId();
+
         void Save();
     }
 
@@ -74,6 +76,11 @@ namespace DiplomaProjectManagement.Service
         public bool CheckExistingRegistrationTimeOpening()
         {
             return _registrationTimeRepository.CheckExistingRegistrationTimeOpening();
+        }
+
+        public int GetActiveRegisterTimeId()
+        {
+            return _registrationTimeRepository.GetRegistrationTimeActiveId();
         }
 
         public void Save()
