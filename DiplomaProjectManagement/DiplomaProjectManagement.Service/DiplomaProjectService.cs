@@ -116,7 +116,6 @@ namespace DiplomaProjectManagement.Service
                     {
                         destDiplomaProjects.Remove(diplomaProject);
                     }
-
                 }
 
                 return destDiplomaProjects;

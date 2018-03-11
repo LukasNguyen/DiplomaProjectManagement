@@ -145,6 +145,14 @@ namespace DiplomaProjectManagement.Web.Controllers
         [HttpPost]
         public ActionResult Register(int id)
         {
+            var numberOfStudentRegistered = _diplomaProjectRegistrationService
+                .GetNumberOfStudentRegistered(id, GetActiveRegisterTimeId());
+
+            if (numberOfStudentRegistered == GetLimitNumberOfStudentRegistered())
+            {
+                return Json(new { status = 2 });
+            }
+
             var diplomaProjectRegistrationViewModel = CreateDiplomaProjectRegistrationViewModel();
 
             var dipmaProjectRegistration = Mapper.Map<DiplomaProjectRegistration>(diplomaProjectRegistrationViewModel);
@@ -153,11 +161,11 @@ namespace DiplomaProjectManagement.Web.Controllers
             try
             {
                 _diplomaProjectRegistrationService.Save();
-                return Json(new { status = true });
+                return Json(new { status = 0 });
             }
             catch
             {
-                return Json(new { status = false });
+                return Json(new { status = 1 });
             }
 
             DiplomaProjectRegistrationViewModel CreateDiplomaProjectRegistrationViewModel()
@@ -166,8 +174,18 @@ namespace DiplomaProjectManagement.Web.Controllers
                 {
                     DiplomaProjectId = id,
                     StudentId = (int)Session["studentId"],
-                    RegistrationTimeId = _registrationTimeService.GetActiveRegisterTimeId()
+                    RegistrationTimeId = GetActiveRegisterTimeId()
                 };
+            }
+
+            int GetActiveRegisterTimeId()
+            {
+                return _registrationTimeService.GetActiveRegisterTimeId();
+            }
+
+            int GetLimitNumberOfStudentRegistered()
+            {
+                return int.Parse(ConfigHelper.GetByKey("LimitNumberOfStudentRegistered"));
             }
         }
 
