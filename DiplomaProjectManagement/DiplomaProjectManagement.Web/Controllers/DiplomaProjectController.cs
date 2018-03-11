@@ -148,7 +148,7 @@ namespace DiplomaProjectManagement.Web.Controllers
             var numberOfStudentRegistered = _diplomaProjectRegistrationService
                 .GetNumberOfStudentRegistered(id, GetActiveRegisterTimeId());
 
-            if (numberOfStudentRegistered == LimitNumberOfStudentRegisteredFromAppSettings())
+            if (numberOfStudentRegistered == GetLimitNumberOfStudentRegistered())
             {
                 return Json(new { status = 2 });
             }
@@ -183,7 +183,7 @@ namespace DiplomaProjectManagement.Web.Controllers
                 return _registrationTimeService.GetActiveRegisterTimeId();
             }
 
-            int LimitNumberOfStudentRegisteredFromAppSettings()
+            int GetLimitNumberOfStudentRegistered()
             {
                 return int.Parse(ConfigHelper.GetByKey("LimitNumberOfStudentRegistered"));
             }
