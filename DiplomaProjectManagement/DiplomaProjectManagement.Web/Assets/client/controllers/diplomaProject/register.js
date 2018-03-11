@@ -46,12 +46,15 @@
                         loadData();
                     } else if (response.status === 1) {
                         toastr.error('Đăng ký đề tài thất bại');
+                        loadData();
                     } else {
                         toastr.error('Đăng ký đề tài thất bại do đề tài đã đủ số người đăng ký');
+                        loadData();
                     }
                 },
                 error: function (status) {
                     toastr.error('Đăng ký đề tài thất bại');
+                    loadData();
                 }
             });
         });
