@@ -4,6 +4,7 @@ using DiplomaProjectManagement.Model.Models;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using DiplomaProjectManagement.Common;
 
 namespace DiplomaProjectManagement.Service
 {
@@ -87,13 +88,41 @@ namespace DiplomaProjectManagement.Service
 
             if (!string.IsNullOrWhiteSpace(keyword))
             {
-                return query.Where(n => n.Name.Contains(keyword)
+                var diplomaProjectsSearching = query.Where(n => n.Name.Contains(keyword)
                                         || n.Description.Contains(keyword)
                                         || n.Lecturer.Name.Contains(keyword))
                     .ToList();
+
+                return CheckRemoveDiplomaProjectExceedNumberRegistered(activeRegisterTimeId, diplomaProjectsSearching);
             }
 
-            return query.ToList();
+            var diplomaProjects = query.ToList();
+            return CheckRemoveDiplomaProjectExceedNumberRegistered(activeRegisterTimeId, diplomaProjects);
+        }
+
+        private List<DiplomaProject> CheckRemoveDiplomaProjectExceedNumberRegistered(int activeRegisterTimeId, List<DiplomaProject> srcDiplomaProjects)
+        {
+            if (srcDiplomaProjects.Any())
+            {
+                var destDiplomaProjects = srcDiplomaProjects.ToList();
+                foreach (var diplomaProject in srcDiplomaProjects)
+                {
+                    var numberOfStudentRegistered = _diplomaProjectRegistrationRepository
+                        .GetMulti(n => n.DiplomaProjectId == diplomaProject.ID
+                                       && n.RegistrationTimeId == activeRegisterTimeId)
+                        .Count();
+
+                    if (numberOfStudentRegistered == int.Parse(ConfigHelper.GetByKey("LimitNumberOfStudentRegistered")))
+                    {
+                        destDiplomaProjects.Remove(diplomaProject);
+                    }
+
+                }
+
+                return destDiplomaProjects;
+            }
+
+            return srcDiplomaProjects;
         }
 
         private int GetRegisterTimeActiveId()
