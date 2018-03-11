@@ -41,11 +41,13 @@
                 },
                 dataType: 'json',
                 success: function (response) {
-                    if (response.status) {
+                    if (response.status === 0) {
                         toastr.success('Đăng ký đề tài thành công');
                         loadData();
-                    } else {
+                    } else if (response.status === 1) {
                         toastr.error('Đăng ký đề tài thất bại');
+                    } else {
+                        toastr.error('Đăng ký đề tài thất bại do đề tài đã đủ số người đăng ký');
                     }
                 },
                 error: function (status) {

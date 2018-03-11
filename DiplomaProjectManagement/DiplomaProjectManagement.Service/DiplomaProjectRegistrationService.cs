@@ -1,6 +1,7 @@
 ﻿using DiplomaProjectManagement.Data.Infrastructures;
 using DiplomaProjectManagement.Data.Repositories;
 using DiplomaProjectManagement.Model.Models;
+using System.Linq;
 
 namespace DiplomaProjectManagement.Service
 {
@@ -11,6 +12,8 @@ namespace DiplomaProjectManagement.Service
         bool IsExistsStudentRegistered(int studentId, int diplomaProjectId);
 
         DiplomaProjectRegistration AddDiplomaProjectRegistration(DiplomaProjectRegistration diplomaProjectRegistration);
+
+        int GetNumberOfStudentRegistered(int diplomaProjectId, int registrationTimeId);
 
         void Save();
     }
@@ -34,6 +37,14 @@ namespace DiplomaProjectManagement.Service
         public DiplomaProjectRegistration AddDiplomaProjectRegistration(DiplomaProjectRegistration diplomaProjectRegistration)
         {
             return _diplomaProjectRegistrationRepository.Add(diplomaProjectRegistration);
+        }
+
+        public int GetNumberOfStudentRegistered(int diplomaProjectId, int registrationTimeId)
+        {
+            return _diplomaProjectRegistrationRepository
+                .GetMulti(n => n.DiplomaProjectId == diplomaProjectId
+                               && n.RegistrationTimeId == registrationTimeId)
+                .Count();
         }
 
         public DiplomaProjectRegistration RegisterDiplomaProject(DiplomaProjectRegistration diplomaProjectRegistration)
