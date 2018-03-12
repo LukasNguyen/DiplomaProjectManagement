@@ -16,10 +16,14 @@ namespace DiplomaProjectManagement.Web.Controllers
     public class StudentController : Controller
     {
         private readonly IStudentService _studentService;
+        private readonly IDiplomaProjectRegistrationService _diplomaProjectRegistrationService;
 
-        public StudentController(IStudentService studentService)
+        public StudentController(
+            IStudentService studentService,
+            IDiplomaProjectRegistrationService diplomaProjectRegistrationService)
         {
             _studentService = studentService;
+            _diplomaProjectRegistrationService = diplomaProjectRegistrationService;
         }
 
         [HttpGet]
@@ -63,6 +67,13 @@ namespace DiplomaProjectManagement.Web.Controllers
                 student.Status = true;
                 student.Email = _studentService.GetStudentEmail(student.ID);
             }
+        }
+
+        public ActionResult DiplomaProjectDetails()
+        {
+            var currentStudentId = (int)Session["studentId"];
+            var model = _diplomaProjectRegistrationService.GetDiplomaProjectDetailByStudentId(currentStudentId);
+            return View(model);
         }
     }
 }

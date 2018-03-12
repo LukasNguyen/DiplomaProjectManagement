@@ -2,6 +2,7 @@
 using DiplomaProjectManagement.Data.Repositories;
 using DiplomaProjectManagement.Model.Models;
 using System.Linq;
+using DiplomaProjectManagement.Common.CustomViewModel;
 
 namespace DiplomaProjectManagement.Service
 {
@@ -14,6 +15,8 @@ namespace DiplomaProjectManagement.Service
         DiplomaProjectRegistration AddDiplomaProjectRegistration(DiplomaProjectRegistration diplomaProjectRegistration);
 
         int GetNumberOfStudentRegistered(int diplomaProjectId, int registrationTimeId);
+
+        DiplomaProjectDetailViewModel GetDiplomaProjectDetailByStudentId(int studentId);
 
         void Save();
     }
@@ -45,6 +48,12 @@ namespace DiplomaProjectManagement.Service
                 .GetMulti(n => n.DiplomaProjectId == diplomaProjectId
                                && n.RegistrationTimeId == registrationTimeId)
                 .Count();
+        }
+
+        public DiplomaProjectDetailViewModel GetDiplomaProjectDetailByStudentId(int studentId)
+        {
+            return _diplomaProjectRegistrationRepository
+                .GetDiplomaProjectDetailByStudentId(studentId);
         }
 
         public DiplomaProjectRegistration RegisterDiplomaProject(DiplomaProjectRegistration diplomaProjectRegistration)
