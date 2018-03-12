@@ -13,5 +13,9 @@ namespace DiplomaProjectManagement.Web.Models
         public int StudentId { get; set; }
 
         public int RegistrationTimeId { get; set; }
+
+        public float? IntroducedGrades { get; set; }
+
+        public float? ReviewedGrades { get; set; }
     }
 }
