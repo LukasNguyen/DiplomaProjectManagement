@@ -44,7 +44,14 @@
     <Compile Include="CommonConstants.cs" />
     <Compile Include="ConfigHelper.cs" />
     <Compile Include="CustomViewModel\DiplomaProjectDetailViewModel.cs" />
+    <Compile Include="CustomViewModel\LecturerAssignGradesViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DiplomaProjectManagement.Model\DiplomaProjectManagement.Model.csproj">
+      <Project>{1C77E370-7B87-4E4A-945D-9AEE0163A767}</Project>
+      <Name>DiplomaProjectManagement.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
