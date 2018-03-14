@@ -1,4 +1,5 @@
-﻿using DiplomaProjectManagement.Data.Infrastructures;
+﻿using DiplomaProjectManagement.Common.CustomViewModel;
+using DiplomaProjectManagement.Data.Infrastructures;
 using DiplomaProjectManagement.Model.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,8 @@ namespace DiplomaProjectManagement.Data.Repositories
         IEnumerable<Student> GetIntroducedStudentsByRegisterTimeId(int registerTimeId, int lecturerId);
 
         string GetStudentEmail(int id);
+
+        IEnumerable<LecturerAssignGradesViewModel> GetStudentsToAssignGrades(int lecturerId, int registrationTimeId);
     }
 
     public class StudentRepository : RepositoryBase<Student>, IStudentRepository
@@ -93,6 +96,43 @@ namespace DiplomaProjectManagement.Data.Repositories
                 .Where(n => n.ID == id)
                 .Select(n => n.Email)
                 .SingleOrDefault();
+        }
+
+        public IEnumerable<LecturerAssignGradesViewModel> GetStudentsToAssignGrades(int lecturerId, int registrationTimeId)
+        {
+            return (from dpr in DbContext.DiplomaProjectRegistrations
+                    join s in DbContext.Students
+                    on dpr.StudentId equals s.ID
+                    join dp in DbContext.DiplomaProjects
+                    on dpr.DiplomaProjectId equals dp.ID
+                    join l in DbContext.Lecturers
+                    on dp.LecturerId equals l.ID
+                    join rt in DbContext.RegistrationTimes
+                    on dpr.RegistrationTimeId equals rt.ID
+                    where l.ID == lecturerId && dpr.RegistrationTimeId == registrationTimeId
+                    select new
+                    {
+                        StudentId = s.ID,
+                        StudentName = s.Name,
+                        IntroducedGrades = dpr.IntroducedGrades,
+                        ReviewedGrades = dpr.ReviewedGrades,
+                        DiplomaProjectName = dp.Name,
+                        RegistrationStatus = rt.RegistrationStatus,
+                        RegistrationTimeId = rt.ID,
+                        DiplomaProjectId = dp.ID,
+                    })
+                .ToList()
+                .Select(n => new LecturerAssignGradesViewModel
+                {
+                    StudentId = n.StudentId,
+                    StudentName = n.StudentName,
+                    IntroducedGrades = n.IntroducedGrades,
+                    ReviewedGrades = n.ReviewedGrades,
+                    DiplomaProjectName = n.DiplomaProjectName,
+                    RegistrationStatus = n.RegistrationStatus,
+                    RegistrationTimeId = n.RegistrationTimeId,
+                    DiplomaProjectId = n.DiplomaProjectId
+                });
         }
     }
 }

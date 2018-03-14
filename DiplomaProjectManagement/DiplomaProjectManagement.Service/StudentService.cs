@@ -4,6 +4,7 @@ using DiplomaProjectManagement.Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DiplomaProjectManagement.Common.CustomViewModel;
 
 namespace DiplomaProjectManagement.Service
 {
@@ -32,6 +33,8 @@ namespace DiplomaProjectManagement.Service
         Student GetStudentByEmail(string email);
 
         string GetStudentEmail(int id);
+
+        IEnumerable<LecturerAssignGradesViewModel> GetStudentsToAssignGrades(int lecturerId, int registrationTimeId);
 
         void Save();
     }
@@ -116,6 +119,11 @@ namespace DiplomaProjectManagement.Service
         public string GetStudentEmail(int id)
         {
             return _studentRepository.GetStudentEmail(id);
+        }
+
+        public IEnumerable<LecturerAssignGradesViewModel> GetStudentsToAssignGrades(int lecturerId, int registrationTimeId)
+        {
+            return _studentRepository.GetStudentsToAssignGrades(lecturerId, registrationTimeId);
         }
 
         public void Save()

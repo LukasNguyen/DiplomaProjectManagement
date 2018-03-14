@@ -29,6 +29,7 @@ namespace DiplomaProjectManagement.Web.Controllers
         }
 
         [Authorize(Roles = RoleConstants.Lecturer)]
+        [HttpGet]
         public ActionResult Index()
         {
             return View();
@@ -189,6 +190,8 @@ namespace DiplomaProjectManagement.Web.Controllers
             }
         }
 
+        [Authorize(Roles = RoleConstants.Lecturer)]
+        [HttpGet]
         public JsonResult GetDiplomaProjectPagination(int page, int pageSize, string keyword = null)
         {
             var currentLecturerId = (int)Session["lecturerId"];
@@ -210,6 +213,8 @@ namespace DiplomaProjectManagement.Web.Controllers
             return Json(new { data = paginationSet }, JsonRequestBehavior.AllowGet);
         }
 
+        [Authorize(Roles = RoleConstants.Student)]
+        [HttpGet]
         public JsonResult GetDiplomaProjectToRegisterPagination(int page, int pageSize, string keyword = null)
         {
             var currentStudentId = (int)Session["studentId"];

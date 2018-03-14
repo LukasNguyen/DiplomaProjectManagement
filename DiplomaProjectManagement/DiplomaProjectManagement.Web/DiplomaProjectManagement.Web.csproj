@@ -215,6 +215,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\DiplomaProjectController.cs" />
+    <Compile Include="Controllers\DiplomaProjectRegistrationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Global.asax.cs">
@@ -6148,6 +6149,7 @@
     <Content Include="Assets\admin\libs\twbs-pagination\Gruntfile.js" />
     <Content Include="Assets\admin\libs\twbs-pagination\jquery.twbsPagination.js" />
     <Content Include="Assets\admin\libs\twbs-pagination\jquery.twbsPagination.min.js" />
+    <Content Include="Assets\client\controllers\diplomaProjectRegistration\index.js" />
     <Content Include="Assets\client\controllers\diplomaProject\index.js" />
     <Content Include="Assets\client\controllers\diplomaProject\register.js" />
     <Content Include="Assets\client\shared\common.js" />
@@ -7200,11 +7202,11 @@
     <Content Include="Views\DiplomaProject\Register.cshtml" />
     <Content Include="Views\DiplomaProject\_RegisterDiplomaProjectModal.cshtml" />
     <Content Include="Views\Student\DiplomaProjectDetails.cshtml" />
+    <Content Include="Views\DiplomaProjectRegistration\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Assets\admin\libs\checklist-model\test\" />
-    <Folder Include="Assets\client\controllers\student\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

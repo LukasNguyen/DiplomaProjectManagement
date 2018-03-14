@@ -18,6 +18,8 @@ namespace DiplomaProjectManagement.Service
 
         DiplomaProjectDetailViewModel GetDiplomaProjectDetailByStudentId(int studentId);
 
+        void Update(DiplomaProjectRegistration diplomaProjectRegistration);
+
         void Save();
     }
 
@@ -54,6 +56,11 @@ namespace DiplomaProjectManagement.Service
         {
             return _diplomaProjectRegistrationRepository
                 .GetDiplomaProjectDetailByStudentId(studentId);
+        }
+
+        public void Update(DiplomaProjectRegistration diplomaProjectRegistration)
+        {
+             _diplomaProjectRegistrationRepository.Update(diplomaProjectRegistration);
         }
 
         public DiplomaProjectRegistration RegisterDiplomaProject(DiplomaProjectRegistration diplomaProjectRegistration)
