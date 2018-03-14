@@ -117,7 +117,9 @@ namespace DiplomaProjectManagement.Data.Repositories
                         IntroducedGrades = dpr.IntroducedGrades,
                         ReviewedGrades = dpr.ReviewedGrades,
                         DiplomaProjectName = dp.Name,
-                        RegistrationStatus = rt.RegistrationStatus
+                        RegistrationStatus = rt.RegistrationStatus,
+                        RegistrationTimeId = rt.ID,
+                        DiplomaProjectId = dp.ID,
                     })
                 .ToList()
                 .Select(n => new LecturerAssignGradesViewModel
@@ -127,7 +129,9 @@ namespace DiplomaProjectManagement.Data.Repositories
                     IntroducedGrades = n.IntroducedGrades,
                     ReviewedGrades = n.ReviewedGrades,
                     DiplomaProjectName = n.DiplomaProjectName,
-                    RegistrationStatus = n.RegistrationStatus
+                    RegistrationStatus = n.RegistrationStatus,
+                    RegistrationTimeId = n.RegistrationTimeId,
+                    DiplomaProjectId = n.DiplomaProjectId
                 });
         }
     }

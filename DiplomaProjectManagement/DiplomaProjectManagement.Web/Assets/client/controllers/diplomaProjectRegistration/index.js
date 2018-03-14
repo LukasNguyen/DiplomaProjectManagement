@@ -1,14 +1,57 @@
 ﻿var DiplomaProjectRegistrationController = function () {
     this.initialize = function () {
         loadData();
-        registerEvents();
+        assignGrades();
     }
 
-    function registerEvents() {
+    function assignGrades() {
 
+        $('#btnAssignGrades').off('click').on('click', function () {
+
+            var listStudentToAssignGrades = [];
+
+            $.each($('.introduced-grades-input'), function(i, item) {
+                    listStudentToAssignGrades.push({
+                        DiplomaProjectId: $(item).data('dpid'),
+                        StudentId: $(item).data('sid'),
+                        RegistrationTimeId: $(item).data('rid'),
+                        IntroducedGrades: $(item).val()
+                    });
+            });
+
+            $.each($('.reviewed-grades-input'), function (i, item) {
+                listStudentToAssignGrades[i].ReviewedGrades = $(item).val();
+            });
+
+            console.log(listStudentToAssignGrades);
+            $.ajax({
+                type: 'POST',
+                url: '/DiplomaProjectRegistration/AssignGrades',
+                data: {
+                    viewModel: JSON.stringify(listStudentToAssignGrades)
+                },
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status === 0) {
+                        toastr.success('Chấm điểm sinh viên thành công');
+                        loadData();
+                    } else if (response.status === 1) {
+                        toastr.error('Điểm nhập phải trong khoảng từ 0 đến 10');
+                    }else if (response.status === 2){
+                        toastr.error('Điểm nhập không đúng định dạng số');
+                    }else {
+                        toastr.error('Chấm điểm sinh viên thất bại');
+                    }
+                },
+                error: function (status) {
+                    toastr.error('Chấm điểm sinh viên thất bại');
+                }
+            });
+        });
     }
 
     function loadData() {
+
         $.ajax({
             type: 'GET',
             url: '/DiplomaProjectRegistration/GetRegistrationTimes',
@@ -60,6 +103,7 @@
                 if (response.data.length === 0) {
                     $('#tbl-content').html(
                         '<td colspan="5" style="height:30px; text-align:center"><strong>Không có dữ liệu.</strong></td>');
+                    $('#btnAssignGrades').hide();
                     common.stopLoading();
                     return;
                 }
@@ -71,9 +115,10 @@
                             StudentName: item.StudentName,
                             IntroducedGrades: item.IntroducedGrades,
                             ReviewedGrades: item.ReviewedGrades,
-                            DiplomaProjectName: item.DiplomaProjectName
+                            DiplomaProjectName: item.DiplomaProjectName,
+                            RegistrationTimeId: item.RegistrationTimeId,
+                            DiplomaProjectId: item.DiplomaProjectId
                         });
-
 
                     if (render != '') {
                         $('#tbl-content').html(render);

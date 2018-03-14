@@ -74,6 +74,10 @@ namespace DiplomaProjectManagement.Service
         public IEnumerable<DiplomaProject> GetDiplomaProjectsToRegister(int studentId, string keyword = null)
         {
             var activeRegisterTimeId = GetRegisterTimeActiveId();
+            if (activeRegisterTimeId == 0)
+            {
+                return Enumerable.Empty<DiplomaProject>();
+            }
 
             var isStudentRegistered = _diplomaProjectRegistrationRepository
                 .IsCurrentStudentRegistered(studentId, activeRegisterTimeId);

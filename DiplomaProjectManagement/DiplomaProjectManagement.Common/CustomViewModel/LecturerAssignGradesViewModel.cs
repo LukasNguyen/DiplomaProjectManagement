@@ -21,5 +21,9 @@ namespace DiplomaProjectManagement.Common.CustomViewModel
         public string DiplomaProjectName { get; set; }
 
         public RegistrationStatus RegistrationStatus { get; set; }
+
+        public int RegistrationTimeId { get; set; }
+
+        public int DiplomaProjectId { get; set; }
     }
 }
