@@ -127,7 +127,7 @@
                             $('#btnAssignGrades').show();
                         } else {
 
-                            $('#btnAssignGrades').remove();
+                            $('#btnAssignGrades').hide();
 
                             if (item.RegistrationStatus === 2) {
                                 $('.introduced-grades').html(item.IntroducedGrades);
