@@ -1,4 +1,7 @@
 ﻿var common = {
+    init: function () {
+        common.registerEvents();
+    },
     configs: {
         pageSize: 10,
         pageIndex: 1
@@ -85,5 +88,13 @@
         var a = number.toFixed(precision).split('.');
         a[0] = a[0].replace(/\d(?=(\d{3})+$)/g, '$&,');
         return a.join('.');
+    },
+    registerEvents: function() {
+        $('#btnLogOut').on('click', function (e) {
+            e.preventDefault();
+            $('#frmLogout').submit();
+            toastr.success('Đăng xuất thành công');
+        });
     }
 }
+common.init();

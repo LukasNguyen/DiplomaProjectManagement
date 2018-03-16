@@ -10,5 +10,9 @@
         </a>
     </li>
     <li><a href="javascript:;">Help</a></li>
-    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+    @using (Html.BeginForm("LogOut", "Account", FormMethod.Post, new { id = "frmLogout" }))
+    {
+        @Html.AntiForgeryToken()
+        <li><a href="#" id="btnLogOut"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+    }
 </ul>

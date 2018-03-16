@@ -75,8 +75,7 @@ namespace DiplomaProjectManagement.Data.Migrations
 
             context.RegistrationTimes.AddRange(new List<RegistrationTime>()
             {
-                new RegistrationTime { Name = "Đợt đăng ký kì 1 2017-2018", RegisteredDate = new DateTime(2017,1,1), TeacherAssignGradesDate = new DateTime(2017,2,1), ClosedDate = new DateTime(2017,4,1) },
-                new RegistrationTime { Name = "Đợt đăng ký kì 2 2017-2018", RegisteredDate = new DateTime(2017,6,1), TeacherAssignGradesDate = new DateTime(2017,7,1), ClosedDate = new DateTime(2017,12,1) }
+                new RegistrationTime { Name = "Đợt đăng ký kì 1 2018-2019", RegisteredDate = new DateTime(2018,1,1), TeacherAssignGradesDate = new DateTime(2018,4,1), ClosedDate = new DateTime(2018,6,1) },
             });
             context.SaveChanges();
         }

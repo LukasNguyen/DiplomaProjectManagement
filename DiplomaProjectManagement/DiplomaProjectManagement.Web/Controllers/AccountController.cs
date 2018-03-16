@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using DiplomaProjectManagement.Model.Models;
 using DiplomaProjectManagement.Web.App_Start;
+using DiplomaProjectManagement.Web.Infrastructure.Extensions;
 using DiplomaProjectManagement.Web.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -52,6 +53,7 @@ namespace DiplomaProjectManagement.Web.Controllers
                     }
                     else
                     {
+                        this.PrepareSuccessMessage("Đăng nhập thành công");
                         return RedirectToAction("Dashboard", "Home");
                     }
                 }
@@ -71,7 +73,8 @@ namespace DiplomaProjectManagement.Web.Controllers
         {
             IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;
             authenticationManager.SignOut();
-            return RedirectToAction("Dashboard", "Home");
+            Session.Clear();
+            return RedirectToAction("Index", "Home");
         }
 
         public ApplicationSignInManager SignInManager
