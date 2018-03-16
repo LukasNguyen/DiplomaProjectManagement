@@ -54,7 +54,7 @@ namespace DiplomaProjectManagement.Data.Repositories
                         IntroducedGrades = n.IntroducedGrades,
                         ReviewedGrades = n.ReviewedGrades
                     })
-                    .Last();
+                    .FirstOrDefault();
             }
                 return null;
         }
