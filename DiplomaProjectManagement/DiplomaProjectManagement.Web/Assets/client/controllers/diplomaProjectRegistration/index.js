@@ -102,7 +102,7 @@
 
                 if (response.data.length === 0) {
                     $('#tbl-content').html(
-                        '<td colspan="5" style="height:30px; text-align:center"><strong>Không có dữ liệu.</strong></td>');
+                        '<td colspan="6" style="height:30px; text-align:center"><strong>Không có dữ liệu.</strong></td>');
                     $('#btnAssignGrades').hide();
                     common.stopLoading();
                     return;
@@ -115,6 +115,7 @@
                             StudentName: item.StudentName,
                             IntroducedGrades: item.IntroducedGrades,
                             ReviewedGrades: item.ReviewedGrades,
+                            FinalGrades: (item.IntroducedGrades != null && item.ReviewedGrades != null) ? (parseFloat(item.IntroducedGrades) * 0.6 + parseFloat(item.ReviewedGrades) * 0.4).toFixed(1) : null,
                             DiplomaProjectName: item.DiplomaProjectName,
                             RegistrationTimeId: item.RegistrationTimeId,
                             DiplomaProjectId: item.DiplomaProjectId
@@ -122,30 +123,55 @@
 
                     if (render != '') {
                         $('#tbl-content').html(render);
-
-                        if (item.RegistrationStatus === 1) {
-                            $('#btnAssignGrades').show();
-                        } else {
-
-                            $('#btnAssignGrades').hide();
-
-                            if (item.RegistrationStatus === 2) {
-                                $('.introduced-grades').html(item.IntroducedGrades);
-                                $('.reviewed-grades').html(item.ReviewedGrades);
-                            } else {
-                                $('.introduced-grades').html('Chưa thể cập nhật');
-                                $('.reviewed-grades').html('Chưa thể cập nhật');
-                            }
-                        }
-
                         common.stopLoading();
                     }
                 });
+
+                var registrationTimeStatus = response.data[0].RegistrationStatus;
+                displayGradesByRegistrationTimeStatus(registrationTimeStatus);
             },
             error: function (status) {
                 console.log(status);
                 toastr.error('Không có dữ liệu.');
             }
         });
+    }
+
+    function displayGradesByRegistrationTimeStatus(registrationTimeStatus) {
+        switch (registrationTimeStatus) {
+            case 0:
+                $('#btnAssignGrades').hide();
+                $('.introduced-grades').html('Chưa thể cập nhật');
+                $('.reviewed-grades').html('Chưa thể cập nhật');
+                $('.final-grades').html('Chưa thể cập nhật');
+                break;
+            case 1:
+                $('#btnAssignGrades').show();
+                break;
+            case 2:
+                $('#btnAssignGrades').hide();
+                $.each($('.introduced-grades'), function (i, item) {
+                    var introducedGrades = $(this).find(':input')[0].value;
+                    if (introducedGrades === "") {
+                        $(this).html(0);
+                    } else {
+                        $(this).html(introducedGrades);
+                    }
+                });
+                $.each($('.reviewed-grades'), function () {
+                    var reviewedGrades = $(this).find(':input')[0].value;
+                    if (reviewedGrades === "") {
+                        $(this).html(0);
+                    } else {
+                        $(this).html(reviewedGrades);
+                    }
+                });
+                $.each($('.final-grades'), function (i, item) {
+                    if (item.innerHTML === "") {
+                        item.innerHTML = 0;
+                    }
+                });
+                break;
+        }
     }
 }

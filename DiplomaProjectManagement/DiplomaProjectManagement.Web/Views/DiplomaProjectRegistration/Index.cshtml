@@ -29,7 +29,7 @@
                         <th width="10%">
                             Mã sinh viên
                         </th>
-                        <th width="25%" style="text-align: center">
+                        <th width="20%" style="text-align: center">
                             Tên sinh viên
                         </th>
                         <th width="15%" style="text-align: center">
@@ -38,7 +38,10 @@
                         <th width="15%" style="text-align: center">
                             Điểm đánh giá
                         </th>
-                        <th width="25%" style="text-align: center">
+                        <th width="10%" style="text-align: center">
+                            Điểm tổng kết
+                        </th>
+                        <th width="20%" style="text-align: center">
                             Tên đồ án
                         </th>
                     </tr>
@@ -55,6 +58,7 @@
         <td style="text-align: center">{{StudentName}}</td>
         <td style="text-align: center" class="introduced-grades"><input class="introduced-grades-input" style="width:50px; text-align: center" value="{{IntroducedGrades}}" data-rid="{{RegistrationTimeId}}" data-dpid="{{DiplomaProjectId}}" data-sid="{{StudentId}}"/></td>
         <td style="text-align: center" class="reviewed-grades"><input class="reviewed-grades-input" style="width:50px; text-align: center" value="{{ReviewedGrades}}"/></td>
+        <td style="text-align: center" class="final-grades">{{FinalGrades}}</td>
         <td style="text-align: center">{{DiplomaProjectName}}</td>
     </tr>
 </script>
