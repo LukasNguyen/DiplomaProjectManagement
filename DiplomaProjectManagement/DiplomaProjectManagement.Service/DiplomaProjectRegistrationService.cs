@@ -59,7 +59,7 @@ namespace DiplomaProjectManagement.Service
             return _diplomaProjectRegistrationRepository
                 .GetMulti(n => n.DiplomaProjectId == diplomaProjectId
                                && n.RegistrationTimeId == registrationTimeId)
-                .Count();
+                .Count(n => n.IsFirstStudentInTeamRegistered);
         }
 
         public DiplomaProjectDetailViewModel GetDiplomaProjectDetailByStudentId(int studentId)
@@ -97,13 +97,23 @@ namespace DiplomaProjectManagement.Service
             var myRegistration = FindDiplomaProjectRegistration(currentStudentId, registrationTimeId, diplomaProjectId);
             myRegistration.TeamName = teamName;
 
-            AddDiplomaProjectRegistration(new DiplomaProjectRegistration
+            var partnerRegistration = FindDiplomaProjectRegistration(partnerId, registrationTimeId, diplomaProjectId);
+            if (partnerRegistration == null)
             {
-                StudentId = partnerId,
-                DiplomaProjectId = diplomaProjectId,
-                RegistrationTimeId = registrationTimeId,
-                TeamName = teamName
-            });
+                AddDiplomaProjectRegistration(new DiplomaProjectRegistration
+                {
+                    StudentId = partnerId,
+                    DiplomaProjectId = diplomaProjectId,
+                    RegistrationTimeId = registrationTimeId,
+                    TeamName = teamName,
+                    IsFirstStudentInTeamRegistered = false
+                });
+            }
+            else
+            {
+                partnerRegistration.TeamName = teamName;
+                partnerRegistration.IsFirstStudentInTeamRegistered = false;
+            }
         }
 
         public string FindTeamName(int studentId, int registrationTimeId)

@@ -118,7 +118,8 @@
                             FinalGrades: (item.IntroducedGrades != null && item.ReviewedGrades != null) ? (parseFloat(item.IntroducedGrades) * 0.6 + parseFloat(item.ReviewedGrades) * 0.4).toFixed(1) : null,
                             DiplomaProjectName: item.DiplomaProjectName,
                             RegistrationTimeId: item.RegistrationTimeId,
-                            DiplomaProjectId: item.DiplomaProjectId
+                            DiplomaProjectId: item.DiplomaProjectId,
+                            TeamName: (item.TeamName != null) ? item.TeamName : "Không có"
                         });
 
                     if (render != '') {

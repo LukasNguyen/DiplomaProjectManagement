@@ -120,6 +120,7 @@ namespace DiplomaProjectManagement.Data.Repositories
                         RegistrationStatus = rt.RegistrationStatus,
                         RegistrationTimeId = rt.ID,
                         DiplomaProjectId = dp.ID,
+                        TeamName = dpr.TeamName
                     })
                 .ToList()
                 .Select(n => new LecturerAssignGradesViewModel
@@ -131,7 +132,8 @@ namespace DiplomaProjectManagement.Data.Repositories
                     DiplomaProjectName = n.DiplomaProjectName,
                     RegistrationStatus = n.RegistrationStatus,
                     RegistrationTimeId = n.RegistrationTimeId,
-                    DiplomaProjectId = n.DiplomaProjectId
+                    DiplomaProjectId = n.DiplomaProjectId,
+                    TeamName = n.TeamName
                 });
         }
     }

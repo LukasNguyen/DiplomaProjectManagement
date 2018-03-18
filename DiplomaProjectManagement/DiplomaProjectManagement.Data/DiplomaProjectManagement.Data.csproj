@@ -94,6 +94,10 @@
     <Compile Include="Migrations\201803172220297_AddTeamNameProperty.Designer.cs">
       <DependentUpon>201803172220297_AddTeamNameProperty.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803180821461_CheckFirstStudentInTeamRegistered.cs" />
+    <Compile Include="Migrations\201803180821461_CheckFirstStudentInTeamRegistered.Designer.cs">
+      <DependentUpon>201803180821461_CheckFirstStudentInTeamRegistered.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\DiplomaProjectRegistrationRepository.cs" />
@@ -143,6 +147,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803172220297_AddTeamNameProperty.resx">
       <DependentUpon>201803172220297_AddTeamNameProperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803180821461_CheckFirstStudentInTeamRegistered.resx">
+      <DependentUpon>201803180821461_CheckFirstStudentInTeamRegistered.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -16,6 +16,8 @@ namespace DiplomaProjectManagement.Web.Models
         public float? ReviewedGrades { get; set; }
 
         public string TeamName { get; set; }
+
+        public bool IsFirstStudentInTeamRegistered { get; set; }
     }
 
     public class DiplomaProjectTeamRegistrationViewModel

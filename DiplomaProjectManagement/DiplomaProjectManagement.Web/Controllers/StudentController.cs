@@ -83,45 +83,21 @@ namespace DiplomaProjectManagement.Web.Controllers
             var activeRegistrationTimeId = GetActiveRegisterTimeId();
             var partner = _studentService.GetStudentByEmail(viewModel.Email);
 
-            if (activeRegistrationTimeId == 0)
+            if (!CheckValidation())
             {
-                ModelState.AddModelError("", "Không thể thêm thành viên khi đợt này không còn mở cho sinh viên đăng ký.");
-                return View(viewModel);
-            }
-
-            if (partner == null)
-            {
-                ModelState.AddModelError("", "Email sinh viên này không tồn tại trong hệ thống.");
-                return View(viewModel);
-            }
-
-            if (partner.ID == currentStudentId)
-            {
-                ModelState.AddModelError("", "Bạn không thể nhập email của chính mình.");
                 return View(viewModel);
             }
 
             var diplomaProjectId = _diplomaProjectRegistrationService
-                .FindDiplomaProject(partner.ID, activeRegistrationTimeId);
-
-            if (CheckStudentIsNotRegistered())
-            {
-                ModelState.AddModelError("", "Bạn chưa đăng ký đề tài nên không thể thêm thành viên.");
-                return View(viewModel);
-            }
-
-            if (CheckStudentAlreadyHaveGotTeamMember())
-            {
-                ModelState.AddModelError("", "Bạn đã đăng ký đề tài này với một người trong đợt này.");
-                return View(viewModel);
-            }
+                .FindDiplomaProject(currentStudentId, activeRegistrationTimeId);
 
             _diplomaProjectRegistrationService
                 .UpdateTeamName(currentStudentId, partner.ID,
                 diplomaProjectId, activeRegistrationTimeId,
                 viewModel.TeamName);
-
             _diplomaProjectRegistrationService.Save();
+
+            this.PrepareSuccessMessage("Thêm thành viên vào nhóm đề tài thành công");
 
             return RedirectToAction("Dashboard", "Home");
 
@@ -130,16 +106,63 @@ namespace DiplomaProjectManagement.Web.Controllers
                 return _registrationTimeService.GetActiveRegisterTimeId();
             }
 
+            bool CheckValidation()
+            {
+                if (activeRegistrationTimeId == 0)
+                {
+                    ModelState.AddModelError("", "Không thể thêm thành viên khi đợt này không còn mở cho sinh viên đăng ký.");
+                    return false;
+                }
+
+                if (partner == null)
+                {
+                    ModelState.AddModelError("", "Email sinh viên này không tồn tại trong hệ thống.");
+                    return false;
+                }
+
+                if (partner.ID == currentStudentId)
+                {
+                    ModelState.AddModelError("", "Bạn không thể nhập email của chính mình.");
+                    return false;
+                }
+
+                if (CheckStudentIsNotRegistered())
+                {
+                    ModelState.AddModelError("", "Bạn chưa đăng ký đề tài nên không thể thêm thành viên.");
+                    return false;
+                }
+
+                if (CheckStudentAlreadyHaveGotTeamMember())
+                {
+                    ModelState.AddModelError("", "Bạn đã đăng ký đề tài này với một người trong đợt này.");
+                    return false;
+                }
+
+                if (CheckPartnerAlreadyHaveGotTeamMember())
+                {
+                    ModelState.AddModelError("", "Email này đã đăng ký đề tài với người khác trong đợt này.");
+                    return false;
+                }
+
+                return true;
+            }
+
             bool CheckStudentIsNotRegistered()
             {
                 return _diplomaProjectRegistrationService
-                           .FindDiplomaProject(partner.ID, activeRegistrationTimeId) == 0;
+                           .FindDiplomaProject(currentStudentId, activeRegistrationTimeId) == 0;
             }
 
             bool CheckStudentAlreadyHaveGotTeamMember()
             {
                 return !string.IsNullOrWhiteSpace(_diplomaProjectRegistrationService
                     .FindTeamName(currentStudentId, activeRegistrationTimeId));
+            }
+
+            bool CheckPartnerAlreadyHaveGotTeamMember()
+            {
+                return !string.IsNullOrWhiteSpace(_diplomaProjectRegistrationService
+                    .FindTeamName(partner.ID, activeRegistrationTimeId));
             }
         }
 
