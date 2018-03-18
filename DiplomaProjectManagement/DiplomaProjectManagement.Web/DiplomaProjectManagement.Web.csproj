@@ -7203,6 +7203,7 @@
     <Content Include="Views\DiplomaProject\_RegisterDiplomaProjectModal.cshtml" />
     <Content Include="Views\Student\DiplomaProjectDetails.cshtml" />
     <Content Include="Views\DiplomaProjectRegistration\Index.cshtml" />
+    <Content Include="Views\Student\AddTeamMember.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
