@@ -134,7 +134,8 @@ namespace DiplomaProjectManagement.Data.Repositories
                     RegistrationTimeId = n.RegistrationTimeId,
                     DiplomaProjectId = n.DiplomaProjectId,
                     TeamName = n.TeamName
-                });
+                })
+                .OrderBy(n => n.TeamName);
         }
     }
 }
