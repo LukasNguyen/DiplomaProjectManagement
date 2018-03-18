@@ -30,5 +30,9 @@ namespace DiplomaProjectManagement.Model.Models
         public float? IntroducedGrades { get; set; }
 
         public float? ReviewedGrades { get; set; }
+
+        public string TeamName { get; set; }
+
+        public bool IsFirstStudentInTeamRegistered { get; set; }
     }
 }

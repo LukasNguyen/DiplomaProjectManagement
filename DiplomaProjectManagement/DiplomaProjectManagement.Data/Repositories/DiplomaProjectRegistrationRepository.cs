@@ -1,7 +1,6 @@
 ﻿using DiplomaProjectManagement.Common.CustomViewModel;
 using DiplomaProjectManagement.Data.Infrastructures;
 using DiplomaProjectManagement.Model.Models;
-using System.Data.Entity;
 using System.Linq;
 
 namespace DiplomaProjectManagement.Data.Repositories
@@ -11,6 +10,10 @@ namespace DiplomaProjectManagement.Data.Repositories
         bool IsCurrentStudentRegistered(int studentId, int registrationTimeId);
 
         DiplomaProjectDetailViewModel GetDiplomaProjectDetailByStudentId(int studentId);
+
+        int FindDiplomaProject(int studentId, int registrationTimeId);
+
+        string FindTeamName(int studentId, int registrationTimeId);
     }
 
     public class DiplomaProjectRegistrationRepository : RepositoryBase<DiplomaProjectRegistration>, IDiplomaProjectRegistrationRepository
@@ -28,35 +31,54 @@ namespace DiplomaProjectManagement.Data.Repositories
 
         public DiplomaProjectDetailViewModel GetDiplomaProjectDetailByStudentId(int studentId)
         {
-            var diplomaProjectRegistrations = (from dpr in DbContext.DiplomaProjectRegistrations
-                    join dp in DbContext.DiplomaProjects
-                    on dpr.DiplomaProjectId equals dp.ID
-                    join l in DbContext.Lecturers
-                    on dp.LecturerId equals l.ID
-                    where dpr.StudentId == studentId
-                    select new
-                    {
-                        Name = dp.Name,
-                        Description = dp.Description,
-                        LecturerName = l.Name,
-                        IntroducedGrades = dpr.IntroducedGrades,
-                        ReviewedGrades = dpr.ReviewedGrades
-                    })
+            var diplomaProjectRegistrations =
+                (from dpr in DbContext.DiplomaProjectRegistrations
+                 join dp in DbContext.DiplomaProjects
+                 on dpr.DiplomaProjectId equals dp.ID
+                 join l in DbContext.Lecturers
+                 on dp.LecturerId equals l.ID
+                 where dpr.StudentId == studentId
+                 select new
+                 {
+                     Name = dp.Name,
+                     Description = dp.Description,
+                     LecturerName = l.Name,
+                     IntroducedGrades = dpr.IntroducedGrades,
+                     ReviewedGrades = dpr.ReviewedGrades
+                 })
                     .AsEnumerable();
 
             if (diplomaProjectRegistrations.Any())
             {
                 return diplomaProjectRegistrations.Select(n => new DiplomaProjectDetailViewModel
-                    {
-                        Name = n.Name,
-                        Description = n.Description,
-                        LecturerName = n.LecturerName,
-                        IntroducedGrades = n.IntroducedGrades,
-                        ReviewedGrades = n.ReviewedGrades
-                    })
+                {
+                    Name = n.Name,
+                    Description = n.Description,
+                    LecturerName = n.LecturerName,
+                    IntroducedGrades = n.IntroducedGrades,
+                    ReviewedGrades = n.ReviewedGrades
+                })
                     .FirstOrDefault();
             }
-                return null;
+            return null;
+        }
+
+        public int FindDiplomaProject(int studentId, int registrationTimeId)
+        {
+            return DbContext.DiplomaProjectRegistrations
+                .Where(n => n.StudentId == studentId
+                    && n.RegistrationTimeId == registrationTimeId)
+                .Select(n => n.DiplomaProjectId)
+                .SingleOrDefault();
+        }
+
+        public string FindTeamName(int studentId, int registrationTimeId)
+        {
+            return DbContext.DiplomaProjectRegistrations
+                .Where(n => n.StudentId == studentId
+                            && n.RegistrationTimeId == registrationTimeId)
+                .Select(n => n.TeamName)
+                .SingleOrDefault();
         }
     }
 }

@@ -175,7 +175,8 @@ namespace DiplomaProjectManagement.Web.Controllers
                 {
                     DiplomaProjectId = id,
                     StudentId = (int)Session["studentId"],
-                    RegistrationTimeId = GetActiveRegisterTimeId()
+                    RegistrationTimeId = GetActiveRegisterTimeId(),
+                    IsFirstStudentInTeamRegistered = true
                 };
             }
 

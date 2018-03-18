@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace DiplomaProjectManagement.Web.Models
 {
@@ -17,5 +14,27 @@ namespace DiplomaProjectManagement.Web.Models
         public float? IntroducedGrades { get; set; }
 
         public float? ReviewedGrades { get; set; }
+
+        public string TeamName { get; set; }
+
+        public bool IsFirstStudentInTeamRegistered { get; set; }
+    }
+
+    public class DiplomaProjectTeamRegistrationViewModel
+    {
+        public int DiplomaProjectId { get; set; }
+
+        public int StudentId { get; set; }
+
+        public int RegistrationTimeId { get; set; }
+
+        [Required(ErrorMessage = "Vui lòng nhập tên nhóm")]
+        [DisplayName("Tên nhóm của bạn")]
+        public string TeamName { get; set; }
+
+        [Required(ErrorMessage = "Vui lòng nhập email")]
+        [DisplayName("Email sinh viên thứ 2")]
+        [MaxLength(50)]
+        public string Email { get; set; }
     }
 }

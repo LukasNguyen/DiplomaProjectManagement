@@ -114,7 +114,7 @@ namespace DiplomaProjectManagement.Service
                     var numberOfStudentRegistered = _diplomaProjectRegistrationRepository
                         .GetMulti(n => n.DiplomaProjectId == diplomaProject.ID
                                        && n.RegistrationTimeId == activeRegisterTimeId)
-                        .Count();
+                        .Count(n => n.IsFirstStudentInTeamRegistered);
 
                     if (numberOfStudentRegistered == int.Parse(ConfigHelper.GetByKey("LimitNumberOfStudentRegistered")))
                     {

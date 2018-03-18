@@ -1,8 +1,8 @@
-﻿using DiplomaProjectManagement.Data.Infrastructures;
+﻿using DiplomaProjectManagement.Common.CustomViewModel;
+using DiplomaProjectManagement.Data.Infrastructures;
 using DiplomaProjectManagement.Data.Repositories;
 using DiplomaProjectManagement.Model.Models;
 using System.Linq;
-using DiplomaProjectManagement.Common.CustomViewModel;
 
 namespace DiplomaProjectManagement.Service
 {
@@ -19,6 +19,16 @@ namespace DiplomaProjectManagement.Service
         DiplomaProjectDetailViewModel GetDiplomaProjectDetailByStudentId(int studentId);
 
         void Update(DiplomaProjectRegistration diplomaProjectRegistration);
+
+        int FindDiplomaProject(int studentId, int registrationTimeId);
+
+        DiplomaProjectRegistration FindDiplomaProjectRegistration(int studentId, int registrationTimeId,
+            int diplomaProjectId);
+
+        void UpdateTeamName(int currentStudentId, int partnerId, int diplomaProjectId,
+            int registrationTimeId, string teamName);
+
+        string FindTeamName(int studentId, int registrationTimeId);
 
         void Save();
     }
@@ -49,7 +59,7 @@ namespace DiplomaProjectManagement.Service
             return _diplomaProjectRegistrationRepository
                 .GetMulti(n => n.DiplomaProjectId == diplomaProjectId
                                && n.RegistrationTimeId == registrationTimeId)
-                .Count();
+                .Count(n => n.IsFirstStudentInTeamRegistered);
         }
 
         public DiplomaProjectDetailViewModel GetDiplomaProjectDetailByStudentId(int studentId)
@@ -60,12 +70,55 @@ namespace DiplomaProjectManagement.Service
 
         public void Update(DiplomaProjectRegistration diplomaProjectRegistration)
         {
-             _diplomaProjectRegistrationRepository.Update(diplomaProjectRegistration);
+            _diplomaProjectRegistrationRepository.Update(diplomaProjectRegistration);
         }
 
         public DiplomaProjectRegistration RegisterDiplomaProject(DiplomaProjectRegistration diplomaProjectRegistration)
         {
             return _diplomaProjectRegistrationRepository.Add(diplomaProjectRegistration);
+        }
+
+        public int FindDiplomaProject(int studentId, int registrationTimeId)
+        {
+            return _diplomaProjectRegistrationRepository.FindDiplomaProject(studentId, registrationTimeId);
+        }
+
+        public DiplomaProjectRegistration FindDiplomaProjectRegistration(int studentId, int registrationTimeId, int diplomaProjectId)
+        {
+            return _diplomaProjectRegistrationRepository
+                .GetSingleByCondition(n => n.StudentId == studentId
+                    && n.RegistrationTimeId == registrationTimeId
+                    && n.DiplomaProjectId == diplomaProjectId);
+        }
+
+        public void UpdateTeamName(int currentStudentId, int partnerId, int diplomaProjectId,
+            int registrationTimeId, string teamName)
+        {
+            var myRegistration = FindDiplomaProjectRegistration(currentStudentId, registrationTimeId, diplomaProjectId);
+            myRegistration.TeamName = teamName;
+
+            var partnerRegistration = FindDiplomaProjectRegistration(partnerId, registrationTimeId, diplomaProjectId);
+            if (partnerRegistration == null)
+            {
+                AddDiplomaProjectRegistration(new DiplomaProjectRegistration
+                {
+                    StudentId = partnerId,
+                    DiplomaProjectId = diplomaProjectId,
+                    RegistrationTimeId = registrationTimeId,
+                    TeamName = teamName,
+                    IsFirstStudentInTeamRegistered = false
+                });
+            }
+            else
+            {
+                partnerRegistration.TeamName = teamName;
+                partnerRegistration.IsFirstStudentInTeamRegistered = false;
+            }
+        }
+
+        public string FindTeamName(int studentId, int registrationTimeId)
+        {
+            return _diplomaProjectRegistrationRepository.FindTeamName(studentId, registrationTimeId);
         }
 
         public void Save()
