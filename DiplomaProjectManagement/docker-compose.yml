@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  diplomaprojectmanagement.web:
+    image: diplomaprojectmanagementweb
+    build:
+      context: .\DiplomaProjectManagement.Web
+      dockerfile: Dockerfile
+
+
+  diplomaprojectmanagement.jobs.server:
+    image: diplomaprojectmanagementjobsserver
+    build:
+      context: .\DiplomaProjectManagement.Jobs.Server
+      dockerfile: Dockerfile
+
