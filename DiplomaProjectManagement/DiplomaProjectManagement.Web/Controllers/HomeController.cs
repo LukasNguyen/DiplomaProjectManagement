@@ -14,7 +14,6 @@ namespace DiplomaProjectManagement.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private readonly ILecturerService _lecturerService;
         private readonly IStudentService _studentService;
@@ -26,8 +25,7 @@ namespace DiplomaProjectManagement.Web.Controllers
         {
             _lecturerService = lecturerService;
             _studentService = studentService;
-            UserManager = userManager;
-            SignInManager = signInManager;
+            _userManager = userManager;
         }
 
         [AllowAnonymous]
@@ -43,7 +41,7 @@ namespace DiplomaProjectManagement.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindAsync(model.UserName, model.Password);
+                var user = await UserManager.FindAsync(model.UserName, model.Password);
 
                 if (user == null)
                 {
@@ -53,7 +51,7 @@ namespace DiplomaProjectManagement.Web.Controllers
 
                 var authenticationManager = HttpContext.GetOwinContext().Authentication;
                 authenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-                var identity = await _userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+                var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
                 var props = new AuthenticationProperties();
                 props.IsPersistent = model.RememberMe;
                 authenticationManager.SignIn(props, identity);
@@ -64,6 +62,7 @@ namespace DiplomaProjectManagement.Web.Controllers
                 }
 
                 this.PrepareSuccessMessage("Đăng nhập thành công");
+
                 return RedirectToAction("Dashboard", "Home");
             }
 
@@ -88,18 +87,6 @@ namespace DiplomaProjectManagement.Web.Controllers
                     var currentStudentId = _studentService.GetStudentByEmail(User.Identity.Name);
                     Session["studentId"] = currentStudentId.ID;
                 }
-            }
-        }
-
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set
-            {
-                _signInManager = value;
             }
         }
 

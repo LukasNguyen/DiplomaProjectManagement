@@ -77,7 +77,7 @@ namespace DiplomaProjectManagement.Web.Controllers
                 int countErrorsWhenUpdating = 0;
                 List<DiplomaProjectRegistration> diplomaProjectRegistrations = ConvertFromViewModel();
 
-                countErrorsWhenUpdating = UpdateGrades(countErrorsWhenUpdating, diplomaProjectRegistrations);
+                countErrorsWhenUpdating = UpdateGradesAndCheckErrors(countErrorsWhenUpdating, diplomaProjectRegistrations);
 
                 if (countErrorsWhenUpdating == 0)
                 {
@@ -104,7 +104,7 @@ namespace DiplomaProjectManagement.Web.Controllers
                 return Mapper.Map<List<DiplomaProjectRegistration>>(diplomaProjectRegistrationsViewModel);
             }
 
-            int UpdateGrades(int errorCount, List<DiplomaProjectRegistration> diplomaProjectRegistrations)
+            int UpdateGradesAndCheckErrors(int errorCount, List<DiplomaProjectRegistration> diplomaProjectRegistrations)
             {
                 foreach (var diplomaProjectRegistration in diplomaProjectRegistrations)
                 {
