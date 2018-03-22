@@ -92,8 +92,26 @@
     registerEvents: function() {
         $('#btnLogOut').on('click', function (e) {
             e.preventDefault();
-            $('#frmLogout').submit();
-            toastr.success('Đăng xuất thành công');
+
+            $.ajax({
+                type: 'POST',
+                url: '/Account/LogOut',
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status === true) {
+                        toastr.options.timeOut = 350;
+                        toastr.options.onHidden  = function() {
+                            window.location = "/Home/Index";
+                        }
+                        toastr.success('Đăng xuất thành công');
+                    } else {
+                        toastr.error('Đăng xuất thất bại');
+                    }
+                },
+                error: function (status) {
+                    toastr.error('Đăng xuất thất bại');
+                }
+            });
         });
     }
 }
