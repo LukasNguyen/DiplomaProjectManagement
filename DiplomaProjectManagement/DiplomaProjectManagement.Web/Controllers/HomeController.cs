@@ -46,6 +46,8 @@ namespace DiplomaProjectManagement.Web.Controllers
                 if (user == null)
                 {
                     ModelState.AddModelError("", "Tài khoản hoặc mật khẩu không chính xác.");
+                    ViewBag.ReturnUrl = returnUrl;
+
                     return View(model);
                 }
 
@@ -65,6 +67,8 @@ namespace DiplomaProjectManagement.Web.Controllers
 
                 return RedirectToAction("Dashboard", "Home");
             }
+
+            ViewBag.ReturnUrl = returnUrl;
 
             return View(model);
         }
