@@ -74,19 +74,18 @@ namespace DiplomaProjectManagement.Web.Controllers
         {
             try
             {
-                int errorsCount = 0;
+                int countErrorsWhenUpdating = 0;
                 List<DiplomaProjectRegistration> diplomaProjectRegistrations = ConvertFromViewModel();
 
-                errorsCount = GetErrorCount(errorsCount, diplomaProjectRegistrations);
+                countErrorsWhenUpdating = UpdateGrades(countErrorsWhenUpdating, diplomaProjectRegistrations);
 
-                if (errorsCount > 0)
+                if (countErrorsWhenUpdating == 0)
                 {
-                    return Json(new { status = 1 });
+                    _diplomaProjectRegistrationService.Save();
+                    return Json(new { status = 0 });
                 }
 
-                UpdateDiplomaProjectRegistrations(diplomaProjectRegistrations);
-
-                return Json(new { status = 0 });
+                return Json(new { status = 1 });
             }
             catch (Exception ex) when (BeFormatException(ex))
             {
@@ -105,29 +104,21 @@ namespace DiplomaProjectManagement.Web.Controllers
                 return Mapper.Map<List<DiplomaProjectRegistration>>(diplomaProjectRegistrationsViewModel);
             }
 
-            int GetErrorCount(int errorCount, List<DiplomaProjectRegistration> diplomaProjectRegistrations)
+            int UpdateGrades(int errorCount, List<DiplomaProjectRegistration> diplomaProjectRegistrations)
             {
                 foreach (var diplomaProjectRegistration in diplomaProjectRegistrations)
                 {
                     if (CheckValidGrades(diplomaProjectRegistration.IntroducedGrades) && CheckValidGrades(diplomaProjectRegistration.ReviewedGrades))
                     {
-                        _diplomaProjectRegistrationService.Update(diplomaProjectRegistration);
+                        _diplomaProjectRegistrationService.UpdateGrades(diplomaProjectRegistration);
                         continue;
                     }
 
                     errorCount++;
+                    break;
                 }
 
                 return errorCount;
-            }
-
-            void UpdateDiplomaProjectRegistrations(List<DiplomaProjectRegistration> diplomaProjectRegistrations)
-            {
-                foreach (var diplomaProjectRegistration in diplomaProjectRegistrations)
-                {
-                    _diplomaProjectRegistrationService.Update(diplomaProjectRegistration);
-                }
-                _diplomaProjectRegistrationService.Save();
             }
 
             bool BeFormatException(Exception exception)
