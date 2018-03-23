@@ -9,15 +9,15 @@
 <link href="~/Assets/admin/libs/gentelella/vendors/font-awesome/css/font-awesome.css" rel="stylesheet" />
 <link href="~/Assets/admin/libs/gentelella/vendors/nprogress/nprogress.css" rel="stylesheet" />
 <link href="~/Assets/admin/libs/gentelella/vendors/animate.css/animate.css" rel="stylesheet" />
-<link href="~/Assets/admin/libs/notifyjs/dist/styles/metro/notify-metro.css" rel="stylesheet" />
 <link href="~/Assets/admin/libs/gentelella/build/css/custom.css" rel="stylesheet" />
+<link href="~/Assets/admin/libs/toastr/toastr.css" rel="stylesheet" />
 
 <body class="login">
     <div>
         <div class="login_wrapper">
             <div class="animate form login_form">
                 <section class="login_content">
-                    @using (Html.BeginForm("Login", "Account", new { returnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+                    @using (Html.BeginForm("Index", "Home", new { returnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
                     {
                         <h1>Đăng nhập</h1>
                         @Html.ValidationSummary()
@@ -41,7 +41,7 @@
                             <br />
                             <div>
                                 <h1>
-                                    <i class="fa fa-paw"></i> Quản lý đồ án tốt nghiệp
+                                    <i class="fa fa-paw"></i> Quản lý đề tài tốt nghiệp
                                 </h1>
                             </div>
                         </div>
@@ -50,4 +50,5 @@
             </div>
         </div>
     </div>
+    <script src="~/Assets/admin/libs/toastr/toastr.js"></script>
 </body>

@@ -20,6 +20,8 @@ namespace DiplomaProjectManagement.Service
 
         void Update(DiplomaProjectRegistration diplomaProjectRegistration);
 
+        void UpdateGrades(DiplomaProjectRegistration diplomaProjectRegistration);
+
         int FindDiplomaProject(int studentId, int registrationTimeId);
 
         DiplomaProjectRegistration FindDiplomaProjectRegistration(int studentId, int registrationTimeId,
@@ -71,6 +73,17 @@ namespace DiplomaProjectManagement.Service
         public void Update(DiplomaProjectRegistration diplomaProjectRegistration)
         {
             _diplomaProjectRegistrationRepository.Update(diplomaProjectRegistration);
+        }
+
+        public void UpdateGrades(DiplomaProjectRegistration diplomaProjectRegistration)
+        {
+            var existingRegistration = FindDiplomaProjectRegistration(
+                diplomaProjectRegistration.StudentId,
+                diplomaProjectRegistration.RegistrationTimeId,
+                diplomaProjectRegistration.DiplomaProjectId);
+
+            existingRegistration.IntroducedGrades = diplomaProjectRegistration.IntroducedGrades;
+            existingRegistration.ReviewedGrades = diplomaProjectRegistration.ReviewedGrades;
         }
 
         public DiplomaProjectRegistration RegisterDiplomaProject(DiplomaProjectRegistration diplomaProjectRegistration)
