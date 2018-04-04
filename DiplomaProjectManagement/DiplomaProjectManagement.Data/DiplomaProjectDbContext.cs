@@ -23,6 +23,7 @@ namespace DiplomaProjectManagement.Data
         public DbSet<Student> Students { get; set; }
 
         public DbSet<DiplomaProjectRegistration> DiplomaProjectRegistrations { get; set; }
+
         public DbSet<Facility> Facilities { get; set; }
 
         public DbSet<Error> Errors { get; set; }

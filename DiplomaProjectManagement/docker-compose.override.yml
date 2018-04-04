@@ -18,9 +18,12 @@ services:
     environment:
       - SA_PASSWORD=Dat123456789
       - ACCEPT_EULA=Y
+    volumes:
+      - mssql-server-windows-express-data:C:\sqlserver_data
 networks:
   default:
     external:
       name: nat
-
+volumes:
+  mssql-server-windows-express-data:
 
