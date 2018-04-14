@@ -102,6 +102,10 @@
     <Compile Include="Migrations\201803200748431_CreateUserLoginAndGrantPermission.Designer.cs">
       <DependentUpon>201803200748431_CreateUserLoginAndGrantPermission.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804141014202_RemovedUnusualFields.cs" />
+    <Compile Include="Migrations\201804141014202_RemovedUnusualFields.Designer.cs">
+      <DependentUpon>201804141014202_RemovedUnusualFields.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\DiplomaProjectRegistrationRepository.cs" />
@@ -157,6 +161,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803200748431_CreateUserLoginAndGrantPermission.resx">
       <DependentUpon>201803200748431_CreateUserLoginAndGrantPermission.cs</DependentUpon>
+	</EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804141014202_RemovedUnusualFields.resx">
+      <DependentUpon>201804141014202_RemovedUnusualFields.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

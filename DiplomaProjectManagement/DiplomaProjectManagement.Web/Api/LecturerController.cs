@@ -217,7 +217,6 @@ namespace DiplomaProjectManagement.Web.Api
             void UpdateLecturerInformation(Lecturer existingLecturer)
             {
                 existingLecturer.Update(lecturerLoginViewModel);
-                existingLecturer.UpdatedBy(User.Identity.Name);
             }
         }
 

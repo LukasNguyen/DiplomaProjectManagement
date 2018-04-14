@@ -19,13 +19,6 @@ namespace DiplomaProjectManagement.Web.Infrastructure.Extensions
         public static void CreatedBy(this Student student, string triggeredBy)
         {
             student.CreatedDate = DateTime.Now;
-            student.CreatedBy = triggeredBy;
-        }
-
-        public static void UpdatedBy(this Student student, string triggeredBy)
-        {
-            student.UpdatedDate = DateTime.Now;
-            student.UpdatedBy = triggeredBy;
         }
 
         public static void Update(this ApplicationUser applicationUser, StudentLoginViewModel studentLoginViewModel)
@@ -49,13 +42,6 @@ namespace DiplomaProjectManagement.Web.Infrastructure.Extensions
         public static void CreatedBy(this Lecturer lecturer, string triggeredBy)
         {
             lecturer.CreatedDate = DateTime.Now;
-            lecturer.CreatedBy = triggeredBy;
-        }
-
-        public static void UpdatedBy(this Lecturer lecturer, string triggeredBy)
-        {
-            lecturer.UpdatedDate = DateTime.Now;
-            lecturer.UpdatedBy = triggeredBy;
         }
     }
 }
