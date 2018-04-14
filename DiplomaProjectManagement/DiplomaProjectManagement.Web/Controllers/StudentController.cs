@@ -62,8 +62,6 @@ namespace DiplomaProjectManagement.Web.Controllers
             void AssignValueBeforeUpdateStudent(Student student)
             {
                 student.ID = (int)Session["studentId"];
-                student.UpdatedDate = DateTime.Now;
-                student.UpdatedBy = User.Identity.Name;
                 student.Status = true;
                 student.Email = _studentService.GetStudentEmail(student.ID);
             }

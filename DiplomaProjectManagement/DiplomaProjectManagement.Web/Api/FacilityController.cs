@@ -148,7 +148,6 @@ namespace DiplomaProjectManagement.Web.Api
                     Facility newFacility = Mapper.Map<Facility>(facilityViewModel);
 
                     newFacility.CreatedDate = DateTime.Now;
-                    newFacility.CreatedBy = User.Identity.Name;
 
                     Facility facility = _facilityService.AddFacility(newFacility);
 
@@ -176,8 +175,6 @@ namespace DiplomaProjectManagement.Web.Api
                 else
                 {
                     Facility facilityUpdated = Mapper.Map<Facility>(facilityViewModel);
-                    facilityUpdated.UpdatedDate = DateTime.Now;
-                    facilityUpdated.UpdatedBy = User.Identity.Name;
 
                     _facilityService.UpdateFacility(facilityUpdated);
                     _facilityService.Save();

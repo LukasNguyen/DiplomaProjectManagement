@@ -220,7 +220,6 @@ namespace DiplomaProjectManagement.Web.Api
             void UpdateStudentInformation(Student existingStudent)
             {
                 existingStudent.Update(studentLoginViewModel);
-                existingStudent.UpdatedBy(User.Identity.Name);
             }
         }
 
