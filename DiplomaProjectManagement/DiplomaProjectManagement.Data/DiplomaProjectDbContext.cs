@@ -9,7 +9,7 @@ namespace DiplomaProjectManagement.Data
     {
         public DiplomaProjectDbContext() : base("DiplomaProjectConnection")
         {
-            Configuration.LazyLoadingEnabled = false; // load bảng cha không tự đông load thêm bảng con
+            Configuration.LazyLoadingEnabled = false;
         }
 
         public DbSet<ApplicationRole> ApplicationRoles { get; set; }

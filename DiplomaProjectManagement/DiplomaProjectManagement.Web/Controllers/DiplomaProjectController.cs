@@ -73,7 +73,6 @@ namespace DiplomaProjectManagement.Web.Controllers
             {
                 diplomaProject.LecturerId = (int)Session["lecturerId"];
                 diplomaProject.CreatedDate = DateTime.Now;
-                diplomaProject.CreatedBy = User.Identity.Name;
                 diplomaProject.Status = true;
             }
         }
@@ -115,8 +114,6 @@ namespace DiplomaProjectManagement.Web.Controllers
             void AssignValueBeforeUpdateDiplomaProject(DiplomaProject diplomaProject)
             {
                 diplomaProject.LecturerId = (int)Session["lecturerId"];
-                diplomaProject.UpdatedDate = DateTime.Now;
-                diplomaProject.UpdatedBy = User.Identity.Name;
                 diplomaProject.Status = true;
             }
         }
