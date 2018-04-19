@@ -83,21 +83,11 @@ namespace DiplomaProjectManagement.Web.Api
         {
             return CreateHttpResponse(request, () =>
             {
-                HttpResponseMessage response = null;
+                Student student = _studentService.DeleteStudentByModifyStatus(id);
+                _studentService.Save();
 
-                if (!ModelState.IsValid)
-                {
-                    request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-                }
-                else
-                {
-                    Student student = _studentService.DeleteStudentByModifyStatus(id);
-                    _studentService.Save();
-
-                    var responseData = Mapper.Map<Student, StudentViewModel>(student);
-                    response = request.CreateResponse(HttpStatusCode.Created, responseData);
-                }
-                return response;
+                var responseData = Mapper.Map<Student, StudentViewModel>(student);
+                return request.CreateResponse(HttpStatusCode.Created, responseData);
             });
         }
 
@@ -107,25 +97,15 @@ namespace DiplomaProjectManagement.Web.Api
         {
             return CreateHttpResponse(request, () =>
             {
-                HttpResponseMessage response = null;
+                var students = new JavaScriptSerializer().Deserialize<List<int>>(checkedStudents);
 
-                if (!ModelState.IsValid)
+                foreach (var student in students)
                 {
-                    request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                    _studentService.DeleteStudentByModifyStatus(student);
                 }
-                else
-                {
-                    var students = new JavaScriptSerializer().Deserialize<List<int>>(checkedStudents);
+                _studentService.Save();
 
-                    foreach (var student in students)
-                    {
-                        _studentService.DeleteStudentByModifyStatus(student);
-                    }
-                    _studentService.Save();
-
-                    response = request.CreateResponse(HttpStatusCode.OK, students.Count);
-                }
-                return response;
+                return request.CreateResponse(HttpStatusCode.OK, students.Count);
             });
         }
 

@@ -71,21 +71,11 @@ namespace DiplomaProjectManagement.Web.Api
         {
             return CreateHttpResponse(request, () =>
             {
-                HttpResponseMessage response = null;
+                Facility facility = _facilityService.DeleteFacilityByModifyStatus(id);
+                _facilityService.Save();
 
-                if (!ModelState.IsValid)
-                {
-                    request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-                }
-                else
-                {
-                    Facility facility = _facilityService.DeleteFacilityByModifyStatus(id);
-                    _facilityService.Save();
-
-                    var responseData = Mapper.Map<FacilityViewModel>(facility);
-                    response = request.CreateResponse(HttpStatusCode.Created, responseData);
-                }
-                return response;
+                var responseData = Mapper.Map<FacilityViewModel>(facility);
+                return request.CreateResponse(HttpStatusCode.Created, responseData);
             });
         }
 
@@ -95,25 +85,15 @@ namespace DiplomaProjectManagement.Web.Api
         {
             return CreateHttpResponse(request, () =>
             {
-                HttpResponseMessage response = null;
+                var facilities = new JavaScriptSerializer().Deserialize<List<int>>(checkedFacilities);
 
-                if (!ModelState.IsValid)
+                foreach (var facility in facilities)
                 {
-                    request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                    _facilityService.DeleteFacilityByModifyStatus(facility);
                 }
-                else
-                {
-                    var facilities = new JavaScriptSerializer().Deserialize<List<int>>(checkedFacilities);
+                _facilityService.Save();
 
-                    foreach (var facility in facilities)
-                    {
-                        _facilityService.DeleteFacilityByModifyStatus(facility);
-                    }
-                    _facilityService.Save();
-
-                    response = request.CreateResponse(HttpStatusCode.OK, facilities.Count);
-                }
-                return response;
+                return request.CreateResponse(HttpStatusCode.OK, facilities.Count);
             });
         }
 
