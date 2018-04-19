@@ -10,7 +10,10 @@ namespace DiplomaProjectManagement.Jobs.Server.App_Start
     {
         public void Configuration(IAppBuilder app)
         {
-            app.UseHangfireDashboard("");
+            app.UseHangfireDashboard("/jobs", new DashboardOptions
+            {
+                Authorization = new[] { new NoAuthFilter() }
+            });
         }
     }
 }

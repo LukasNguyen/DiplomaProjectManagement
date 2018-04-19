@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  diplomaprojectmanagement.web:
+    ports:
+      - "9000:80"
+    depends_on:
+      - db
+  diplomaprojectmanagement.jobs.server:
+    ports:
+      - "9001:9001"
+    depends_on:
+      - db
+  db:
+    image: "microsoft/mssql-server-windows-express:latest"
+    ports:
+      - "9002:1433"
+    environment:
+      - SA_PASSWORD=Dat123456789
+      - ACCEPT_EULA=Y
+    volumes:
+      - mssql-server-windows-express-data:C:\sqlserver_data
+networks:
+  default:
+    external:
+      name: nat
+volumes:
+  mssql-server-windows-express-data:
+

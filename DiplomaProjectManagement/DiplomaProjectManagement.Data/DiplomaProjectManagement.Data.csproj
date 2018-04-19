@@ -98,6 +98,10 @@
     <Compile Include="Migrations\201803180821461_CheckFirstStudentInTeamRegistered.Designer.cs">
       <DependentUpon>201803180821461_CheckFirstStudentInTeamRegistered.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803200748431_CreateUserLoginAndGrantPermission.cs" />
+    <Compile Include="Migrations\201803200748431_CreateUserLoginAndGrantPermission.Designer.cs">
+      <DependentUpon>201803200748431_CreateUserLoginAndGrantPermission.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201804141014202_RemovedUnusualFields.cs" />
     <Compile Include="Migrations\201804141014202_RemovedUnusualFields.Designer.cs">
       <DependentUpon>201804141014202_RemovedUnusualFields.cs</DependentUpon>
@@ -155,6 +159,9 @@
     <EmbeddedResource Include="Migrations\201803180821461_CheckFirstStudentInTeamRegistered.resx">
       <DependentUpon>201803180821461_CheckFirstStudentInTeamRegistered.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803200748431_CreateUserLoginAndGrantPermission.resx">
+      <DependentUpon>201803200748431_CreateUserLoginAndGrantPermission.cs</DependentUpon>
+	</EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804141014202_RemovedUnusualFields.resx">
       <DependentUpon>201804141014202_RemovedUnusualFields.cs</DependentUpon>
     </EmbeddedResource>
