@@ -80,21 +80,11 @@ namespace DiplomaProjectManagement.Web.Api
         {
             return CreateHttpResponse(request, () =>
             {
-                HttpResponseMessage response = null;
+                Lecturer lecturer = _lecturerService.DeleteLecturerByModifyStatus(id);
+                _lecturerService.Save();
 
-                if (!ModelState.IsValid)
-                {
-                    request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-                }
-                else
-                {
-                    Lecturer lecturer = _lecturerService.DeleteLecturerByModifyStatus(id);
-                    _lecturerService.Save();
-
-                    var responseData = Mapper.Map<LecturerViewModel>(lecturer);
-                    response = request.CreateResponse(HttpStatusCode.Created, responseData);
-                }
-                return response;
+                var responseData = Mapper.Map<LecturerViewModel>(lecturer);
+                return request.CreateResponse(HttpStatusCode.Created, responseData);
             });
         }
 
@@ -104,25 +94,15 @@ namespace DiplomaProjectManagement.Web.Api
         {
             return CreateHttpResponse(request, () =>
             {
-                HttpResponseMessage response = null;
+                var lecturers = new JavaScriptSerializer().Deserialize<List<int>>(checkedLecturers);
 
-                if (!ModelState.IsValid)
+                foreach (var lecturer in lecturers)
                 {
-                    request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                    _lecturerService.DeleteLecturerByModifyStatus(lecturer);
                 }
-                else
-                {
-                    var lecturers = new JavaScriptSerializer().Deserialize<List<int>>(checkedLecturers);
+                _lecturerService.Save();
 
-                    foreach (var lecturer in lecturers)
-                    {
-                        _lecturerService.DeleteLecturerByModifyStatus(lecturer);
-                    }
-                    _lecturerService.Save();
-
-                    response = request.CreateResponse(HttpStatusCode.OK, lecturers.Count);
-                }
-                return response;
+                return request.CreateResponse(HttpStatusCode.OK, lecturers.Count);
             });
         }
 
