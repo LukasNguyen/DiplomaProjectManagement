@@ -8,17 +8,19 @@ namespace DiplomaProjectManagement.Web.Models
     {
         public int ID { get; set; }
 
+        [Required(ErrorMessage = "Vui lòng nhập tên giảng viên.")]
         [MaxLength(250)]
-        [Required]
         public string Name { get; set; }
 
-        [MaxLength(50)]
+        [Required(ErrorMessage = "Vui lòng nhập số điện thoại.")]
+        [MaxLength(11)]
         public string Phone { get; set; }
 
+        [Required(ErrorMessage = "Vui lòng nhập email.")]
         [MaxLength(50)]
-        [Required]
         public string Email { get; set; }
 
+        [Required(ErrorMessage = "Vui lòng nhập địa chỉ.")]
         [MaxLength(250)]
         public string Address { get; set; }
 
@@ -29,14 +31,6 @@ namespace DiplomaProjectManagement.Web.Models
         public FacilityViewModel Facility { get; set; }
 
         public DateTime? CreatedDate { get; set; }
-
-        public DateTime? UpdatedDate { get; set; }
-
-        [MaxLength(256)]
-        public string UpdatedBy { get; set; }
-
-        [MaxLength(256)]
-        public string CreatedBy { get; set; }
 
         public bool Status { get; set; }
     }

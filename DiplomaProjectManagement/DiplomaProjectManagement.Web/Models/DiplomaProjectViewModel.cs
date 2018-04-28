@@ -8,13 +8,13 @@ namespace DiplomaProjectManagement.Web.Models
     {
         public int ID { get; set; }
 
-        [MaxLength(250)]
         [Required(ErrorMessage = "Vui lòng nhập tên đề tài")]
+        [MaxLength(250)]
         [DisplayName("Tên đồ án")]
         public string Name { get; set; }
 
-        [MaxLength(250)]
         [Required(ErrorMessage = "Vui lòng nhập mô tả đề tài")]
+        [MaxLength(250)]
         [DisplayName("Mô tả đồ án")]
         public string Description { get; set; }
 
