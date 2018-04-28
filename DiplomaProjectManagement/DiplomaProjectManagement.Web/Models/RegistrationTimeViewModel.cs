@@ -14,9 +14,10 @@ namespace DiplomaProjectManagement.Web.Models
     {
         public int ID { get; set; }
 
-        [MaxLength(50)]
-        [Required]
+        [Required(ErrorMessage = "Vui lòng nhập tên đợt đăng ký.")]
+        [MaxLength(250)]
         public string Name { get; set; }
+
         public DateTime RegisteredDate { get; set; }
 
         public DateTime TeacherAssignGradesDate { get; set; }

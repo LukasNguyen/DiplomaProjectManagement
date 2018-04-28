@@ -35,6 +35,7 @@ namespace DiplomaProjectManagement.Web.Models
         [Required(ErrorMessage = "Vui lòng nhập email")]
         [DisplayName("Email sinh viên thứ 2")]
         [MaxLength(50)]
+        [EmailAddress]
         public string Email { get; set; }
     }
 }
