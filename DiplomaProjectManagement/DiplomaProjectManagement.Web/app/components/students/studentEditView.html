@@ -26,9 +26,10 @@
             <div class="form-group">
                 <label for="email" class="col-sm-2 control-label">Email</label>
                 <div class="col-sm-8">
-                    <input type="email" required id="email" name="email" class="form-control" ng-model="student.Email">
+                    <input type="email" required id="email" name="email" ng-maxlength="50" class="form-control" ng-model="student.Email">
                     <span ng-show="frmUpdateStudent.email.$error.required" class="has-error">Vui lòng nhập Email.</span>
                     <span ng-show="frmUpdateStudent.email.$error.email" class="has-error">Email không đúng định dạng.</span>
+                    <span ng-show="frmUpdateStudent.email.$error.maxlength" class="has-error">Email chỉ được 50 ký tự.</span>
                 </div>
             </div>
             <div class="form-group">
@@ -41,8 +42,9 @@
             <div class="form-group">
                 <label for="studentName" class="col-sm-2 control-label">Tên sinh viên</label>
                 <div class="col-sm-8">
-                    <input type="text" required id="studentName" name="studentName" class="form-control" ng-model="student.Name">
+                    <input type="text" required id="studentName" ng-maxlength="250" name="studentName" class="form-control" ng-model="student.Name">
                     <span ng-show="frmUpdateStudent.studentName.$error.required" class="has-error">Vui lòng nhập tên sinh viên.</span>
+                    <span ng-show="frmUpdateStudent.studentName.$error.maxlength" class="has-error">Tên sinh viên chỉ được 250 ký tự.</span>
                 </div>
             </div>
             <div class="form-group">
@@ -56,8 +58,9 @@
             <div class="form-group">
                 <label for="address" class="col-sm-2 control-label">Địa chỉ</label>
                 <div class="col-sm-8">
-                    <input type="text" required id="address" name="address" class="form-control" ng-model="student.Address">
+                    <input type="text" required id="address" name="address" ng-maxlength="250" class="form-control" ng-model="student.Address">
                     <span ng-show="frmUpdateStudent.address.$error.required" class="has-error">Vui lòng nhập địa chỉ.</span>
+                    <span ng-show="frmUpdateStudent.address.$error.maxlength" class="has-error">Địa chỉ được 250 ký tự.</span>
                 </div>
             </div>
             <div class="box-footer">
