@@ -38,7 +38,8 @@ namespace DiplomaProjectManagement.Web.Controllers
         [HttpGet]
         public JsonResult GetRegistrationTimes()
         {
-            var registrationTimes = _registrationTimeService.GetAllRegistrationTimes();
+            var registrationTimes = _registrationTimeService.GetAllRegistrationTimes()
+                .OrderByDescending(n => n.ID);
 
             if (registrationTimes.Any())
             {

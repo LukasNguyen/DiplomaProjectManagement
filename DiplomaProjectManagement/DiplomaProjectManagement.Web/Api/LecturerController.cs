@@ -131,7 +131,6 @@ namespace DiplomaProjectManagement.Web.Api
             {
                 var newLecturer = new Lecturer();
                 newLecturer.Update(lecturerLoginViewModel);
-                newLecturer.CreatedBy(User.Identity.Name);
                 return _lecturerService.AddLecturer(newLecturer);
             }
 
