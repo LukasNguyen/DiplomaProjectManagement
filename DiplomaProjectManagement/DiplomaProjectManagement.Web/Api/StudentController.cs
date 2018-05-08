@@ -134,7 +134,6 @@ namespace DiplomaProjectManagement.Web.Api
             {
                 var newStudent = new Student();
                 newStudent.Update(studentLoginViewModel);
-                newStudent.CreatedBy(User.Identity.Name);
                 return _studentService.AddStudent(newStudent);
             }
 
