@@ -14,18 +14,7 @@ namespace DiplomaProjectManagement.Web.Infrastructure.Extensions
             student.Name = studentLoginViewModel.Name;
             student.Phone = studentLoginViewModel.Phone;
             student.Status = studentLoginViewModel.Status;
-        }
-
-        public static void CreatedBy(this Student student, string triggeredBy)
-        {
             student.CreatedDate = DateTime.Now;
-        }
-
-        public static void Update(this ApplicationUser applicationUser, StudentLoginViewModel studentLoginViewModel)
-        {
-            applicationUser.Id = studentLoginViewModel.ApplicationUserId;
-            applicationUser.Email = studentLoginViewModel.Email;
-            applicationUser.UserName = studentLoginViewModel.Email;
         }
 
         public static void Update(this Lecturer lecturer, LecturerLoginViewModel lecturerViewModel)
@@ -37,10 +26,6 @@ namespace DiplomaProjectManagement.Web.Infrastructure.Extensions
             lecturer.Name = lecturerViewModel.Name;
             lecturer.Phone = lecturerViewModel.Phone;
             lecturer.Status = lecturerViewModel.Status;
-        }
-
-        public static void CreatedBy(this Lecturer lecturer, string triggeredBy)
-        {
             lecturer.CreatedDate = DateTime.Now;
         }
     }
