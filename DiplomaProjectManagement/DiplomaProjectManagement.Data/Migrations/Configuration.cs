@@ -87,8 +87,8 @@ namespace DiplomaProjectManagement.Data.Migrations
 
             context.DiplomaProjects.AddRange(new List<DiplomaProject>()
             {
-                new DiplomaProject { Name = "Xây dựng website quản lý đồ án", Description = "Nghiên cứu xây dựng website quản lý đồ án bằng ASP.NET", LecturerId = 1, Status = true},
-                new DiplomaProject { Name = "Xây dựng website quản lý học phần", Description = "Nghiên cứu xây dựng website quản lý học phần bằng NodeJS", LecturerId = 2, Status = true },
+                new DiplomaProject { Name = "Xây dựng website quản lý đồ án", Description = "Nghiên cứu xây dựng website quản lý đồ án bằng ASP.NET", LecturerId = 1, Status = true, IsDisplayed = true},
+                new DiplomaProject { Name = "Xây dựng website quản lý học phần", Description = "Nghiên cứu xây dựng website quản lý học phần bằng NodeJS", LecturerId = 2, Status = true, IsDisplayed = true },
                 new DiplomaProject { Name = "Xây dựng phần mềm quản lý nhà hàng", Description = "Nghiên cứu xây dựng phần mềm quản lý nhà hàng bằng Windows Form Application", LecturerId = 1, Status = true }
             });
             context.SaveChanges();
