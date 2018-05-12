@@ -244,42 +244,6 @@ namespace DiplomaProjectManagement.Web.Api
             });
         }
 
-        [Route("updategpa1")]
-        [HttpPut]
-        [AllowAnonymous]
-        public HttpResponseMessage Update(HttpRequestMessage request)
-        {
-            return null;
-            //return CreateHttpResponse(request, () =>
-            //{
-            //    HttpResponseMessage response = null;
-
-            //    if (!CheckValidGPA(gpa))
-            //    {
-            //        return request.CreateErrorResponse(HttpStatusCode.BadRequest, "Điểm GPA phải trong khoảng từ 0 đến 4.");
-            //    }
-
-            //    if (!ModelState.IsValid)
-            //    {
-            //        request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-            //    }
-            //    else
-            //    {
-            //        var updatedStudenResult = _studentService.UpdateGPA(studentId, gpa);
-
-            //        if (!updatedStudenResult)
-            //        {
-            //            return request.CreateErrorResponse(HttpStatusCode.BadRequest, "Không tìm thấy sinh viên trong hệ thống để update điểm.");
-            //        }
-
-            //        _studentService.Save();
-            //        response = request.CreateResponse(HttpStatusCode.Created, updatedStudenResult);
-            //    }
-
-            //    return response;
-            //});
-        }
-
         private static bool CheckValidGPA(float? gpa)
         {
             return gpa == null || gpa >= 0 && gpa <= 4;
