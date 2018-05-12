@@ -51,6 +51,14 @@ namespace DiplomaProjectManagement.Web.Controllers
                     return View(model);
                 }
 
+                var student = _studentService.GetStudentByEmail(user.Email);
+                if(student.GPA < 2)
+                {
+                    ModelState.AddModelError("", "Tài khoản không đủ GPA để đăng nhập hệ thống.");
+                    ViewBag.ReturnUrl = returnUrl;
+                    return View(model);
+                }
+
                 var authenticationManager = HttpContext.GetOwinContext().Authentication;
                 authenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
                 var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
@@ -83,13 +91,13 @@ namespace DiplomaProjectManagement.Web.Controllers
             {
                 if (User.IsInRole(RoleConstants.Lecturer))
                 {
-                    var currentLecturerId = _lecturerService.GetLecturerByEmail(User.Identity.Name);
-                    Session["lecturerId"] = currentLecturerId.ID;
+                    var currentLecturer = _lecturerService.GetLecturerByEmail(User.Identity.Name);
+                    Session["lecturerId"] = currentLecturer.ID;
                 }
                 else
                 {
-                    var currentStudentId = _studentService.GetStudentByEmail(User.Identity.Name);
-                    Session["studentId"] = currentStudentId.ID;
+                    var currentStudent = _studentService.GetStudentByEmail(User.Identity.Name);
+                    Session["studentId"] = currentStudent.ID;
                 }
             }
         }

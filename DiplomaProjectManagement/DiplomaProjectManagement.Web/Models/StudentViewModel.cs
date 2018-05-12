@@ -29,6 +29,8 @@ namespace DiplomaProjectManagement.Web.Models
 
         public DateTime? CreatedDate { get; set; }
 
+        public float? GPA { get; set; }
+
         public bool Status { get; set; }
     }
 
