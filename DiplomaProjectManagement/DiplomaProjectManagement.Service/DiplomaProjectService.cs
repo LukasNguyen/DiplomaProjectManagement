@@ -1,10 +1,11 @@
-﻿using DiplomaProjectManagement.Data.Infrastructures;
+﻿using DiplomaProjectManagement.Common;
+using DiplomaProjectManagement.Common.CustomViewModel;
+using DiplomaProjectManagement.Data.Infrastructures;
 using DiplomaProjectManagement.Data.Repositories;
 using DiplomaProjectManagement.Model.Models;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using DiplomaProjectManagement.Common;
 
 namespace DiplomaProjectManagement.Service
 {
@@ -25,6 +26,8 @@ namespace DiplomaProjectManagement.Service
         DiplomaProject GetDiplomaProjectById(int id);
 
         DiplomaProject GetDiplomaProjectByStudentId(int id);
+
+        IEnumerable<DiplomaProjectRemainingSlotViewModel> GetDiplomaProjectsRemainingSlot(string keyword = null);
 
         void Save();
     }
@@ -154,6 +157,23 @@ namespace DiplomaProjectManagement.Service
             diplomaProject.Status = false;
 
             return diplomaProject;
+        }
+
+        public IEnumerable<DiplomaProjectRemainingSlotViewModel> GetDiplomaProjectsRemainingSlot(string keyword = null)
+        {
+            var diplomaProjects = _diplomaProjectRepository.GetDiplomaProjectsRemainingSlot();
+
+            if (string.IsNullOrEmpty(keyword))
+            {
+                return diplomaProjects;
+            }
+            else
+            {
+                return diplomaProjects.Where(
+                    n => n.LecturerName.Contains(keyword) ||
+                    n.DiplomaProjectName.Contains(keyword) ||
+                    n.StudentName.Contains(keyword));
+            }
         }
     }
 }
