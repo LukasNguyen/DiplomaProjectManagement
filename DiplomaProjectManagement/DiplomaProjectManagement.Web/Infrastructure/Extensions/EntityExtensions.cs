@@ -13,8 +13,8 @@ namespace DiplomaProjectManagement.Web.Infrastructure.Extensions
             student.Email = studentLoginViewModel.Email;
             student.Name = studentLoginViewModel.Name;
             student.Phone = studentLoginViewModel.Phone;
+            student.GPA = studentLoginViewModel.GPA;
             student.Status = studentLoginViewModel.Status;
-            student.CreatedDate = DateTime.Now;
         }
 
         public static void Update(this Lecturer lecturer, LecturerLoginViewModel lecturerViewModel)
@@ -26,7 +26,6 @@ namespace DiplomaProjectManagement.Web.Infrastructure.Extensions
             lecturer.Name = lecturerViewModel.Name;
             lecturer.Phone = lecturerViewModel.Phone;
             lecturer.Status = lecturerViewModel.Status;
-            lecturer.CreatedDate = DateTime.Now;
         }
     }
 }

@@ -36,6 +36,8 @@ namespace DiplomaProjectManagement.Service
 
         IEnumerable<LecturerAssignGradesViewModel> GetStudentsToAssignGrades(int lecturerId, int registrationTimeId);
 
+        bool UpdateGPA(int studentId, float gpa);
+
         void Save();
     }
 
@@ -129,6 +131,21 @@ namespace DiplomaProjectManagement.Service
         public void Save()
         {
             _unitOfWork.Commit();
+        }
+
+        public bool UpdateGPA(int studentId, float gpa)
+        {
+            var student = _studentRepository.GetSingleById(studentId);
+
+            if (student == null)
+            {
+                return false;
+            }
+            else
+            {
+                student.GPA = gpa;
+                return true;
+            }
         }
     }
 }
