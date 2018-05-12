@@ -6150,6 +6150,7 @@
     <Content Include="Assets\admin\libs\twbs-pagination\jquery.twbsPagination.js" />
     <Content Include="Assets\admin\libs\twbs-pagination\jquery.twbsPagination.min.js" />
     <Content Include="Assets\client\controllers\diplomaProjectRegistration\index.js" />
+    <Content Include="Assets\client\controllers\diplomaProject\diplomaProjectsRemainingSlot.js" />
     <Content Include="Assets\client\controllers\diplomaProject\index.js" />
     <Content Include="Assets\client\controllers\diplomaProject\register.js" />
     <Content Include="Assets\client\shared\common.js" />
@@ -7203,6 +7204,7 @@
     <Content Include="Views\DiplomaProjectRegistration\Index.cshtml" />
     <Content Include="Views\Student\AddTeamMember.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\DiplomaProject\DiplomaProjectsRemainingSlot.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

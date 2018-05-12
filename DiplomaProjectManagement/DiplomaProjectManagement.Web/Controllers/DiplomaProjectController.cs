@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using DiplomaProjectManagement.Web.Infrastructure.Extensions;
+using DiplomaProjectManagement.Common.CustomViewModel;
 
 namespace DiplomaProjectManagement.Web.Controllers
 {
@@ -228,6 +229,33 @@ namespace DiplomaProjectManagement.Web.Controllers
             {
                 Items = responseData,
                 TotalCount = responseData.Count,
+                TotalPages = (int)Math.Ceiling((decimal)totalRow / pageSize)
+            };
+
+            return Json(new { data = paginationSet }, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize(Roles = RoleConstants.Student)]
+        [HttpGet]
+        public ActionResult DiplomaProjectsRemainingSlot()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = RoleConstants.Student)]
+        [HttpGet]
+        public JsonResult GetDiplomaProjectsRemainingSlot(int page, int pageSize, string keyword = null)
+        {
+            var query = _diplomaProjectService.GetDiplomaProjectsRemainingSlot(keyword);
+
+            int totalRow = query.Count();
+
+            query = query.Skip((page - 1) * pageSize).Take(pageSize);
+
+            var paginationSet = new PaginationSet<DiplomaProjectRemainingSlotViewModel>()
+            {
+                Items = query,
+                TotalCount = totalRow,
                 TotalPages = (int)Math.Ceiling((decimal)totalRow / pageSize)
             };
 

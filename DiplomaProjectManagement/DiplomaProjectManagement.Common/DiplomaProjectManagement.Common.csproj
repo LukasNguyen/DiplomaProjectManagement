@@ -44,6 +44,7 @@
     <Compile Include="CommonConstants.cs" />
     <Compile Include="ConfigHelper.cs" />
     <Compile Include="CustomViewModel\DiplomaProjectDetailViewModel.cs" />
+    <Compile Include="CustomViewModel\DiplomaProjectRemainingSlotViewModel.cs" />
     <Compile Include="CustomViewModel\LecturerAssignGradesViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
