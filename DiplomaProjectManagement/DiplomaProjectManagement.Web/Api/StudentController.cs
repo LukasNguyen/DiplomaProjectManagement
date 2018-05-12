@@ -125,6 +125,8 @@ namespace DiplomaProjectManagement.Web.Api
             }
 
             Student student = CreateStudentInformation();
+            student.CreatedDate = DateTime.Now;
+
             await CreateStudentAccount();
             _studentService.Save();
 
@@ -153,6 +155,11 @@ namespace DiplomaProjectManagement.Web.Api
         [HttpPut]
         public async Task<HttpResponseMessage> UpdateAsync(HttpRequestMessage request, StudentLoginViewModel studentLoginViewModel)
         {
+            if (!CheckValidGPA(studentLoginViewModel.GPA))
+            {
+                return request.CreateErrorResponse(HttpStatusCode.BadRequest, "Điểm nhập hệ 4 phải trong khoảng từ 0 đến 4.");
+            }
+
             if (ModelState.IsValid)
             {
                 var existingStudent = _studentService.GetStudentById(studentLoginViewModel.ID);
@@ -200,6 +207,82 @@ namespace DiplomaProjectManagement.Web.Api
             {
                 existingStudent.Update(studentLoginViewModel);
             }
+        }
+
+        [Route("updategpa")]
+        [HttpPut]
+        [AllowAnonymous]
+        public HttpResponseMessage Update(HttpRequestMessage request, int studentId, float gpa)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+
+                if (!CheckValidGPA(gpa))
+                {
+                    return request.CreateErrorResponse(HttpStatusCode.BadRequest, "Điểm GPA phải trong khoảng từ 0 đến 4.");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+                else
+                {
+                    var updatedStudenResult = _studentService.UpdateGPA(studentId, gpa);
+
+                    if(!updatedStudenResult)
+                    {
+                        return request.CreateErrorResponse(HttpStatusCode.BadRequest, "Không tìm thấy sinh viên trong hệ thống để update điểm.");
+                    }
+
+                    _studentService.Save();
+                    response = request.CreateResponse(HttpStatusCode.Created, updatedStudenResult);
+                }
+
+                return response;
+            });
+        }
+
+        [Route("updategpa1")]
+        [HttpPut]
+        [AllowAnonymous]
+        public HttpResponseMessage Update(HttpRequestMessage request)
+        {
+            return null;
+            //return CreateHttpResponse(request, () =>
+            //{
+            //    HttpResponseMessage response = null;
+
+            //    if (!CheckValidGPA(gpa))
+            //    {
+            //        return request.CreateErrorResponse(HttpStatusCode.BadRequest, "Điểm GPA phải trong khoảng từ 0 đến 4.");
+            //    }
+
+            //    if (!ModelState.IsValid)
+            //    {
+            //        request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+            //    }
+            //    else
+            //    {
+            //        var updatedStudenResult = _studentService.UpdateGPA(studentId, gpa);
+
+            //        if (!updatedStudenResult)
+            //        {
+            //            return request.CreateErrorResponse(HttpStatusCode.BadRequest, "Không tìm thấy sinh viên trong hệ thống để update điểm.");
+            //        }
+
+            //        _studentService.Save();
+            //        response = request.CreateResponse(HttpStatusCode.Created, updatedStudenResult);
+            //    }
+
+            //    return response;
+            //});
+        }
+
+        private static bool CheckValidGPA(float? gpa)
+        {
+            return gpa == null || gpa >= 0 && gpa <= 4;
         }
 
         public ApplicationUserManager UserManager

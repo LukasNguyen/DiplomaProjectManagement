@@ -122,6 +122,8 @@ namespace DiplomaProjectManagement.Web.Api
             }
 
             Lecturer lecturer = CreateLecturerInformation();
+            lecturer.CreatedDate = DateTime.Now;
+
             await CreateLecturerAccount();
             _lecturerService.Save();
 
