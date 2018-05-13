@@ -75,7 +75,14 @@
             success: function (response) {
                 common.startLoading();
 
-                if (response.data.Items.length == 0) {
+                if (!response.status) {
+                    $('#tbl-content').html('<td colspan="5" style="height:30px; text-align:center"><strong>Bạn đã đạt đồ án, không thể đăng ký đề tài được nữa.</strong></td>');
+                    $('#lblTotalRecords').text(0);
+                    common.stopLoading();
+                    return;
+                }
+
+                if (response.data.Items.length === 0) {
                     $('#tbl-content').html('<td colspan="5" style="height:30px; text-align:center"><strong>Không có dữ liệu.</strong></td>');
                     $('#lblTotalRecords').text(response.data.TotalCount);
                     common.stopLoading();
@@ -93,7 +100,7 @@
 
                     $('#lblTotalRecords').text(response.data.TotalCount);
 
-                    if (render != '') {
+                    if (render !== '') {
                         $('#tbl-content').html(render);
                         common.stopLoading();
                     }
