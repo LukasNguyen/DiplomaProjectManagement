@@ -144,8 +144,10 @@ namespace DiplomaProjectManagement.Web.Controllers
         [HttpPost]
         public ActionResult Register(int id)
         {
+            var studentId = (int)Session["studentId"];
+            var registrationTimeId = GetActiveRegisterTimeId();
             var numberOfStudentRegistered = _diplomaProjectRegistrationService
-                .GetNumberOfStudentRegistered(id, GetActiveRegisterTimeId());
+                .GetNumberOfStudentRegistered(id, registrationTimeId);
 
             if (numberOfStudentRegistered == GetLimitNumberOfStudentRegistered())
             {
@@ -172,7 +174,7 @@ namespace DiplomaProjectManagement.Web.Controllers
                 return new DiplomaProjectRegistrationViewModel
                 {
                     DiplomaProjectId = id,
-                    StudentId = (int)Session["studentId"],
+                    StudentId = studentId,
                     RegistrationTimeId = GetActiveRegisterTimeId(),
                     IsFirstStudentInTeamRegistered = true
                 };
@@ -217,6 +219,12 @@ namespace DiplomaProjectManagement.Web.Controllers
         public JsonResult GetDiplomaProjectToRegisterPagination(int page, int pageSize, string keyword = null)
         {
             var currentStudentId = (int)Session["studentId"];
+
+            if (CheckStudentAlreadyHaveGotFinalGrades())
+            {
+                return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+            }
+
             var query = _diplomaProjectService.GetDiplomaProjectsToRegister(currentStudentId, keyword);
 
             int totalRow = query.Count();
@@ -232,7 +240,36 @@ namespace DiplomaProjectManagement.Web.Controllers
                 TotalPages = (int)Math.Ceiling((decimal)totalRow / pageSize)
             };
 
-            return Json(new { data = paginationSet }, JsonRequestBehavior.AllowGet);
+            return Json(new { data = paginationSet, status = true }, JsonRequestBehavior.AllowGet);
+
+            bool CheckStudentAlreadyHaveGotFinalGrades()
+            {
+                var diplomaProjectRegistration = _diplomaProjectRegistrationService.GetDiplomaProjectDetailByStudentId(currentStudentId);
+
+                if (StudentAlreadyHaveIntroduceGradesAndReviewGrades(diplomaProjectRegistration))
+                {
+                    var finalGrades = CalculateFinalGrades(diplomaProjectRegistration);
+
+                    if (finalGrades >= 5)
+                    {
+                        return true;
+                    }
+
+                    return false;
+                }
+
+                return false;
+            }
+
+            bool StudentAlreadyHaveIntroduceGradesAndReviewGrades(DiplomaProjectDetailViewModel diplomaProjectRegistration)
+            {
+                return diplomaProjectRegistration != null && diplomaProjectRegistration.IntroducedGrades != null && diplomaProjectRegistration.ReviewedGrades != null;
+            }
+
+            double? CalculateFinalGrades(DiplomaProjectDetailViewModel diplomaProjectRegistration)
+            {
+                return diplomaProjectRegistration.IntroducedGrades * 0.6 + diplomaProjectRegistration.ReviewedGrades * 0.4;
+            }
         }
 
         [Authorize(Roles = RoleConstants.Student)]
