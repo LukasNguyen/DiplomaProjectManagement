@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DiplomaProjectManagement.Common;
+using DiplomaProjectManagement.Common.CustomViewModel;
 using DiplomaProjectManagement.Model.Models;
 using DiplomaProjectManagement.Service;
 using DiplomaProjectManagement.Web.Infrastructure.Extensions;
@@ -142,7 +143,38 @@ namespace DiplomaProjectManagement.Web.Controllers
                     return false;
                 }
 
+                if (CheckStudentAlreadyHaveGotFinalGrades(partner.ID))
+                {
+                    ModelState.AddModelError("", "Sinh viên này đã đạt đồ án, không thể đăng ký đề tài với bạn được.");
+                    return false;
+                }
+
+                if (CheckStudentAlreadyHaveGotFinalGrades(currentStudentId))
+                {
+                    ModelState.AddModelError("", "Bạn đã đạt đồ án, không thể đăng ký đề tài với ai được nữa.");
+                    return false;
+                }
+
                 return true;
+            }
+
+            bool CheckStudentAlreadyHaveGotFinalGrades(int id)
+            {
+                var diplomaProjectRegistration = _diplomaProjectRegistrationService.GetDiplomaProjectDetailByStudentId(id);
+
+                if (StudentAlreadyHaveIntroduceGradesAndReviewGrades(diplomaProjectRegistration))
+                {
+                    var finalGrades = CalculateFinalGrades(diplomaProjectRegistration);
+
+                    if (finalGrades >= 5)
+                    {
+                        return true;
+                    }
+
+                    return false;
+                }
+
+                return false;
             }
 
             bool CheckStudentIsNotRegistered()
@@ -161,6 +193,16 @@ namespace DiplomaProjectManagement.Web.Controllers
             {
                 return !string.IsNullOrWhiteSpace(_diplomaProjectRegistrationService
                     .FindTeamName(partner.ID, activeRegistrationTimeId));
+            }
+
+            bool StudentAlreadyHaveIntroduceGradesAndReviewGrades(DiplomaProjectDetailViewModel diplomaProjectRegistration)
+            {
+                return diplomaProjectRegistration != null && diplomaProjectRegistration.IntroducedGrades != null && diplomaProjectRegistration.ReviewedGrades != null;
+            }
+
+            double? CalculateFinalGrades(DiplomaProjectDetailViewModel diplomaProjectRegistration)
+            {
+                return diplomaProjectRegistration.IntroducedGrades * 0.6 + diplomaProjectRegistration.ReviewedGrades * 0.4;
             }
         }
 
