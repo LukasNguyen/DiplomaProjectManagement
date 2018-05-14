@@ -1,4 +1,5 @@
 ﻿using DiplomaProjectManagement.Common;
+using DiplomaProjectManagement.Model.Models;
 using DiplomaProjectManagement.Service;
 using DiplomaProjectManagement.Web.App_Start;
 using DiplomaProjectManagement.Web.Infrastructure.Extensions;
@@ -52,7 +53,7 @@ namespace DiplomaProjectManagement.Web.Controllers
                 }
 
                 var student = _studentService.GetStudentByEmail(user.Email);
-                if(student.GPA < 2)
+                if (UserIsStudentAndGPALessThan2(student))
                 {
                     ModelState.AddModelError("", "Tài khoản không đủ GPA để đăng nhập hệ thống.");
                     ViewBag.ReturnUrl = returnUrl;
@@ -79,6 +80,11 @@ namespace DiplomaProjectManagement.Web.Controllers
             ViewBag.ReturnUrl = returnUrl;
 
             return View(model);
+
+            bool UserIsStudentAndGPALessThan2(Student student)
+            {
+                return student != null && (student.GPA == null || student.GPA < 2);
+            }
         }
 
         [Authorize(Roles = RoleConstants.Lecturer + ", " + RoleConstants.Student)]
