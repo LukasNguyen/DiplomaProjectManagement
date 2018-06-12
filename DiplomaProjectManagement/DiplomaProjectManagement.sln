@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiplomaProjectManagement.We
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiplomaProjectManagement.Jobs.Server", "DiplomaProjectManagement.Jobs.Server\DiplomaProjectManagement.Jobs.Server.csproj", "{1C304A14-519A-49D7-A972-CAB0D0E3610D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiplomaProjectManagement.Tests", "DiplomaProjectManagement.Tests\DiplomaProjectManagement.Tests.csproj", "{6E2458A0-152B-4D32-9616-B5BC4666BDE6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{1C304A14-519A-49D7-A972-CAB0D0E3610D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C304A14-519A-49D7-A972-CAB0D0E3610D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C304A14-519A-49D7-A972-CAB0D0E3610D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E2458A0-152B-4D32-9616-B5BC4666BDE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E2458A0-152B-4D32-9616-B5BC4666BDE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E2458A0-152B-4D32-9616-B5BC4666BDE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E2458A0-152B-4D32-9616-B5BC4666BDE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
